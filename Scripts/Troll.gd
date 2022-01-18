@@ -47,6 +47,10 @@ func _physics_process(delta):
 		
 		ATTACK:
 			attack_state(delta)
+			
+		DEATH:
+			death_state(delta)
+			
 
 
 func move_state(delta):
@@ -158,7 +162,6 @@ func _on_BiteArea_area_exited(area):
 
 
 # Таймеры
-
 func _on_StandingTimer_timeout(): # таймер стояния моба
 	stands = true
 
@@ -175,11 +178,14 @@ func save():
 	return data
 
 
-
-"""
-func play_animation():
-	$TimerDeath.start(5)
-	cancel_movement()
+# Смерть моба
+func death_state(delta):
+	target_intercepted = false
+	target = null
 	animationTree.set("parameters/Death/blend_position", velocity)
 	animationState.travel("Death")
-"""
+
+
+func death_animation_finished():
+	get_parent().remove_child(self) # удаляем узел
+	queue_free() # освобождаем память от него
