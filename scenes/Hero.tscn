@@ -3878,6 +3878,7 @@ blend_point_7/node = SubResource( 113 )
 blend_point_7/pos = Vector2( -0.8, -0.8 )
 min_space = Vector2( -1.1, -1.1 )
 max_space = Vector2( 1.1, 1.1 )
+blend_mode = 1
 
 [sub_resource type="AnimationNodeAnimation" id=114]
 animation = "DeathLeft"
@@ -4051,7 +4052,7 @@ states/Run/node = SubResource( 85 )
 states/Run/position = Vector2( 645, 179 )
 transitions = [ "Idle", "Run", SubResource( 86 ), "Run", "Idle", SubResource( 87 ), "Idle", "Attack", SubResource( 88 ), "Attack", "Idle", SubResource( 89 ), "Attack", "Run", SubResource( 90 ), "Run", "Attack", SubResource( 91 ), "Run", "Death", SubResource( 92 ), "Idle", "Death", SubResource( 93 ), "Run", "Cast", SubResource( 94 ), "Cast", "Run", SubResource( 95 ), "Idle", "Cast", SubResource( 96 ), "Cast", "Idle", SubResource( 97 ) ]
 start_node = "Idle"
-graph_offset = Vector2( -166.004, -65.096 )
+graph_offset = Vector2( -129.004, 181.44 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=139]
 
@@ -4068,7 +4069,6 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 4 )
 hframes = 32
 vframes = 8
-frame = 55
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Body" type="Sprite" parent="."]
@@ -4076,7 +4076,6 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 2 )
 hframes = 32
 vframes = 8
-frame = 55
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Hand" type="Sprite" parent="."]
@@ -4084,7 +4083,6 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 3 )
 hframes = 32
 vframes = 8
-frame = 55
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Legs" type="Sprite" parent="."]
@@ -4092,7 +4090,6 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 6 )
 hframes = 32
 vframes = 8
-frame = 55
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Feet" type="Sprite" parent="."]
@@ -4100,7 +4097,6 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 5 )
 hframes = 32
 vframes = 8
-frame = 55
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Weapon" type="Sprite" parent="."]
@@ -4108,7 +4104,6 @@ position = Vector2( -0.281471, -12.407 )
 texture = ExtResource( 7 )
 hframes = 32
 vframes = 8
-frame = 55
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Shield" type="Sprite" parent="."]
@@ -4116,7 +4111,6 @@ position = Vector2( -0.281471, -12.407 )
 texture = ExtResource( 1 )
 hframes = 32
 vframes = 8
-frame = 55
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -4169,7 +4163,7 @@ anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 139 )
 parameters/Attack/blend_position = Vector2( 0.0871372, 0.742546 )
-parameters/Cast/blend_position = Vector2( 0, 0 )
+parameters/Cast/blend_position = Vector2( -0.466932, -0.322414 )
 parameters/Death/blend_position = Vector2( -0.340784, -0.414573 )
 parameters/Idle/blend_position = Vector2( -1.00337, 0.0189655 )
 parameters/Run/blend_position = Vector2( -0.471919, 0.538397 )

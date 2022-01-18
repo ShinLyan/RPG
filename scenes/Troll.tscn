@@ -1,4 +1,4 @@
-[gd_scene load_steps=104 format=2]
+[gd_scene load_steps=105 format=2]
 
 [ext_resource path="res://assets/characters/troll/troll.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Troll.gd" type="Script" id=2]
@@ -654,6 +654,21 @@ tracks/0/keys = {
 "values": [ 96, 97, 98, 99 ]
 }
 
+[sub_resource type="Animation" id=102]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
 [sub_resource type="Animation" id=33]
 length = 0.8
 loop = true
@@ -917,9 +932,6 @@ min_space = Vector2( -1.1, -1.1 )
 max_space = Vector2( 1.1, 1.1 )
 blend_mode = 1
 
-[sub_resource type="AnimationNodeAnimation" id=68]
-animation = "IdelLeft"
-
 [sub_resource type="AnimationNodeAnimation" id=69]
 animation = "IdleDownLeft"
 
@@ -939,25 +951,28 @@ animation = "IdleTopRight"
 animation = "IdleTop"
 
 [sub_resource type="AnimationNodeAnimation" id=75]
-animation = "IdleDownLeft"
+animation = "IdleTopLeft"
+
+[sub_resource type="AnimationNodeAnimation" id=103]
+animation = "IdleLeft"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id=76]
-blend_point_0/node = SubResource( 68 )
-blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 69 )
-blend_point_1/pos = Vector2( -0.8, 0.8 )
-blend_point_2/node = SubResource( 70 )
-blend_point_2/pos = Vector2( 0, 1 )
-blend_point_3/node = SubResource( 71 )
-blend_point_3/pos = Vector2( 0.8, 0.8 )
-blend_point_4/node = SubResource( 72 )
-blend_point_4/pos = Vector2( 1, 0 )
-blend_point_5/node = SubResource( 73 )
-blend_point_5/pos = Vector2( 0.8, -0.8 )
-blend_point_6/node = SubResource( 74 )
-blend_point_6/pos = Vector2( 0, -1 )
-blend_point_7/node = SubResource( 75 )
-blend_point_7/pos = Vector2( -0.8, -0.8 )
+blend_point_0/node = SubResource( 69 )
+blend_point_0/pos = Vector2( -0.8, 0.8 )
+blend_point_1/node = SubResource( 70 )
+blend_point_1/pos = Vector2( 0, 1 )
+blend_point_2/node = SubResource( 71 )
+blend_point_2/pos = Vector2( 0.8, 0.8 )
+blend_point_3/node = SubResource( 72 )
+blend_point_3/pos = Vector2( 1, 0 )
+blend_point_4/node = SubResource( 73 )
+blend_point_4/pos = Vector2( 0.8, -0.8 )
+blend_point_5/node = SubResource( 74 )
+blend_point_5/pos = Vector2( 0, -1 )
+blend_point_6/node = SubResource( 75 )
+blend_point_6/pos = Vector2( -0.8, -0.8 )
+blend_point_7/node = SubResource( 103 )
+blend_point_7/pos = Vector2( -1, 0 )
 min_space = Vector2( -1.1, -1.1 )
 max_space = Vector2( 1.1, 1.1 )
 blend_mode = 1
@@ -1039,12 +1054,12 @@ states/Cast/position = Vector2( 645, 352 )
 states/Death/node = SubResource( 67 )
 states/Death/position = Vector2( 536, 51 )
 states/Idle/node = SubResource( 76 )
-states/Idle/position = Vector2( 413, 179 )
+states/Idle/position = Vector2( 412, 179 )
 states/Run/node = SubResource( 85 )
 states/Run/position = Vector2( 645, 179 )
 transitions = [ "Idle", "Run", SubResource( 86 ), "Run", "Idle", SubResource( 87 ), "Idle", "Attack", SubResource( 88 ), "Attack", "Idle", SubResource( 89 ), "Attack", "Run", SubResource( 90 ), "Run", "Attack", SubResource( 91 ), "Run", "Death", SubResource( 92 ), "Idle", "Death", SubResource( 93 ), "Run", "Cast", SubResource( 94 ), "Cast", "Run", SubResource( 95 ), "Idle", "Cast", SubResource( 96 ), "Cast", "Idle", SubResource( 97 ) ]
 start_node = "Idle"
-graph_offset = Vector2( -83, 119.052 )
+graph_offset = Vector2( -82.018, 78.516 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=99]
 
@@ -1061,7 +1076,6 @@ scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
 hframes = 32
 vframes = 8
-frame = 143
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -1099,6 +1113,7 @@ anims/IdleRight = SubResource( 29 )
 anims/IdleTop = SubResource( 30 )
 anims/IdleTopLeft = SubResource( 31 )
 anims/IdleTopRight = SubResource( 32 )
+anims/RESET = SubResource( 102 )
 anims/RunDown = SubResource( 33 )
 anims/RunDownLeft = SubResource( 34 )
 anims/RunDownRight = SubResource( 35 )
@@ -1115,9 +1130,9 @@ active = true
 parameters/playback = SubResource( 99 )
 parameters/Attack/blend_position = Vector2( 0.22, 0.908696 )
 parameters/Cast/blend_position = Vector2( 0, 0 )
-parameters/Death/blend_position = Vector2( 0, 0 )
-parameters/Idle/blend_position = Vector2( -0.00344288, -0.00249434 )
-parameters/Run/blend_position = Vector2( -0.261412, -0.521552 )
+parameters/Death/blend_position = Vector2( -0.592846, -0.616379 )
+parameters/Idle/blend_position = Vector2( -0.372496, 0.881897 )
+parameters/Run/blend_position = Vector2( -0.0034976, 0.142241 )
 
 [node name="StandingTimer" type="Timer" parent="."]
 
@@ -1150,7 +1165,11 @@ position = Vector2( 0, -7.5 )
 scale = Vector2( 1.2, 1.2 )
 polygon = PoolVector2Array( -25.8333, 18.75, -11.6667, 37.9167, 15, 37.9167, 28.3333, 17.0833, 12.5, -3.75, -12.5, -3.75 )
 
+[node name="TimerDeath" type="Timer" parent="."]
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="StandingTimer" to="." method="_on_StandingTimer_timeout"]
 [connection signal="timeout" from="BiteCooldown" to="." method="_on_BiteCooldown_timeout"]
 [connection signal="area_entered" from="BiteArea" to="." method="_on_BiteArea_area_entered"]
 [connection signal="area_exited" from="BiteArea" to="." method="_on_BiteArea_area_exited"]
+[connection signal="timeout" from="TimerDeath" to="." method="_on_TimerDeath_timeout"]

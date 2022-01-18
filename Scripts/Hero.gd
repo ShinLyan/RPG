@@ -32,7 +32,7 @@ func _unhandled_input(event):
 # HP bar
 func _ready():
 	# self - аналог this-> в C++
-	self.hp = 1000 # исходное здоровье игрока
+	self.hp = 100 # исходное здоровье игрока
 	set_start_hp(self.hp, self.max_hp) # задаем hp персонажу
 	add_to_group(GlobalVars.entity_group)
 

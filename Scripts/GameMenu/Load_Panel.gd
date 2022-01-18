@@ -49,6 +49,6 @@ func load_file(): # загрузка файла
 		if file.file_exists(file_path): # если существует такой файл
 			
 			var saved_game = load(file_path)
-			
+
 			emit_signal("on_close_menu")
 			emit_signal("on_loaded", saved_game.get_data())

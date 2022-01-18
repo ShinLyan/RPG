@@ -57,6 +57,7 @@ func reduce_hp(val): # уменьшает hp персонажам
 
 
 func die(): # смерть персонажа
+	#play_animation()
 	get_parent().remove_child(self) # удаляем узел
 	queue_free() # освобождаем память от него
 
@@ -70,5 +71,7 @@ func save():
 		"max_hp": max_hp
 	}
 	return data
-	
 
+
+func play_animation():
+	pass

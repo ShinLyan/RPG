@@ -22,7 +22,7 @@ func _ready():
 	var items = [["book", 8], ["scroll", 8], ["coins", 1000]] # список предметов с названиями и связками
 	
 	# генерируем предметы на карте рандомным образом 
-	for i in range(100): #(в скобках количество генерируемых предметов)
+	for i in range(20): #(в скобках количество генерируемых предметов)
 		randomize()
 		var a = int(rand_range(0, 3))
 		
@@ -35,7 +35,7 @@ func _ready():
 		# передаем список названий
 		new_item.set_item(items[a])
 		
-		new_item.position = Vector2(int(rand_range(0, 2000)), int(rand_range(0, 2000)))
+		new_item.position = Vector2(int(rand_range(0, 600)), int(rand_range(0, 600)))
 	
 	add_to_group(GlobalVars.saving_group) # добавляем в группу для сохранения игры
 

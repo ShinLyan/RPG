@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/Buttons/SceneButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Menu.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/GameMenu/Load_Menu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Sprites/grey.jpg" type="Texture" id=4]
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -11,6 +12,11 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 510.5, 296 )
+scale = Vector2( 6.39375, 4.14765 )
+texture = ExtResource( 4 )
 
 [node name="Load" parent="." instance=ExtResource( 3 )]
 visible = false

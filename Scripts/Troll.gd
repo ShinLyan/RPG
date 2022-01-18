@@ -47,9 +47,6 @@ func _physics_process(delta):
 		
 		ATTACK:
 			attack_state(delta)
-		
-		DEATH:
-			die()
 
 
 func move_state(delta):
@@ -80,7 +77,7 @@ func attack_animation_finished():
 
 
 func search_for_target(): # функция, ищущая местоположение игрока
-	var pl = get_parent().get_parent().get_parent().get_player() # достаем игрока
+	var pl = get_parent().get_parent().get_player() # достаем игрока
 	
 	# проверяем существуют ли игрок
 	if pl: 
@@ -176,3 +173,13 @@ func save():
 	data["bite_strength"] = bite_strength
 	data["default_speed"] = default_speed
 	return data
+
+
+
+"""
+func play_animation():
+	$TimerDeath.start(5)
+	cancel_movement()
+	animationTree.set("parameters/Death/blend_position", velocity)
+	animationState.travel("Death")
+"""
