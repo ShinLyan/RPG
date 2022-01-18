@@ -4,9 +4,9 @@ extends KinematicBody2D
 enum {
 	MOVE,
 	ATTACK,
-	DEATH,
-	IDLE
+	DEATH
 }
+
 
 var state = MOVE
 
@@ -58,8 +58,6 @@ func reduce_hp(val): # уменьшает hp персонажам
 
 func die(): # смерть персонажа
 	state = DEATH
-	#get_parent().remove_child(self) # удаляем узел
-	#queue_free() # освобождаем память от него
 
 
 func save():
@@ -71,4 +69,3 @@ func save():
 		"max_hp": max_hp
 	}
 	return data
-

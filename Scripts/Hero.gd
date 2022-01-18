@@ -46,7 +46,7 @@ func _physics_process(delta):
 			attack_state(delta)
 		
 		DEATH:
-			die()
+			death_state(delta)
 
 
 # Передвижение персонажа на клавиши
@@ -93,16 +93,19 @@ func attack_animation_finished():
 	state = MOVE
 
 
+# Смерть игрока
 signal on_death # сигнал смерти персонажа
 
-func death_animation_finished():
-	state = DEATH
 
-# Перегруженная функция die() - смерти игрока
-func die():
-	emit_signal("on_death") # выпускаем сигннал смерти игрока
-	animationState.travel("Death") # включаем анимацию смерти
-	.die()
+func death_state(delta):
+	animationTree.set("parameters/Death/blend_position", direction)
+	animationState.travel("Death")
+
+
+func death_animation_finished():
+	emit_signal("on_death") # выпускаем сигнал смерти игрока
+	get_parent().remove_child(self) # удаляем узел
+	queue_free() # освобождаем память от него
 
 
 # Перегруженная функция save()
