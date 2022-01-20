@@ -14,6 +14,13 @@ func pick(item):
 	ui.update_inventory(inventory)
 
 
+
+
+
+
+
+
+
 # позволяет обрабатывать те сигналы, которые не были обработаны другими узлами
 func _unhandled_input(event): 
 	# инвентарь
@@ -23,10 +30,26 @@ func _unhandled_input(event):
 	# атака игрока
 	if event.is_action_pressed("left_click"): # нажатие на ЛКМ
 		# при нажатии кнопки создаем DamageArea и добавляем его на карту
-		var a = load("res://Scenes/DamageArea.tscn").instance() 
-		a.set_damage(10) # 10 урона наносим одной атакой
-		get_parent().add_child(a)
-		a.position = position + $DamagePos.position
+		var attack = load("res://Scenes/DamageArea.tscn").instance() 
+		attack.set_damage(10) # 10 урона наносим одной атакой
+		get_parent().add_child(attack)
+		attack.position = position + $DamagePos.position
+	
+	if event.is_action_pressed("ui_fire"): # нажатие на ПКМ
+		var fire = load("res://Scenes/Fire.tscn").instance()
+		get_parent().add_child(fire)
+		fire.position = position + $FirePos.position
+		fire.velocity = get_global_mouse_position() - fire.position
+
+
+func range_attack_state(delta):
+	# DamagePos должен двигаться в направлении мыши, но при этом не уходить слишком далеко от игрока
+	$FirePos.position = get_global_mouse_position() - position
+	$FirePos.position.x = clamp($FirePos.position.x, -35, 33)
+	$FirePos.position.y = clamp($FirePos.position.y, -35, 33)
+	
+	animationTree.set("parameters/Cast/blend_position", $FirePos.position)
+	animationState.travel("Cast")
 
 
 # HP bar
@@ -38,6 +61,7 @@ func _ready():
 
 
 func _physics_process(delta):
+	#$FirePos.look_at(get_global_mouse_position())
 	match state:
 		MOVE:
 			move_state(delta)
@@ -47,6 +71,9 @@ func _physics_process(delta):
 		
 		DEATH:
 			death_state(delta)
+			
+		RANGE:
+			range_attack_state(delta)
 
 
 # Передвижение персонажа на клавиши
@@ -59,27 +86,27 @@ func get_direction():
 		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	)).normalized()
 
+var velocity = Vector2()
 
 func move_state(delta):
-
 	direction = get_direction()
-	
 	if direction != Vector2.ZERO:
 		animationTree.set("parameters/Idle/blend_position", direction)
 		animationTree.set("parameters/Run/blend_position", direction)
 		animationTree.set("parameters/Death/blend_position", direction)
-		
 		animationState.travel("Run")
 	else:
 		animationState.travel("Idle")
-	
 	move_and_slide(direction * speed)
 	
 	if Input.is_action_just_pressed("left_click"):
 		state = ATTACK
+	
+	if Input.is_action_just_pressed("ui_fire"):
+		state = RANGE
 
 
-func attack_state(pos):
+func attack_state(delta):
 	# DamagePos должен двигаться в направлении мыши, но при этом не уходить слишком далеко от игрока
 	$DamagePos.position = get_global_mouse_position() - position
 	$DamagePos.position.x = clamp($DamagePos.position.x, -35, 33)
@@ -113,3 +140,4 @@ func save():
 	var data = .save() # вызываем родительскую функцию save()
 	data["inventory"] = inventory
 	return data
+

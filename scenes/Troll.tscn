@@ -1181,7 +1181,7 @@ script = ExtResource( 2 )
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2( 0, -7.5 )
 scale = Vector2( 1.2, 1.2 )
-polygon = PoolVector2Array( -14.9375, 20.6779, -8.96822, 29.1484, 9.14966, 29.1484, 14.3262, 20.413, 8.33333, 12.9167, -8.64468, 12.6482 )
+polygon = PoolVector2Array( -17.5, 17.0833, -8.96822, 29.1484, 9.14966, 29.1484, 15.8333, 17.9167, 6.66667, 5.41667, -7.5, 5.41667 )
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.5, 0.5 )
@@ -1266,6 +1266,7 @@ __meta__ = {
 [node name="HitBox" type="Area2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitBox"]
+visible = false
 position = Vector2( 0, -7.5 )
 scale = Vector2( 1.2, 1.2 )
 polygon = PoolVector2Array( -19.1667, 17.9167, -10.8333, 32.9167, 10.8333, 32.9167, 19.1667, 18.75, 8.33333, 2.08333, -8.33333, 2.08333 )
@@ -1273,6 +1274,7 @@ polygon = PoolVector2Array( -19.1667, 17.9167, -10.8333, 32.9167, 10.8333, 32.91
 [node name="BiteArea" type="Area2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BiteArea"]
+visible = false
 position = Vector2( 0, -7.5 )
 scale = Vector2( 1.2, 1.2 )
 polygon = PoolVector2Array( -25.8333, 18.75, -11.6667, 37.9167, 15, 37.9167, 28.3333, 17.0833, 12.5, -3.75, -12.5, -3.75 )
