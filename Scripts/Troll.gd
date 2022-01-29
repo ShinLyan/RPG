@@ -19,12 +19,13 @@ var bite_strength = 10 # сила удара моба (10 единиц здор�
 
 
 func bite(targ): # атака моба
-	var is_alive = targ.reduce_hp(bite_strength) 
-	can_bite = false
-	$BiteCooldown.start(1.5) # Запуск таймера кулдауна = 1 сек
-	
-	if not is_alive:
-		cancel_movement() 
+	if targ != null:
+		var is_alive = targ.reduce_hp(bite_strength) 
+		can_bite = false
+		$BiteCooldown.start(0.5) # Запуск таймера кулдауна = 0.5 сек
+		
+		if not is_alive:
+			cancel_movement() 
 
 
 func _ready(): # функция, вызывающая при создании существа
@@ -40,8 +41,8 @@ func _ready(): # функция, вызывающая при создании с
 	
 	
 	
-	print(get_parent().get_parent().convertFileCoordToTileMap(8, 11))
-	print(convertTileMapCoordToWorld(get_parent().get_parent().convertFileCoordToTileMap(8, 11)))
+	#print(get_parent().get_parent().convertFileCoordToTileMap(8, 11))
+	#print(convertTileMapCoordToWorld(get_parent().get_parent().convertFileCoordToTileMap(8, 11)))
 	
 
 
@@ -106,7 +107,9 @@ func attack_state(delta):
 
 
 func attack_animation_finished():
-	state = MOVE
+	animationState.travel("Idle")
+	if can_bite:
+		state = MOVE
 
 
 func search_for_target(): # функция, ищущая местоположение игрока
