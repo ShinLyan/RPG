@@ -58,10 +58,14 @@ func _ready():
 	self.hp = 100 # исходное здоровье игрока
 	set_start_hp(self.hp, self.max_hp) # задаем hp персонажу
 	add_to_group(GlobalVars.entity_group)
+	
+	
+	
+	
 
 
 func _physics_process(delta):
-	#$FirePos.look_at(get_global_mouse_position())
+	print(position)
 	match state:
 		MOVE:
 			move_state(delta)

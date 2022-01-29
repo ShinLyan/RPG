@@ -37,6 +37,35 @@ func _ready(): # функция, вызывающая при создании с
 	# Добавляем моба в группы (для работы клавиши Alt)
 	add_to_group(GlobalVars.entity_group)
 	add_to_group(GlobalVars.troll_group)
+	
+	
+	
+	print(get_parent().get_parent().convertFileCoordToTileMap(8, 11))
+	print(convertTileMapCoordToWorld(get_parent().get_parent().convertFileCoordToTileMap(8, 11)))
+	
+
+
+
+
+
+func convertTileMapCoordToWorld(coordinates):
+	var isoX = coordinates[0]
+	var isoY = coordinates[1]
+	var x = (isoX - isoY) * 32
+	var y = 16 + (isoX + isoY) * 16
+	return [x, y]
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -61,8 +90,8 @@ func move_state(delta):
 		move_and_slide(velocity) # двигаем его на величину скорости
 		
 		# ограничиваем его координаты в рамках карты
-		position.x = clamp(position.x, 0, 10000) 
-		position.y = clamp(position.y, 0, 10000)
+		position.x = clamp(position.x, -516, 1412) 
+		position.y = clamp(position.y, -209, 756)
 	wander() # бродим
 	search_for_target() # ищем таргет
 	

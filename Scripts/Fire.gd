@@ -9,13 +9,18 @@ export var direction = Vector2()
 
 
 
-
 func _physics_process(delta):
+	var prev_pos = position
 	var collision_info = move_and_collide(velocity.normalized() * delta * SPEED)
+	if velocity != Vector2():
+		if position.distance_to(prev_pos) <= 0.6:
+			if get_parent() != null:
+				get_parent().remove_child(self)
+				queue_free()
 
 
 func _ready():
-	$Timer.start(2) # область, которая будет существовать 2 сек
+	$Timer.start(1) # область, которая будет существовать 2 сек
 
 
 func _on_Timer_timeout():
