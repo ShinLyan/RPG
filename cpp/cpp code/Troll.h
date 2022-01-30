@@ -3,7 +3,6 @@
 #include <Vector2.hpp>
 #include <Timer.hpp>
 #include <RandomNumberGenerator.hpp>
-#include <AnimationNodeStateMachinePlayback.hpp>
 #include <Node2D.hpp>
 #include <Area2D.hpp>
 
@@ -33,6 +32,7 @@ namespace godot {
 		AnimationNodeStateMachinePlayback* animationState = animationTree->get("Parametries/playback");
 		Area2D* BiteArea = (Area2D*)get_node("BiteArea");
 		KinematicBody2D* target = NULL;
+		TextureProgress* HP_bar = (TextureProgress*)get_node("HP_bar");
 
 		//ѕеременные дл€ атаки моба
 		bool target_intercepted = false; // есть ли кака€ - то цель в зоне дос€гаемости

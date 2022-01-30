@@ -9,6 +9,7 @@
 #include <TextureProgress.hpp>
 #include <AnimationPlayer.hpp>
 #include <AnimationTree.hpp>
+#include <AnimationNodeStateMachinePlayback.hpp>
 #include <ResourceLoader.hpp>
 
 namespace godot{
@@ -17,7 +18,7 @@ namespace godot{
 	private:
 
 	public:
-		enum class State { Move, Attack, Death };
+		enum class State { Move, Attack, Death, Range };
 		
 		real_t hp = 50;
 		real_t max_hp = 100;
