@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{a21c3342-76bb-404f-b649-282f0fa02849}</ProjectGuid>
-    <RootNamespace>rpg</RootNamespace>
+    <ProjectGuid>{0c3a9692-f5cc-413c-b8ff-0f7a7d56ca35}</ProjectGuid>
+    <RootNamespace>rpg2</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -73,20 +73,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\..</OutDir>
+    <IncludePath>C:\Godot\Bindings\godot-headers;C:\Godot\Bindings\include\;C:\Godot\Bindings\include\gen;C:\Godot\Bindings\include\core;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Godot\Bindings\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\..</OutDir>
+    <IncludePath>C:\Godot\Bindings\godot-headers;C:\Godot\Bindings\include\;C:\Godot\Bindings\include\gen;C:\Godot\Bindings\include\core;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Godot\Bindings\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\..</OutDir>
+    <IncludePath>C:\Godot\Bindings\godot-headers;C:\Godot\Bindings\include\;C:\Godot\Bindings\include\gen;C:\Godot\Bindings\include\core;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Godot\Bindings\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Godot\Bindings\include\gen;C:\Godot\Bindings\include\core;C:\Godot\Bindings\include;C:\Godot\Bindings\godot-headers;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\..</OutDir>
+    <IncludePath>C:\Godot\Bindings\godot-headers;C:\Godot\Bindings\include\;C:\Godot\Bindings\include\gen;C:\Godot\Bindings\include\core;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Godot\Bindings\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -149,13 +155,11 @@
     <ClCompile Include="..\GodotLibrary.cpp" />
     <ClCompile Include="..\Hero.cpp" />
     <ClCompile Include="..\Person.cpp" />
-    <ClCompile Include="..\Root.cpp" />
     <ClCompile Include="..\Troll.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Hero.h" />
     <ClInclude Include="..\Person.h" />
-    <ClInclude Include="..\Root.h" />
     <ClInclude Include="..\Troll.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

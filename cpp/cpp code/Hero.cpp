@@ -6,8 +6,21 @@ using namespace godot;
 //void godot::Hero::_unhandled_input(event)
 //{}
 
+void godot::Hero::_register_methods()
+{
+	register_method("range_attack_speed", &Hero::range_attack_state);
+	register_method("_ready", &Hero::_ready);
+	register_method("_physics_process", &Hero::_physics_process);
+	register_method("get_direction", &Hero::get_direction);
+	register_method("_init", &Hero::_init);
+	register_signal<Hero>((char*)"on_death");
+}
+
 void Hero::range_attack_state(float delta)
 {
+	AnimationTree* animationTree = (AnimationTree*)get_node("AnimationTree");
+	AnimationNodeStateMachinePlayback* animationState = animationTree->get("parameters/playback");
+
 	//DamagePos должен двигаться в направлении мыши, но при этом не уходить слишком далеко от игрока
 	Position2D* FirePos = (Position2D*)get_node("FirePos");
 	FirePos->get_position() = get_global_mouse_position() - position;
@@ -42,8 +55,11 @@ void Hero::_physics_process(float delta)
 	}
 }
 
+void godot::Hero::_init(){}
+
 Vector2 Hero::get_direction()
 {
+	Input* i = Input::get_singleton();
 	return (Vector2(
 		i->get_action_strength("ui_right") - i->get_action_strength("ui_left"),
 		i->get_action_strength("ui_down") - i->get_action_strength("ui_up")
@@ -52,6 +68,10 @@ Vector2 Hero::get_direction()
 
 void Hero::move_state(float delta)
 {
+	AnimationTree* animationTree = (AnimationTree*)get_node("AnimationTree");
+	AnimationNodeStateMachinePlayback* animationState = animationTree->get("parameters/playback");
+	Input* i = Input::get_singleton();
+
 	direction = get_direction();
 	if (direction != Vector2()) {
 		animationTree->set("parameters/Idle/blend_position", direction);
@@ -74,6 +94,9 @@ void Hero::move_state(float delta)
 
 void Hero::attack_state(float delta)
 {
+	AnimationTree* animationTree = (AnimationTree*)get_node("AnimationTree");
+	AnimationNodeStateMachinePlayback* animationState = animationTree->get("parameters/playback");
+
 	// DamagePos должен двигаться в направлении мыши, но при этом не уходить слишком далеко от игрока
 	Position2D* DamagePos = (Position2D*)get_node("DamagePos");
 	DamagePos->get_position() = get_global_mouse_position() - position;
@@ -91,6 +114,9 @@ void Hero::attack_animation_finished()
 
 void godot::Hero::death_state(float delta)
 {
+	AnimationTree* animationTree = (AnimationTree*)get_node("AnimationTree");
+	AnimationNodeStateMachinePlayback* animationState = animationTree->get("parameters/playback");
+
 	animationTree->set("parameters/Death/blend_position", direction);
 	animationState->travel("Death");
 }

@@ -16,32 +16,26 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\GodotLibrary.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Hero.cpp">
-      <Filter>Resource Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Person.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Root.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Troll.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Hero.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Hero.h">
+    <ClInclude Include="..\Person.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Troll.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Root.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Person.h">
+    <ClInclude Include="..\Hero.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

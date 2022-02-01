@@ -1,6 +1,6 @@
 [entry]
 
-Windows.64="res://cpp/godot.dll"
+Windows.64="res://cpp/rpg2.dll"
 
 [dependencies]
 

@@ -1,5 +1,6 @@
 #include "Person.h"
-//#include "Troll.h"
+#include "Troll.h"
+#include "Hero.h"
 
 using namespace godot;
 
@@ -15,5 +16,6 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void* handle) {
     Godot::nativescript_init(handle);
 
     register_class<Person>();
-    //register_class<Troll>();
+    register_class<Troll>();
+    register_class<Hero>();
 }

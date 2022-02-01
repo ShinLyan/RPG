@@ -3,31 +3,37 @@
 
 using namespace godot;
 
-//debug
 void Person::_register_methods() {
+	register_method((char*)"_init", &Person::_init);
+	//register_method((char*)"_process", &Person::_process);
 }
-Person::Person(){}
 
-Person::State state = Person::State::Move;
 
-//void Person::_init() {};
+void Person::_init() {};
 
+void godot::Person::_process(float delta){}
+
+Person::Person() 
+{
+	State state = State::Move;
+}
 Person::~Person() {}
 
 
-
 void Person::set_start_hp(real_t hp, real_t max_hp) { // настройска hp bar у существа
-	//HP_bar = (TextureProgress*)get_node("HP_bar");
+	HP_bar = (TextureProgress*)get_node("HP_bar");
 	HP_bar->set_value(hp); // текущее значение hp
 	HP_bar->set_max(max_hp);
 	
 }
 
 void Person::update_hp() { // обновляет значение hp bar на текущее
+	HP_bar = (TextureProgress*)get_node("HP_bar");
 	HP_bar->set_value(hp);
 }
 
 void Person::toggle_hp_bar() {// вкл / выкл hp bar
+	HP_bar = (TextureProgress*)get_node("HP_bar");
 	if (HP_bar->is_visible()) {
 		HP_bar->set_visible(false);
 	}
@@ -39,7 +45,7 @@ void Person::toggle_hp_bar() {// вкл / выкл hp bar
 
 bool Person::reduce_hp(real_t val) { // уменьшает hp персонажам
 	hp -= val;
-//	update_hp();
+	update_hp();
 
 	//условие смерти персонажа
 	if (hp <= 0) {

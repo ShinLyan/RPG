@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="RPG"
-run/main_scene="res://Scenes/Menu.tscn"
+run/main_scene="res://Scenes/Hero.tscn"
 config/icon="res://icon.png"
 
 [autoload]

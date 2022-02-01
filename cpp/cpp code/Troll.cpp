@@ -8,26 +8,44 @@
 using namespace godot;
 
 void Troll::_register_methods() {//z t,fk 'nj ujdybot
-	register_method((char*)"_physics_process", &Troll::_physics_process);
+	
 	register_method((char*)"_ready", &Troll::_ready);
-	register_method((char*)"_process", &Troll::_process);
+	register_method((char*)"_physics_process", &Troll::_physics_process);
+//	register_method((char*)"_process", &Troll::_process);
+	register_method((char*)"_init", &Troll::_init);
 	//register_signal<Troll>((char*)"area_entered", "area", GODOT_VARIANT_TYPE_OBJECT);
+	register_method((char*)"move_state", &Troll::move_state);
+	register_method((char*)"attack_state", &Troll::attack_state); 
+	register_method((char*)"attack_animation_finished", &Troll::attack_animation_finished); 
+	register_method((char*)"death_state", &Troll::death_state); 
+	register_method((char*)"death_animation_finished", &Troll::death_animation_finished); 
+	register_method((char*)"bite", &Troll::bite);
+	register_method((char*)"search_for_target", &Troll::search_for_target);	
+	register_method((char*)"wander", &Troll::wander);	
+	register_method((char*)"set_destination", &Troll::set_destination);	
+	register_method((char*)"set_start_hp", &Troll::set_start_hp);
 }
 Troll::Troll() {}
 
-//void Troll::_init() {};
+void Troll::_init() {};
 
 Troll::~Troll() {}
 
-void Troll::_process(float delta) {}
-
+//void Troll::_process(float delta) {}
 
 void Troll::_ready() {  //функци€, вызывающа€ при создании существа
+	//init nodes
+	AnimationTree* animationTree = (AnimationTree*)get_node_or_null("AnimationTree");
+	AnimationNodeStateMachinePlayback* animationState = animationTree->get("parameters/playback");
+	HP_bar = (TextureProgress*)get_node_or_null("HP_bar");
+
+
 	speed = default_speed; //устанавливаем обычную скорость мобов
 
 	//”станавливаем hp bar мобам        self - аналог this->в —++
 	hp = 100;
 	max_hp = 60;  //делаем здоровье немного меньше чем у игрока
+	
 	set_start_hp(hp, max_hp);
 
 	//ƒобавл€ем моба в группы(дл€ работы клавиши Alt)
@@ -36,19 +54,24 @@ void Troll::_ready() {  //функци€, вызывающа€ при создании существа
 }
 
 void Troll::_physics_process(float delta) {
+	AnimationTree* animationTree = (AnimationTree*)get_node_or_null("AnimationTree");
+	AnimationNodeStateMachinePlayback* animationState = animationTree->get("parameters/playback");
+	HP_bar = (TextureProgress*)get_node_or_null("HP_bar");
+
 	switch (state)
 	{
 	case State::Move:
 		move_state(delta);
 	case State::Attack:
 		attack_state(delta);
-	// case State::Death:
-		//death_state(delta);
+	case State::Death:
+		death_state(delta);
+	default: 
+		move_state(delta);
 	}
 }
 
 void Troll::set_start_hp(int hp, int max_hp) { // настройска hp bar у существа
-	HP_bar = (TextureProgress*)get_node("HP_bar");
 	HP_bar->set_value(hp); // текущее значение hp
 	HP_bar->set_max(max_hp);
 }
@@ -65,15 +88,18 @@ void Troll::move_state(float delta) {
 		//position.y = clamp(position.y, 0, 10000);
 	}
 	wander(); // бродим
-	//search_for_target(); // ищем таргет
+	search_for_target(); // ищем таргет
 
 	if (target_intercepted and can_bite) { // если моб может атаковать, то атакуем
 		state = State::Attack;
-		//bite(target);
+		bite(target);
 	}
 }
 
 void Troll::attack_state(float delta) {
+	AnimationTree* animationTree = (AnimationTree*)get_node_or_null("AnimationTree");
+	AnimationNodeStateMachinePlayback* animationState = animationTree->get("parameters/playback");
+
 	animationTree->set("parameters/Attack/blend_position", velocity);
 	animationState->travel("Attack");
 }
@@ -83,10 +109,14 @@ void Troll::attack_animation_finished() {
 }
 
 void Troll::set_destination(Vector2 dest) { // устанавливаем место назначени€
+	AnimationTree* animationTree = (AnimationTree*)get_node_or_null("AnimationTree");
+	AnimationNodeStateMachinePlayback* animationState = animationTree->get("parameters/playback");
+
 	destination = dest;
+	
 	//normalized() - нормирует вектор
 	velocity = (destination - get_position()).normalized() * speed; // скорость движени€ к цели
-
+	
 	if (velocity != Vector2(0, 0)) {
 		animationTree->set("parameters/Idle/blend_position", velocity);
 		animationTree->set("parameters/Run/blend_position", velocity);
@@ -100,7 +130,7 @@ void Troll::set_destination(Vector2 dest) { // устанавливаем место назначени€
 
 void Troll::wander() { // бродить
 	Vector2 pos = get_position();
-	std::cout << "1";
+	//godot::print "1";
 	if (stands) { //если существо стоит и не движетс€
 		srand(time(NULL));// генерируем рандомные числа координатам
 		int x = int(GetRandomNumber(pos.x - 150, pos.x + 150));
@@ -126,6 +156,9 @@ void Troll::wander() { // бродить
 
 //—мерть моба
 void Troll::death_state(float delta) {
+	AnimationTree* animationTree = (AnimationTree*)get_node_or_null("AnimationTree");
+	AnimationNodeStateMachinePlayback* animationState = animationTree->get("parameters/playback");
+
 	target_intercepted = false;
 	target = NULL;
 	animationTree->set("parameters/Death/blend_position", velocity);
@@ -184,8 +217,11 @@ void Troll::cancel_movement() { // останавливает существо
 }
 
 
-void Troll::bite(Person* targ) { // атака моба
-	bool is_alive = targ->reduce_hp(bite_strength);
+void Troll::bite(KinematicBody2D* targ) { // атака моба
+	bool is_alive = true;
+	if (targ->has_method("reduce_hp")) {
+		is_alive = targ->call("reduce_hp", this, bite_strength);
+	}
 	can_bite = false;
 	Timer* BiteCooldown = (Timer *)get_node("BiteCooldown");
 	BiteCooldown->start(1.5); // «апуск таймера кулдауна = 1,5 сек
@@ -197,15 +233,14 @@ void Troll::bite(Person* targ) { // атака моба
 
 
 
-/*
 KinematicBody2D* Troll::get_player() {
 	//провер€ем существует ли узел игрока
 	if (get_parent()->get_parent()->has_node("YSort/Hero")) {
 		KinematicBody2D* Hero = (KinematicBody2D*)get_node_or_null("../YSort/Hero");
 		return (Hero);
 	}
-}*/
-/*
+}
+
 void Troll::search_for_target() { //функци€, ищуща€ местоположение игрока
 	KinematicBody2D* pl = get_player(); // достаем игрока
 
@@ -230,4 +265,4 @@ void Troll::search_for_target() { //функци€, ищуща€ местоположение игрока
 			}
 		}
 	}
-}*/
+}
