@@ -12,13 +12,13 @@ namespace godot {
 		GODOT_CLASS(Troll, Person)
 	private:
 		Vector2 position;
-		State state = State::Attack;
+		State state = State::Move;
 	public:
 
 		//Переменные, связанные с движением моба
 		bool stands = true;
 		Vector2 destination = Vector2();
-		Vector2 velocity;
+		Vector2 velocity = Vector2();
 		Vector2 prev_pos;
 		
 		real_t default_speed = 45;
@@ -64,7 +64,7 @@ namespace godot {
 		void _on_StandingTimer_timeout();
 		void _on_BiteCooldown_timeout();
 		//getting player 
-		//KinematicBody2D* get_player();
+		KinematicBody2D* get_player();
 
 		Troll();
 		~Troll();

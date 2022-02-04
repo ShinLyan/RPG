@@ -4,6 +4,7 @@ namespace godot {
 		GODOT_CLASS(Hero, KinematicBody2D)
 	private:
 		Vector2 position;
+		State state = State::Move;
 	public:
 
 		// var
@@ -15,9 +16,10 @@ namespace godot {
 		AnimationNodeStateMachinePlayback* animationState = NULL;
 		Input* i = NULL;
 
-
+		State get_state();
 		//void pick(item); инвентарь пока не включен
-		//void _unhandled_input(event);
+
+		void _unhandled_input(Input* event);
 		static void _register_methods();
 		void range_attack_state(float delta);
 		void _ready();

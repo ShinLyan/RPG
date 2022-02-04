@@ -1,10 +1,49 @@
 #include "Hero.h"
 #include <Position2D.hpp>
+#include <ResourceLoader.hpp>
+#include <PackedScene.hpp>
+#include <Area2D.hpp>
+
 
 using namespace godot;
 
-//void godot::Hero::_unhandled_input(event)
-//{}
+void godot::Hero::_unhandled_input(Input* event) //не может быть включен во время отладки
+{
+	ResourceLoader* loader;
+	/*if (event->is_action_pressed("inventory")) { // нажатие на кнопку I
+		Node* ui = get_viewport()->get_node("Root/UI/Control");
+		ui->toggle_inventory(inventory);
+	}*/
+	if (event->is_action_pressed("left_click")) { // нажатие на ЛКМ
+		// при нажатии кнопки создаем DamageArea и добавляем его на карту
+		Ref<PackedScene> s = loader->get_singleton()->load("res://Scenes/DamageArea.tscn");
+		Node* attackNode = s->instance();
+		Area2D* attack = static_cast<Area2D*>(attackNode);
+		Position2D* DamagePos = (Position2D*)get_node("DamagePos");
+		attack->call("set_damage", this, 10);// 10 урона наносим одной атакой
+		// 10 урона наносим одной атакой
+		get_parent()->add_child(attack);
+		attack->set_position(position + DamagePos->get_position());
+	}
+	if (event->is_action_pressed("ui_fire")) { // нажатие на ПКМ
+		Ref<PackedScene> s = loader->get_singleton()->load("res://Scenes/Fire.tscn");
+		Node* fireNode = s->instance();
+		KinematicBody2D* fire = static_cast<KinematicBody2D*>(fireNode);
+		Position2D* FirePos = (Position2D*)get_node("FirePos");
+
+		get_parent()->add_child(fire);
+		fire->set_position(position + FirePos->get_position());
+	    Vector2 velocityOfFire = get_global_mouse_position() - fire->get_position();
+		fire->call("velocity", this, velocityOfFire);
+	}
+
+}
+
+Person::State Hero::get_state()
+{
+	return state;
+}
+
 
 void godot::Hero::_register_methods()
 {
@@ -13,6 +52,11 @@ void godot::Hero::_register_methods()
 	register_method("_physics_process", &Hero::_physics_process);
 	register_method("get_direction", &Hero::get_direction);
 	register_method("_init", &Hero::_init);
+	register_method("move_state", &Hero::move_state);
+	register_method("attack_state", &Hero::attack_state);
+	register_method("attack_animation_finished", &Hero::attack_animation_finished);
+	register_method("death_state", &Hero::death_state);
+	register_method("death_animation_finished", &Hero::death_animation_finished);
 	register_signal<Hero>((char*)"on_death");
 }
 
@@ -35,9 +79,10 @@ void Hero::range_attack_state(float delta)
 void Hero::_ready()
 {
 	// self - аналог this->в C++
-	this->hp = 100; // исходное здоровье игрока
-	set_start_hp(this->hp, this->max_hp); // задаем hp персонажу
+	hp = 100; // исходное здоровье игрока
+	set_start_hp(hp, max_hp); // задаем hp персонажу
 	//add_to_group(GlobalVars.entity_group) //ytn ukj,fkmys[ pyfxtybq gjrf xnj
+	//ui = get_viewport()->get_node("Root/UI/Control");
 }
 
 void Hero::_physics_process(float delta)
@@ -93,10 +138,11 @@ void Hero::move_state(float delta)
 		animationTree->set("parameters/Run/blend_position", direction);
 		animationTree->set("parameters/Death/blend_position", direction);
 		animationState->travel("Run");
+		move_and_slide(direction * speed);
 	}
 	else {
 		animationState->travel("Idle");
-		move_and_slide(direction * speed);
+		
 	}
 
 	if (i->is_action_just_pressed("left_click")) {

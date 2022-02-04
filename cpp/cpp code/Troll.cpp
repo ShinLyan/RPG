@@ -41,8 +41,6 @@ void Troll::_init() {};
 
 Troll::~Troll() {}
 
-//void Troll::_process(float delta) {}
-
 void Troll::_ready() {  //функци€, вызывающа€ при создании существа
 	//init nodes
 	//AnimationTree* animationTree = (AnimationTree*)get_node_or_null("AnimationTree");
@@ -156,15 +154,15 @@ void Troll::wander() { // бродить
 	//godot::print "1";
 	if (stands) { //если существо стоит и не движетс€
 		srand(time(NULL));// генерируем рандомные числа координатам
-		int x = int(GetRandomNumber(int(position.x) - 10, int(position.x) + 10));
-		int y = int(GetRandomNumber(int(position.y) - 10, int(position.y) + 10));
+		int x = int(GetRandomNumber(int(position.x) - 5, int(position.x) + 5));
+		int y = int(GetRandomNumber(int(position.y) - 5, int(position.y) + 5));
 		/*
 		//устанавливаем границы координатам
 		//int x1 = clamp(x, 0, 10000);
 		//int y1 = clamp(y, 0, 10000);*/
 
 		//проблема либо в 
-		set_destination(Vector2(position.x-1, position.y-4));
+		set_destination(Vector2(x, y));
 	}
 	//ѕроверка на движение, если он движетс€, то нужно остановитьс€
 	else if (velocity != Vector2() && (target = NULL)) {
@@ -252,8 +250,8 @@ void Troll::bite(KinematicBody2D* targ) { // атака моба
 }
 
 
+//на момент отладки выключена ф-ци€
 
-/*
 KinematicBody2D* Troll::get_player() {
 	//провер€ем существует ли узел игрока
 	if (get_parent()->get_parent()->has_node("YSort/Hero")) {
@@ -261,11 +259,11 @@ KinematicBody2D* Troll::get_player() {
 		return (Hero);
 	}
 }
-*/
-void Troll::search_for_target() { //функци€, ищуща€ местоположение игрока
-	/*KinematicBody2D* pl = get_player(); // достаем игрока
 
-		//провер€ем существуют ли игрок
+void Troll::search_for_target() { //функци€, ищуща€ местоположение игрока
+	KinematicBody2D* pl = get_player(); // достаем игрока
+
+	//провер€ем существуют ли игрок
 	if (pl) {
 		if (target) { // если в таргете игрок, т.е.моб преследует игрока
 	// если игрок далеко
@@ -285,5 +283,5 @@ void Troll::search_for_target() { //функци€, ищуща€ местоположение игрока
 				set_destination(targ_pos);
 			}
 		}
-	}*/
+	}
 }
