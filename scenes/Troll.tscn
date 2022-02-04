@@ -1184,7 +1184,7 @@ scale = Vector2( 1.2, 1.2 )
 polygon = PoolVector2Array( -17.5, 17.0833, -8.96822, 29.1484, 9.14966, 29.1484, 15.8333, 17.9167, 6.66667, 5.41667, -7.5, 5.41667 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 530, 309 )
+position = Vector2( 418, 299 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
 hframes = 32

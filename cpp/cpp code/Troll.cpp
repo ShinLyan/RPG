@@ -62,6 +62,17 @@ void Troll::_ready() {  //функция, вызывающая при создании существа
 
 void Troll::_physics_process(float delta) {
 	Godot::print("physicqiqi");
+	if (state == State::Move) {
+		move_state(delta);
+	}
+	else
+		if (state == State::Attack) {
+			attack_state(delta);
+		}
+	else if (state == State::Death) {
+		death_state(delta);
+	}
+	/*
 	switch (state)
 	{
 	case State::Move:
@@ -72,7 +83,7 @@ void Troll::_physics_process(float delta) {
 		death_state(delta);
 	default: 
 		move_state(delta);
-	}
+	}*/
 }
 
 void Troll::set_start_hp(int hp, int max_hp) { // настройска hp bar у существа
@@ -121,7 +132,7 @@ void Troll::set_destination(Vector2 dest) { // устанавливаем место назначения
 	//normalized() - нормирует вектор
 
 
-	velocity = (destination - this->get_position()).normalized() * speed; // скорость движения к цели
+	velocity = (destination - position).normalized() * speed; // скорость движения к цели
 	
 	if (velocity != Vector2(0, 0)) {
 		animationTree->set("parameters/Idle/blend_position", velocity);
@@ -135,12 +146,12 @@ void Troll::set_destination(Vector2 dest) { // устанавливаем место назначения
 }
 
 void Troll::wander() { // бродить
-	Vector2 pos = this->get_position();
+	//Vector2 pos = this->get_position();
 	//godot::print "1";
 	if (stands) { //если существо стоит и не движется
 		srand(time(NULL));// генерируем рандомные числа координатам
-		int x = int(GetRandomNumber(pos.x - 5, pos.x + 5));
-		int y = int(GetRandomNumber(pos.y - 5, pos.y + 5));
+		int x = int(GetRandomNumber(position.x - 5, position.x + 5));
+		int y = int(GetRandomNumber(position.y - 5, position.y + 5));
 
 		//устанавливаем границы координатам
 		//int x1 = clamp(x, 0, 10000);
@@ -150,10 +161,10 @@ void Troll::wander() { // бродить
 	}
 	//Проверка на движение, если он движется, то нужно остановиться
 	else if (velocity != Vector2() && (target = NULL)) {
-		if (pos.distance_to(destination) <= speed) {
+		if (position.distance_to(destination) <= speed) {
 			cancel_movement();
 		}
-		else if (pos.distance_to(prev_pos) <= 0.6) {
+		else if (position.distance_to(prev_pos) <= 0.6) {
 			//если моб будет толкаться и практически не двигаться, то моб перестает двигаться
 			cancel_movement();
 		}
@@ -216,13 +227,13 @@ void Troll::_on_BiteCooldown_timeout() { // таймер кулдауна
 
 
 void Troll::cancel_movement() { // останавливает существо
+	Timer* StandingTimer = (Timer*)get_node("StandingTimer");
 	animationState->travel("Idle"); // переходим на шаг
 
 	// обнуляем скорость и точку назначения
 	velocity = Vector2();
 	destination = Vector2();
 	speed = default_speed; // сбрасываем скорость на дефолтное
-	Timer* StandingTimer = (Timer*)get_node("StandingTimer");
 	StandingTimer->start(2); // запускаем таймер.Мобы думают куда пойти 2 секунды
 	target = NULL;
 }

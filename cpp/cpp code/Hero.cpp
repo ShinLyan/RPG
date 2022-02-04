@@ -42,7 +42,20 @@ void Hero::_ready()
 
 void Hero::_physics_process(float delta)
 {
-	switch (state)
+	if (state == State::Move) {
+		move_state(delta);
+	}
+	else
+		if (state == State::Attack) {
+			attack_state(delta);
+		}
+		else if (state == State::Death) {
+			death_state(delta);
+		}
+		else if (state == State::Range) {
+			range_attack_state(delta);
+		}
+	/*switch (state)
 	{
 	case State::Move:
 		move_state(delta);
@@ -52,7 +65,9 @@ void Hero::_physics_process(float delta)
 		death_state(delta);
 	case State::Range:
 		range_attack_state(delta);
-	}
+	default:
+		move_state(delta);
+	}*/
 }
 
 void godot::Hero::_init(){}
