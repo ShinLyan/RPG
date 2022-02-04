@@ -13,8 +13,6 @@ namespace godot {
 	private:
 		Vector2 position;
 	public:
-		
-
 
 		//Переменные, связанные с движением моба
 		bool stands = true;
@@ -22,7 +20,7 @@ namespace godot {
 		Vector2 velocity;
 		Vector2 prev_pos;
 		
-		int default_speed = 45;
+		real_t default_speed = 45;
 		KinematicBody2D* target = NULL;
 
 		//ref
@@ -57,11 +55,14 @@ namespace godot {
 		void wander();
 		void set_destination(Vector2 dest);
 		void set_start_hp(int hp, int max_hp);
+
 		//signals
-		//void _on_BiteArea_area_entered(Area2D area);
-		//void _BiteArea_entered(Area2D area);
+		void _on_BiteArea_area_entered(Variant area);
+		void _on_BiteArea_area_exited(Variant area);
+		void _on_StandingTimer_timeout();
+		void _on_BiteCooldown_timeout();
 		//getting player 
-		KinematicBody2D* get_player();
+		//KinematicBody2D* get_player();
 
 		Troll();
 		~Troll();

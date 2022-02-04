@@ -13,10 +13,7 @@ void Person::_init() {};
 
 void godot::Person::_process(float delta){}
 
-Person::Person() 
-{
-	State state = State::Move;
-}
+Person::Person() {}
 Person::~Person() {}
 
 

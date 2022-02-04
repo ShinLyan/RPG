@@ -12,6 +12,7 @@ config_version=4
 
 config/name="RPG"
 run/main_scene="res://Scenes/Hero.tscn"
+run/disable_stdout=true
 config/icon="res://icon.png"
 
 [autoload]
@@ -95,6 +96,10 @@ ui_fire={
 2d_physics/layer_5="Ground"
 2d_physics/layer_6="Bullet"
 2d_physics/layer_7="Trap"
+
+[logging]
+
+file_logging/enable_file_logging=true
 
 [rendering]
 

@@ -84,7 +84,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\..</OutDir>
+    <OutDir>..\..\</OutDir>
     <IncludePath>C:\Godot\Bindings\godot-headers;C:\Godot\Bindings\include\;C:\Godot\Bindings\include\gen;C:\Godot\Bindings\include\core;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Godot\Bindings\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>

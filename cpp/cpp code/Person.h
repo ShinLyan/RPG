@@ -23,10 +23,10 @@ namespace godot{
 		enum class State { Move, Attack, Death, Range };
 		
 		TextureProgress* HP_bar = NULL;//добавить связь
-		AnimationTree* animationTree;
-		AnimationNodeStateMachinePlayback* animationState;
+		AnimationTree* animationTree = NULL;
+		AnimationNodeStateMachinePlayback* animationState = NULL;
 
-		State state;
+		State state = State::Move;
 		static void _register_methods();
 		//void _ready();
 		void _init();
