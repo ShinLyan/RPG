@@ -4893,7 +4893,7 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 4 )
 hframes = 32
 vframes = 8
-frame = 193
+frame = 207
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Body" type="Sprite" parent="."]
@@ -4901,7 +4901,7 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 2 )
 hframes = 32
 vframes = 8
-frame = 193
+frame = 207
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Hand" type="Sprite" parent="."]
@@ -4909,7 +4909,7 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 3 )
 hframes = 32
 vframes = 8
-frame = 193
+frame = 207
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Legs" type="Sprite" parent="."]
@@ -4917,7 +4917,7 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 6 )
 hframes = 32
 vframes = 8
-frame = 193
+frame = 207
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Feet" type="Sprite" parent="."]
@@ -4925,7 +4925,7 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 5 )
 hframes = 32
 vframes = 8
-frame = 193
+frame = 207
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Weapon" type="Sprite" parent="."]
@@ -4933,7 +4933,7 @@ position = Vector2( -0.281471, -12.407 )
 texture = ExtResource( 7 )
 hframes = 32
 vframes = 8
-frame = 193
+frame = 207
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Shield" type="Sprite" parent="."]
@@ -4941,7 +4941,7 @@ position = Vector2( -0.281471, -12.407 )
 texture = ExtResource( 1 )
 hframes = 32
 vframes = 8
-frame = 193
+frame = 207
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

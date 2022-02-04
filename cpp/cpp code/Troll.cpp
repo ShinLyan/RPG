@@ -7,6 +7,11 @@
 //using namespace std;
 using namespace godot;
 
+Person::State Troll::get_state()
+{
+	return state;
+}
+
 void Troll::_register_methods() {//z t,fk 'nj ujdybot
 	
 	register_method((char*)"_ready", &Troll::_ready);
@@ -62,12 +67,14 @@ void Troll::_ready() {  //функция, вызывающая при создании существа
 
 void Troll::_physics_process(float delta) {
 	Godot::print("physicqiqi");
-	if (state == State::Move) {
-		move_state(delta);
+	State state = get_state();
+
+	if (state == State::Attack) {
+		attack_state(delta);
 	}
 	else
-		if (state == State::Attack) {
-			attack_state(delta);
+		if (state == State::Move) {
+			move_state(delta);
 		}
 	else if (state == State::Death) {
 		death_state(delta);
@@ -131,7 +138,6 @@ void Troll::set_destination(Vector2 dest) { // устанавливаем место назначения
 	
 	//normalized() - нормирует вектор
 
-
 	velocity = (destination - position).normalized() * speed; // скорость движения к цели
 	
 	if (velocity != Vector2(0, 0)) {
@@ -150,14 +156,15 @@ void Troll::wander() { // бродить
 	//godot::print "1";
 	if (stands) { //если существо стоит и не движется
 		srand(time(NULL));// генерируем рандомные числа координатам
-		int x = int(GetRandomNumber(position.x - 5, position.x + 5));
-		int y = int(GetRandomNumber(position.y - 5, position.y + 5));
-
+		int x = int(GetRandomNumber(int(position.x) - 10, int(position.x) + 10));
+		int y = int(GetRandomNumber(int(position.y) - 10, int(position.y) + 10));
+		/*
 		//устанавливаем границы координатам
 		//int x1 = clamp(x, 0, 10000);
-		//int y1 = clamp(y, 0, 10000);
+		//int y1 = clamp(y, 0, 10000);*/
 
-		set_destination(Vector2(x, y));
+		//проблема либо в 
+		set_destination(Vector2(position.x-1, position.y-4));
 	}
 	//Проверка на движение, если он движется, то нужно остановиться
 	else if (velocity != Vector2() && (target = NULL)) {
@@ -206,14 +213,6 @@ void Troll::_on_BiteArea_area_exited(Variant area) {
 		target_intercepted = false;
 	}
 }
-/* in ready
-interactionArea = static_cast<godot::Area2D *>(get_node("InteractionArea"));
-
-	if (interactionArea) {
-		interactionArea->connect("body_entered", this, "_on_InteractionArea_body_entered");
-		interactionArea->connect("body_exited", this, "_on_InteractionArea_body_exited");
-	}
-*/
 
 // Таймеры
 void Troll::_on_StandingTimer_timeout() { // таймер стояния моба

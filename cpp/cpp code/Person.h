@@ -13,7 +13,7 @@ namespace godot{
 	class Person : public KinematicBody2D {
 		GODOT_CLASS(Person, KinematicBody2D)
 	private:
-
+		
 	public:
 
 		real_t hp = 50;
@@ -21,12 +21,13 @@ namespace godot{
 		real_t speed = 100;
 
 		enum class State { Move, Attack, Death, Range };
+		State state = State::Move;
 		
 		TextureProgress* HP_bar = NULL;//добавить связь
 		AnimationTree* animationTree = NULL;
 		AnimationNodeStateMachinePlayback* animationState = NULL;
 
-		State state = State::Move;
+		
 		static void _register_methods();
 		//void _ready();
 		void _init();

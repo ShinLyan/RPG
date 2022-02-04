@@ -12,6 +12,7 @@ namespace godot {
 		GODOT_CLASS(Troll, Person)
 	private:
 		Vector2 position;
+		State state = State::Attack;
 	public:
 
 		//Переменные, связанные с движением моба
@@ -37,6 +38,7 @@ namespace godot {
 		int bite_strength = 10; // сила удара моба(10 единиц здоровья за удар)
 
 		//methods
+		State get_state();
 		static void _register_methods();
 		void _ready();
 		//void _process(float delta);
