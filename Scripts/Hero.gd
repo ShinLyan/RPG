@@ -1,33 +1,14 @@
 extends "res://Scripts/Character.gd"
 
-# Инвентарь
-var inventory = {} # список инвернтаря
-# inventory['Apple'] = [15, 8]
-
-
-func pick(item):
-	var it = item.get_item()
-	if it in inventory.keys(): # если название предмета есть в инвентаре
-		inventory[it][0] += item.get_amount() 
-	else:
-		inventory[it] = [item.get_amount(), item.get_item_stack()] # добавляем предмет
-	ui.update_inventory(inventory)
-
-
-
-
-
-
-
-
 
 # позволяет обрабатывать те сигналы, которые не были обработаны другими узлами
 func _unhandled_input(event): 
 	# инвентарь
 	if event.is_action_pressed("inventory"): # нажатие на кнопку I
-		ui.toggle_inventory(inventory)
+		ui.toggle_inventory(inventory.get_items())
 	
 	# атака игрока
+	# ближний бой
 	if event.is_action_pressed("left_click"): # нажатие на ЛКМ
 		# при нажатии кнопки создаем DamageArea и добавляем его на карту
 		var attack = load("res://Scenes/DamageArea.tscn").instance() 
@@ -35,6 +16,7 @@ func _unhandled_input(event):
 		get_parent().add_child(attack)
 		attack.position = position + $DamagePos.position
 	
+	# дальний бой
 	if event.is_action_pressed("ui_fire"): # нажатие на ПКМ
 		var fire = load("res://Scenes/Fire.tscn").instance()
 		get_parent().add_child(fire)
@@ -42,14 +24,11 @@ func _unhandled_input(event):
 		fire.velocity = get_global_mouse_position() - fire.position
 
 
-func range_attack_state(delta):
-	# DamagePos должен двигаться в направлении мыши, но при этом не уходить слишком далеко от игрока
-	$FirePos.position = get_global_mouse_position() - position
-	$FirePos.position.x = clamp($FirePos.position.x, -35, 33)
-	$FirePos.position.y = clamp($FirePos.position.y, -35, 33)
-	
-	animationTree.set("parameters/Cast/blend_position", $FirePos.position)
-	animationState.travel("Cast")
+func pick(item):
+	var is_picked = .pick(item)
+	if is_picked:
+		ui.update_inventory(inventory.get_items())
+	return is_picked
 
 
 # HP bar
@@ -58,39 +37,25 @@ func _ready():
 	self.hp = 100 # исходное здоровье игрока
 	set_start_hp(self.hp, self.max_hp) # задаем hp персонажу
 	add_to_group(GlobalVars.entity_group)
-	
-	
-	
-	
+	create_inventory()
 
 
 func _physics_process(delta):
-	#print(position)
 	match state:
 		MOVE:
 			move_state(delta)
-		
 		ATTACK:
 			attack_state(delta)
-		
-		DEATH:
-			death_state(delta)
-			
 		RANGE:
 			range_attack_state(delta)
+		DEATH:
+			death_state(delta)
 
 
-# Передвижение персонажа на клавиши
-var direction = Vector2.ZERO
-
-
-func get_direction():
-	return (Vector2(
-		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
-		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-	)).normalized()
-
+################################################################################
+# Передвижение игрока
 var velocity = Vector2()
+var direction = Vector2.ZERO
 
 func move_state(delta):
 	direction = get_direction()
@@ -110,6 +75,18 @@ func move_state(delta):
 		state = RANGE
 
 
+func get_direction():
+	return (Vector2(
+		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
+		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	)).normalized()
+################################################################################
+
+
+################################################################################
+# Атака игрока
+
+# Ближний бой
 func attack_state(delta):
 	# DamagePos должен двигаться в направлении мыши, но при этом не уходить слишком далеко от игрока
 	$DamagePos.position = get_global_mouse_position() - position
@@ -124,6 +101,20 @@ func attack_animation_finished():
 	state = MOVE
 
 
+# Дальний бой
+func range_attack_state(delta):
+	# DamagePos должен двигаться в направлении мыши, но при этом не уходить слишком далеко от игрока
+	$FirePos.position = get_global_mouse_position() - position
+	$FirePos.position.x = clamp($FirePos.position.x, -35, 33)
+	$FirePos.position.y = clamp($FirePos.position.y, -35, 33)
+	
+	animationTree.set("parameters/Cast/blend_position", $FirePos.position)
+	animationState.travel("Cast")
+
+################################################################################
+
+
+################################################################################
 # Смерть игрока
 signal on_death # сигнал смерти персонажа
 
@@ -137,11 +128,10 @@ func death_animation_finished():
 	emit_signal("on_death") # выпускаем сигнал смерти игрока
 	get_parent().remove_child(self) # удаляем узел
 	queue_free() # освобождаем память от него
+################################################################################
 
 
 # Перегруженная функция save()
 func save():
 	var data = .save() # вызываем родительскую функцию save()
-	data["inventory"] = inventory
 	return data
-

@@ -19,10 +19,13 @@ __meta__ = {
 [node name="Panel" parent="Control" instance=ExtResource( 1 )]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -425.0
-margin_right = 0.0
+margin_left = -489.0
+margin_top = 165.0
+margin_right = -127.0
+margin_bottom = 311.0
 
 [node name="DeathScreen" parent="Control" instance=ExtResource( 3 )]
 visible = false
 
 [node name="Menu" parent="Control" instance=ExtResource( 4 )]
+visible = false

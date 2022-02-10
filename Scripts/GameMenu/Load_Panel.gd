@@ -1,6 +1,8 @@
 extends Control
 
+
 onready var file_to_load = ""
+
 
 signal on_close_menu # сигнал о том, что после загрузки меню закрылось
 signal on_loaded(data)

@@ -25,7 +25,7 @@ __meta__ = {
 
 [node name="Grid" type="GridContainer" parent="Scroll"]
 margin_right = 200.0
-margin_bottom = 176.0
+margin_bottom = 104.0
 custom_constants/hseparation = 24
 columns = 4
 
@@ -86,47 +86,3 @@ margin_left = 168.0
 margin_top = 72.0
 margin_right = 200.0
 margin_bottom = 104.0
-
-[node name="InventItem13" parent="Scroll/Grid" instance=ExtResource( 1 )]
-margin_top = 108.0
-margin_bottom = 140.0
-
-[node name="InventItem14" parent="Scroll/Grid" instance=ExtResource( 1 )]
-margin_left = 56.0
-margin_top = 108.0
-margin_right = 88.0
-margin_bottom = 140.0
-
-[node name="InventItem15" parent="Scroll/Grid" instance=ExtResource( 1 )]
-margin_left = 112.0
-margin_top = 108.0
-margin_right = 144.0
-margin_bottom = 140.0
-
-[node name="InventItem16" parent="Scroll/Grid" instance=ExtResource( 1 )]
-margin_left = 168.0
-margin_top = 108.0
-margin_right = 200.0
-margin_bottom = 140.0
-
-[node name="InventItem17" parent="Scroll/Grid" instance=ExtResource( 1 )]
-margin_top = 144.0
-margin_bottom = 176.0
-
-[node name="InventItem18" parent="Scroll/Grid" instance=ExtResource( 1 )]
-margin_left = 56.0
-margin_top = 144.0
-margin_right = 88.0
-margin_bottom = 176.0
-
-[node name="InventItem19" parent="Scroll/Grid" instance=ExtResource( 1 )]
-margin_left = 112.0
-margin_top = 144.0
-margin_right = 144.0
-margin_bottom = 176.0
-
-[node name="InventItem20" parent="Scroll/Grid" instance=ExtResource( 1 )]
-margin_left = 168.0
-margin_top = 144.0
-margin_right = 200.0
-margin_bottom = 176.0

@@ -1,33 +1,6 @@
 extends "res://Scripts/Character.gd"
 
 
-# Переменные, связанные с движением моба
-var stands = true # существо стоит и не движется
-var destination = Vector2() # вектор координат цели, к которой будет идти моб
-var velocity = Vector2() # вектор, на который будет перемещаться моб
-
-var prev_pos = Vector2() # вектор, предыдущей позиции
-
-var target = null # цель к которой ходит моб, изначально у моба нет таргета
-
-var default_speed = 45
-
-# Переменные для атаки моба
-var target_intercepted = false # есть ли какая-то цель в зоне досягаемости
-var can_bite = true # можно ли атаковать существо (перезарядка, чтобы моб постоянно не бил)
-var bite_strength = 10 # сила удара моба (10 единиц здоровья за удар)
-
-
-func bite(targ): # атака моба
-	if targ != null:
-		var is_alive = targ.reduce_hp(bite_strength) 
-		can_bite = false
-		$BiteCooldown.start(0.5) # Запуск таймера кулдауна = 0.5 сек
-		
-		if not is_alive:
-			cancel_movement() 
-
-
 func _ready(): # функция, вызывающая при создании существа
 	speed = default_speed # устанавливаем обычную скорость мобов
 	
@@ -40,34 +13,10 @@ func _ready(): # функция, вызывающая при создании с
 	add_to_group(GlobalVars.troll_group)
 	
 	
-	
-	#print(get_parent().get_parent().convertFileCoordToTileMap(8, 11))
-	#print(convertTileMapCoordToWorld(get_parent().get_parent().convertFileCoordToTileMap(8, 11)))
-	
-
-
-
-
-
-func convertTileMapCoordToWorld(coordinates):
-	var isoX = coordinates[0]
-	var isoY = coordinates[1]
-	var x = (isoX - isoY) * 32
-	var y = 16 + (isoX + isoY) * 16
-	return [x, y]
-
-
-
-
-
-
-
-
-
-
-
-
-
+	# добавляем предмет в троля
+	var item = load("res://Scenes/InventItem.tscn").instance()
+	item.set_item("coins", 10, {"can_stack":true})
+	self.inventory.add_item(item)
 
 
 func _physics_process(delta):
@@ -80,7 +29,15 @@ func _physics_process(delta):
 			
 		DEATH:
 			death_state(delta)
-			
+
+
+# Передвижение моба
+var stands = true # существо стоит и не движется
+var destination = Vector2() # вектор координат цели, к которой будет идти моб
+var velocity = Vector2() # вектор, на который будет перемещаться моб
+var prev_pos = Vector2() # вектор, предыдущей позиции
+var target = null # цель к которой ходит моб, изначально у моба нет таргета
+var default_speed = 45 # обычная скорость моба
 
 
 func move_state(delta):
@@ -99,17 +56,6 @@ func move_state(delta):
 	if target_intercepted and can_bite: # если моб может атаковать, то атакуем
 		state = ATTACK
 		bite(target)
-
-
-func attack_state(delta):
-	animationTree.set("parameters/Attack/blend_position", velocity)
-	animationState.travel("Attack")
-
-
-func attack_animation_finished():
-	animationState.travel("Idle")
-	if can_bite:
-		state = MOVE
 
 
 func search_for_target(): # функция, ищущая местоположение игрока
@@ -178,6 +124,50 @@ func wander(): # бродить
 		elif pos.distance_to(prev_pos) <= 0.6: 
 		# если моб будет толкаться и практически не двигаться, то моб перестает двигаться
 			cancel_movement()
+################################################################################
+
+
+# Атака моба
+var target_intercepted = false # есть ли какая-то цель в зоне досягаемости
+var can_bite = true # можно ли атаковать существо (перезарядка, чтобы моб постоянно не бил)
+var bite_strength = 10 # сила удара моба (10 единиц здоровья за удар)
+
+
+func bite(targ): # атака моба
+	if targ != null:
+		var is_alive = targ.reduce_hp(bite_strength) 
+		can_bite = false
+		$BiteCooldown.start(0.5) # Запуск таймера кулдауна = 0.5 сек
+		
+		if not is_alive:
+			cancel_movement() 
+
+
+
+func attack_state(delta):
+	animationTree.set("parameters/Attack/blend_position", velocity)
+	animationState.travel("Attack")
+
+
+func attack_animation_finished():
+	animationState.travel("Idle")
+	if can_bite:
+		state = MOVE
+################################################################################
+
+
+# Смерть моба
+func death_state(delta):
+	target_intercepted = false
+	target = null
+	animationTree.set("parameters/Death/blend_position", velocity)
+	animationState.travel("Death")
+
+
+func death_animation_finished():
+	get_parent().remove_child(self) # удаляем узел
+	queue_free() # освобождаем память от него
+################################################################################
 
 
 # area_entered() - проверяет пересечение с другой областью area2D
@@ -208,16 +198,3 @@ func save():
 	data["bite_strength"] = bite_strength
 	data["default_speed"] = default_speed
 	return data
-
-
-# Смерть моба
-func death_state(delta):
-	target_intercepted = false
-	target = null
-	animationTree.set("parameters/Death/blend_position", velocity)
-	animationState.travel("Death")
-
-
-func death_animation_finished():
-	get_parent().remove_child(self) # удаляем узел
-	queue_free() # освобождаем память от него
