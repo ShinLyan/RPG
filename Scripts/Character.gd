@@ -39,7 +39,12 @@ func create_inventory():
 
 
 func pick(item):
-	self.inventory.add_item(item)
+	if item.item_name == "hp_potion":
+		self.hp += 10
+		update_hp()
+	else:
+		self.inventory.add_item(item)
+	
 	return true
 ###################################
 

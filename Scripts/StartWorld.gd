@@ -17,7 +17,8 @@ func create_items():
 	var items = [ # список предметов с названиями и связками
 		# предмет, количество предметов в связке, может стакаться или нет
 		["book", 8, {"can_stack":true}], 
-		["scroll", 8, {"can_stack":false}], 
+		["scroll", 8, {"can_stack":true}], 
+		["hp_potion", 8, {"can_stack":false}],
 		["coins", 100, {"can_stack":true}]
 		] 
 	
@@ -33,7 +34,7 @@ func create_items():
 		
 		# выбираем рандомно число от 0 до 1 - это предметы, которые должны быть на карте
 		randomize()
-		var num_rand = int(rand_range(0, 2))
+		var num_rand = int(rand_range(0, 3))
 		
 		# передаем список названий
 		new_item.set_item(items[num_rand])
@@ -45,7 +46,6 @@ func create_items():
 func _ready():
 	create_items()
 	create_map()
-
 
 
 func get_player():
