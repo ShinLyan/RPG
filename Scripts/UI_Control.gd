@@ -22,7 +22,12 @@ func set_death_screen(): # открытие экрана смерти игрок
 	$DeathScreen.show() # затем включаем экран смерти
 
 
+func cursor_show():
+	$Mouse_cursor.show()
+
+
 func _unhandled_input(event):
 	# Проверяем нажатие на клавишу Escape
 	if event.is_action_pressed("esc"):
+		$Mouse_cursor.hide()
 		$Menu.open() # переключает видимость меню

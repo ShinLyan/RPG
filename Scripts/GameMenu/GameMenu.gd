@@ -35,7 +35,7 @@ func _ready():
 func open(): # переключает видимость меню
 	if visible: # если открыто
 		hide() # закрываем окно
-		
+		get_parent().cursor_show()
 		get_tree().paused = false
 	else:
 		# пауза при открытии меню
