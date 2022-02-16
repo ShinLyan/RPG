@@ -7,10 +7,11 @@ var velocity = Vector2()
 export var direction = Vector2()
 
 
+var prev_pos = Vector2()
 
 
 func _physics_process(delta):
-	var prev_pos = position
+	prev_pos = position
 	var collision_info = move_and_collide(velocity.normalized() * delta * SPEED)
 	if velocity != Vector2():
 		if position.distance_to(prev_pos) <= 0.6:
@@ -20,11 +21,18 @@ func _physics_process(delta):
 
 
 func _ready():
-	$Timer.start(1) # область, которая будет существовать 2 сек
+	$Timer.start(2) # область, которая будет существовать 2 сек
+	$FireArea.connect("fire_damage", self, "delete_fire")
 
 
 func _on_Timer_timeout():
 	# удаление объекта области
+	if get_parent() != null:
+		get_parent().remove_child(self)
+		queue_free()
+
+
+func delete_fire():
 	if get_parent() != null:
 		get_parent().remove_child(self)
 		queue_free()

@@ -1,6 +1,29 @@
 extends Node2D
 
 
+func _ready():
+	create_file_map()
+	var walkable_cells_list = generate_walkable_cells()
+	create_items(walkable_cells_list)
+	create_trolls(walkable_cells_list)
+
+
+func generate_walkable_cells(): # формирует список точек, по которым можно ходить
+	var obstacles = $YSort/Tree.get_used_cells() # добавляем деревья
+	obstacles += $YSort/Border.get_used_cells() # добавляем стены
+	obstacles += $GroundBottom.get_used_cells() # добавляем озеро
+	obstacles += $Bridge/Bridge.get_used_cells() # добавляем мост
+	var rect = $YSort/Border.get_used_rect()
+	var walkable_cells_list = []
+	for y in range(rect.position[1], rect.position[1] + rect.size[1]):
+		for x in range(rect.position[0], rect.position[0] + rect.size[0]):
+			var point = Vector2(x, y)
+			if point in obstacles:
+				continue
+			walkable_cells_list.append(point)
+	return walkable_cells_list
+
+
 # Инвентарь и предметы
 onready var item = preload("res://Scenes/Item.tscn")
 
@@ -13,7 +36,7 @@ func add_lying_item(i, x, y):
 	new_item.position = Vector2(x, y)
 
 
-func create_items():
+func create_items(walkable_cells_list = []):
 	var items = [ # список предметов с названиями и связками
 		# предмет, количество предметов в связке, может стакаться или нет
 		["book", 8, {"can_stack":true}], 
@@ -22,7 +45,7 @@ func create_items():
 		["coins", 100, {"can_stack":true}]
 		] 
 	
-	var num_items = 50 # количество генерируемых предметов на карте
+	var num_items = 100 # количество генерируемых предметов на карте
 	
 	# генерируем предметы на карте рандомным образом 
 	for i in range(num_items):
@@ -39,13 +62,35 @@ func create_items():
 		# передаем список названий
 		new_item.set_item(items[num_rand])
 		
-		new_item.position = Vector2(int(rand_range(0, 900)), int(rand_range(0, 500)))
+		# выбираем рандомно ячейку, в которую заспавним предмет
+		var pos_rand = int(rand_range(0, len(walkable_cells_list) - 1))
+		# задаём координаты прдемету
+		new_item.position = transform2dToIso(walkable_cells_list[pos_rand])
 ##########################
 
+func transform2dToIso(VecList):
+	var isoX = VecList[0]
+	var isoY = VecList[1]
+	var X2D = (isoX - isoY) * 32
+	var Y2D = 16 + (isoX + isoY) * 16
+	return Vector2(X2D, Y2D)
 
-func _ready():
-	create_items()
-	create_map()
+
+onready var troll = preload("res://Scenes/Troll.tscn")
+
+
+func create_trolls(walkable_cells_list = []):
+	var num_trolls = 10 # количество генерируемых предметов на карте
+	# генерируем троллей на карте рандомным образом 
+	for i in range(num_trolls):
+		# instance - создает объект по примеру исходной сцены
+		var new_troll = troll.instance() # создаём тролля
+		randomize()
+		# выбираем рандомно ячейку, в которую заспавним предмет
+		var pos_rand = int(rand_range(0, len(walkable_cells_list) - 1))
+		
+		new_troll.position = transform2dToIso(walkable_cells_list[pos_rand])
+		$YSort.add_child(new_troll)
 
 
 func get_player():
@@ -62,7 +107,7 @@ func update_label(value):
 
 
 # Создание карты
-func create_map():
+func create_file_map():
 	# выгрузка карты в файл
 	var rect = $YSort/Border.get_used_rect()
 	var matrix = []
