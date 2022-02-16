@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/terrains/GrassLand.tres" type="TileSet" id=1]
 [ext_resource path="res://Scenes/Hero.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/StartWorld.gd" type="Script" id=3]
+[ext_resource path="res://assets/melodies/RPG.mp3" type="AudioStream" id=4]
 [ext_resource path="res://Sprites/black.jpeg" type="Texture" id=5]
 
 [node name="StartWorld" type="Node2D"]
@@ -79,3 +80,7 @@ tile_data = PoolIntArray( -1114086, 13, 0, -1048554, 13, 0, -1048547, 13, 0, -98
 
 [node name="Hero" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 387, 184 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+attenuation = 4.2871

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/Buttons/SceneButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Menu.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/GameMenu/Load_Menu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Sprites/grey.jpg" type="Texture" id=4]
 [ext_resource path="res://Scenes/Mouse_cursor.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/melodies/RPG_menu.mp3" type="AudioStream" id=6]
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -48,3 +49,7 @@ margin_bottom = 302.0
 text = "Load game"
 
 [node name="Mouse_cursor" parent="." instance=ExtResource( 5 )]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 6 )
+attenuation = 5.46415

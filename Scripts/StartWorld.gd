@@ -8,6 +8,11 @@ func _ready():
 	create_trolls(walkable_cells_list)
 
 
+func _process(delta):
+	if $AudioStreamPlayer2D.playing == false:
+		$AudioStreamPlayer2D.play()
+
+
 func generate_walkable_cells(): # формирует список точек, по которым можно ходить
 	var obstacles = $YSort/Tree.get_used_cells() # добавляем деревья
 	obstacles += $YSort/Border.get_used_cells() # добавляем стены
