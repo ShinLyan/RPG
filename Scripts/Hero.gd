@@ -37,20 +37,30 @@ func pick(item):
 func _ready():
 	self.hp = 1000000 # исходное здоровье игрока
 	set_start_hp(self.hp, self.max_hp) # задаем hp персонажу
-	add_to_group(GlobalVars.entity_group)
+	#add_to_group(GlobalVars.entity_group)
 	create_inventory()
 
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	match state:
 		MOVE:
-			move_state(_delta)
+			move_state(delta)
 		ATTACK:
-			attack_state(_delta)
+			attack_state(delta)
 		RANGE:
-			range_attack_state(_delta)
+			range_attack_state(delta)
 		DEATH:
-			death_state(_delta)
+			death_state(delta)
+	HP_regen(delta)
+
+
+var hp_regen = 1
+
+func HP_regen(delta):
+	self.hp += hp_regen * delta
+	if self.hp >= self.max_hp:
+		self.hp = self.max_hp
+
 
 
 ################################################################################
