@@ -23,10 +23,8 @@ func _physics_process(delta):
 	match state:
 		MOVE:
 			move_state(delta)
-		
 		ATTACK:
 			attack_state(delta)
-			
 		DEATH:
 			death_state(delta)
 
@@ -40,16 +38,10 @@ var target = null # цель к которой ходит моб, изначал
 var default_speed = 45 # обычная скорость моба
 
 
-func move_state(delta):
-	# Передвижение моба
+func move_state(_delta): # Передвижение моба
 	if velocity: # если у существа есть скорость
 		prev_pos = position # сперва фиксируем предыдущую позицию
-		
 		move_and_slide(velocity) # двигаем его на величину скорости
-		
-		# ограничиваем его координаты в рамках карты
-		position.x = clamp(position.x, -516, 1412) 
-		position.y = clamp(position.y, -209, 756)
 	wander() # бродим
 	search_for_target() # ищем таргет
 	
@@ -144,7 +136,7 @@ func bite(targ): # атака моба
 
 
 
-func attack_state(delta):
+func attack_state(_delta):
 	animationTree.set("parameters/Attack/blend_position", velocity)
 	animationState.travel("Attack")
 
@@ -157,7 +149,7 @@ func attack_animation_finished():
 
 
 # Смерть моба
-func death_state(delta):
+func death_state(_delta):
 	target_intercepted = false
 	target = null
 	animationTree.set("parameters/Death/blend_position", velocity)

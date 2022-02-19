@@ -1,14 +1,17 @@
 extends Node2D
 
+var walkable_cells_list = []
+
 
 func _ready():
 	create_file_map()
-	var walkable_cells_list = generate_walkable_cells()
-	create_items(walkable_cells_list)
-	create_trolls(walkable_cells_list)
+	walkable_cells_list = generate_walkable_cells()
+	create_items()
+	create_trolls()
+	$TimerSpawnMobs.start(30)
 
 
-func _process(delta):
+func _process(_delta):
 	if $AudioStreamPlayer2D.playing == false:
 		$AudioStreamPlayer2D.play()
 
@@ -41,7 +44,7 @@ func add_lying_item(i, x, y):
 	new_item.position = Vector2(x, y)
 
 
-func create_items(walkable_cells_list = []):
+func create_items():
 	var items = [ # список предметов с названиями и связками
 		# предмет, количество предметов в связке, может стакаться или нет
 		["book", 8, {"can_stack":true}], 
@@ -84,18 +87,37 @@ func transform2dToIso(VecList):
 onready var troll = preload("res://Scenes/Troll.tscn")
 
 
-func create_trolls(walkable_cells_list = []):
+func create_trolls():
 	var num_trolls = 10 # количество генерируемых предметов на карте
-	# генерируем троллей на карте рандомным образом 
+	# генерируем троллей на карте рандомным образом
 	for i in range(num_trolls):
 		# instance - создает объект по примеру исходной сцены
 		var new_troll = troll.instance() # создаём тролля
 		randomize()
-		# выбираем рандомно ячейку, в которую заспавним предмет
+		# выбираем рандомно ячейку, в которую заспавним тролля
 		var pos_rand = int(rand_range(0, len(walkable_cells_list) - 1))
 		
 		new_troll.position = transform2dToIso(walkable_cells_list[pos_rand])
 		$YSort.add_child(new_troll)
+
+
+func spawn_trolls():
+	var cave = $YSort/Cave.get_used_cells()
+	# выбираем рандомно ячейку, в которую заспавним тролля
+	var flag = true
+	var pos = Vector2()
+	while true:
+		randomize()
+		var pos_rand = int(rand_range(-2, 2))
+		print(pos_rand)
+		var num_rand = rand_range(0, len(cave) - 1)
+		pos = Vector2(cave[num_rand].x + pos_rand, cave[num_rand].y + pos_rand)
+		if pos in walkable_cells_list:
+			break
+	var new_troll = troll.instance() # создаём тролля
+	# выбираем рандомно ячейку, в которую заспавним тролля
+	new_troll.position = transform2dToIso(pos)
+	$YSort.add_child(new_troll)
 
 
 func get_player():
@@ -196,3 +218,7 @@ func load_from_data(data):
 	for item in $Items.get_children():
 		$Items.remove_child(item)
 		item.queue_free()
+
+
+func _on_TimerSpawnMobs_timeout():
+	spawn_trolls()

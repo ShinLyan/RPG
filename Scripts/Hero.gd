@@ -10,6 +10,7 @@ func _unhandled_input(event):
 	# атака игрока
 	# ближний бой
 	if event.is_action_pressed("left_click"): # нажатие на ЛКМ
+		state = ATTACK
 		# при нажатии кнопки создаем DamageArea и добавляем его на карту
 		var attack = load("res://Scenes/DamageArea.tscn").instance() 
 		attack.set_damage(10) # 10 урона наносим одной атакой
@@ -18,6 +19,7 @@ func _unhandled_input(event):
 	
 	# дальний бой
 	if event.is_action_pressed("ui_fire"): # нажатие на ПКМ
+		state = RANGE
 		var fire = load("res://Scenes/Fire.tscn").instance()
 		get_parent().add_child(fire)
 		fire.position = position + $FirePos.position
@@ -33,23 +35,22 @@ func pick(item):
 
 # HP bar
 func _ready():
-	# self - аналог this-> в C++
-	self.hp = 100 # исходное здоровье игрока
+	self.hp = 1000000 # исходное здоровье игрока
 	set_start_hp(self.hp, self.max_hp) # задаем hp персонажу
 	add_to_group(GlobalVars.entity_group)
 	create_inventory()
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	match state:
 		MOVE:
-			move_state(delta)
+			move_state(_delta)
 		ATTACK:
-			attack_state(delta)
+			attack_state(_delta)
 		RANGE:
-			range_attack_state(delta)
+			range_attack_state(_delta)
 		DEATH:
-			death_state(delta)
+			death_state(_delta)
 
 
 ################################################################################
@@ -57,7 +58,7 @@ func _physics_process(delta):
 var velocity = Vector2()
 var direction = Vector2.ZERO
 
-func move_state(delta):
+func move_state(_delta):
 	direction = get_direction()
 	if direction != Vector2.ZERO:
 		animationTree.set("parameters/Idle/blend_position", direction)
@@ -67,12 +68,6 @@ func move_state(delta):
 	else:
 		animationState.travel("Idle")
 	move_and_slide(direction * speed)
-	
-	if Input.is_action_just_pressed("left_click"):
-		state = ATTACK
-	
-	if Input.is_action_just_pressed("ui_fire"):
-		state = RANGE
 
 
 func get_direction():
@@ -87,7 +82,7 @@ func get_direction():
 # Атака игрока
 
 # Ближний бой
-func attack_state(delta):
+func attack_state(_delta):
 	# DamagePos должен двигаться в направлении мыши, но при этом не уходить слишком далеко от игрока
 	$DamagePos.position = get_global_mouse_position() - position
 	$DamagePos.position.x = clamp($DamagePos.position.x, -35, 33)
@@ -102,7 +97,7 @@ func attack_animation_finished():
 
 
 # Дальний бой
-func range_attack_state(delta):
+func range_attack_state(_delta):
 	# DamagePos должен двигаться в направлении мыши, но при этом не уходить слишком далеко от игрока
 	$FirePos.position = get_global_mouse_position() - position
 	$FirePos.position.x = clamp($FirePos.position.x, -35, 33)
@@ -119,7 +114,7 @@ func range_attack_state(delta):
 signal on_death # сигнал смерти персонажа
 
 
-func death_state(delta):
+func death_state(_delta):
 	animationTree.set("parameters/Death/blend_position", direction)
 	animationState.travel("Death")
 

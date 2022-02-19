@@ -6,6 +6,6 @@ func change_scene(path): # смена сцены, path - путь
 	get_tree().paused = false
 
 
-func load_game(data): # загрузка игры
+func load_game(_data): # загрузка игры
 	#print(data)
 	pass

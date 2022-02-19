@@ -23,6 +23,6 @@ func change_scene(path): # смена сцены
 	SceneChanger.change_scene(path)
 
 
-func _process(delta):
+func _process(_delta):
 	if $AudioStreamPlayer2D.playing == false:
 		$AudioStreamPlayer2D.play()
