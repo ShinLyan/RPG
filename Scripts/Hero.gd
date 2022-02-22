@@ -9,21 +9,22 @@ func _unhandled_input(event):
 	
 	# атака игрока
 	# ближний бой
-	if event.is_action_pressed("left_click"): # нажатие на ЛКМ
-		state = ATTACK
-		# при нажатии кнопки создаем DamageArea и добавляем его на карту
-		var attack = load("res://Scenes/DamageArea.tscn").instance() 
-		attack.set_damage(10) # 10 урона наносим одной атакой
-		get_parent().add_child(attack)
-		attack.position = position + $DamagePos.position
-	
-	# дальний бой
-	if event.is_action_pressed("ui_fire"): # нажатие на ПКМ
-		state = RANGE
-		var fire = load("res://Scenes/Fire.tscn").instance()
-		get_parent().add_child(fire)
-		fire.position = position + $FirePos.position
-		fire.velocity = get_global_mouse_position() - fire.position
+	if state != DEATH: # если герой жив
+		if event.is_action_pressed("left_click"): # нажатие на ЛКМ
+			state = ATTACK
+			# при нажатии кнопки создаем DamageArea и добавляем его на карту
+			var attack = load("res://Scenes/DamageArea.tscn").instance() 
+			attack.set_damage(10) # 10 урона наносим одной атакой
+			get_parent().add_child(attack)
+			attack.position = position + $DamagePos.position
+		
+		# дальний бой
+		if event.is_action_pressed("ui_fire"): # нажатие на ПКМ
+			state = RANGE
+			var fire = load("res://Scenes/Fire.tscn").instance()
+			get_parent().add_child(fire)
+			fire.position = position + $FirePos.position
+			fire.velocity = get_global_mouse_position() - fire.position
 
 
 func pick(item):

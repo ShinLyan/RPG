@@ -6,8 +6,10 @@ var walkable_cells_list = []
 func _ready():
 	create_file_map()
 	walkable_cells_list = generate_walkable_cells()
-	create_items()
-	create_trolls()
+	var num_items = 100 # количество генерируемых предметов на карте
+	create_items(num_items)
+	var num_trolls = 0 # количество генерируемых предметов на карте
+	create_trolls(num_trolls)
 	$TimerSpawnMobs.start(30)
 
 
@@ -19,16 +21,14 @@ func _process(_delta):
 func generate_walkable_cells(): # формирует список точек, по которым можно ходить
 	var obstacles = $YSort/Tree.get_used_cells() # добавляем деревья
 	obstacles += $YSort/Border.get_used_cells() # добавляем стены
-	obstacles += $GroundBottom.get_used_cells() # добавляем озеро
-	obstacles += $Bridge/Bridge.get_used_cells() # добавляем мост
-	var rect = $YSort/Border.get_used_rect()
+	obstacles += $YSort1/GroundBottom.get_used_cells() # добавляем озеро
+	obstacles += $YSort1/Bridge.get_used_cells() # добавляем мост
+	var ground = $Ground.get_used_cells()
 	var walkable_cells_list = []
-	for y in range(rect.position[1], rect.position[1] + rect.size[1]):
-		for x in range(rect.position[0], rect.position[0] + rect.size[0]):
-			var point = Vector2(x, y)
-			if point in obstacles:
-				continue
-			walkable_cells_list.append(point)
+	for point in ground:
+		if point in obstacles:
+			continue
+		walkable_cells_list.append(point)
 	return walkable_cells_list
 
 
@@ -44,7 +44,7 @@ func add_lying_item(i, x, y):
 	new_item.position = Vector2(x, y)
 
 
-func create_items():
+func create_items(num_items):
 	var items = [ # список предметов с названиями и связками
 		# предмет, количество предметов в связке, может стакаться или нет
 		["book", 8, {"can_stack":true}], 
@@ -52,9 +52,6 @@ func create_items():
 		["hp_potion", 8, {"can_stack":false}],
 		["coins", 100, {"can_stack":true}]
 		] 
-	
-	var num_items = 100 # количество генерируемых предметов на карте
-	
 	# генерируем предметы на карте рандомным образом 
 	for i in range(num_items):
 		# instance - создает объект по примеру исходной сцены
@@ -87,8 +84,7 @@ func transform2dToIso(VecList):
 onready var troll = preload("res://Scenes/Troll.tscn")
 
 
-func create_trolls():
-	var num_trolls = 10 # количество генерируемых предметов на карте
+func create_trolls(num_trolls):
 	# генерируем троллей на карте рандомным образом
 	for i in range(num_trolls):
 		# instance - создает объект по примеру исходной сцены
@@ -159,7 +155,7 @@ func create_file_map():
 		matrix[i[0] - deltaX][i[1] - deltaY] = '/'
 	
 	
-	ground = $GroundBottom.get_used_cells()
+	ground = $YSort1/GroundBottom.get_used_cells()
 	for i in ground:
 		matrix[i[0] - deltaX][i[1] - deltaY] = '/'
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/Buttons/SceneButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Menu.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/GameMenu/Load_Menu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Sprites/UI/starting_background.jpg" type="Texture" id=4]
 [ext_resource path="res://Scenes/Mouse_cursor.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/melodies/RPG_menu.mp3" type="AudioStream" id=6]
 
@@ -14,7 +15,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="StartingBackground" type="Sprite" parent="."]
+scale = Vector2( 1.13733, 1.13733 )
+texture = ExtResource( 4 )
+centered = false
+
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.639216, 0.639216, 0.639216, 1 )
