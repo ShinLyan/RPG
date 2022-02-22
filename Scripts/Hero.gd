@@ -5,7 +5,7 @@ extends "res://Scripts/Character.gd"
 func _unhandled_input(event): 
 	# инвентарь
 	if event.is_action_pressed("inventory"): # нажатие на кнопку I
-		ui.toggle_inventory(inventory.get_items())
+		ui.toggle_inventory(inventory)
 	
 	# атака игрока
 	# ближний бой
@@ -27,11 +27,19 @@ func _unhandled_input(event):
 			fire.velocity = get_global_mouse_position() - fire.position
 
 
+func update_inventory():
+	ui.update_inventory(inventory)
+
+
+
 func pick(item):
 	var is_picked = .pick(item)
-	if is_picked:
-		ui.update_inventory(inventory.get_items())
 	return is_picked
+
+
+func drop_item(link):
+	world.add_lying_item(link, position.x, position.y)
+	inventory.remove_item(link)
 
 
 # HP bar
@@ -40,6 +48,11 @@ func _ready():
 	set_start_hp(self.hp, self.max_hp) # задаем hp персонажу
 	#add_to_group(GlobalVars.entity_group)
 	create_inventory()
+	inventory.connect("on_changed", self, "update_inventory")
+
+
+
+
 
 
 func _physics_process(delta):

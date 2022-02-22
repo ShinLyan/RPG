@@ -36,15 +36,19 @@ var inventory
 func create_inventory():
 	inventory = pre_inv.instance()
 	add_child(inventory)
+	inventory.set_inv_owner(self)
 
 
 func pick(item):
+	"""
 	if item.item_name == "hp_potion":
 		if self.hp < self.max_hp:
 			self.hp += 10
 			update_hp()
 	else:
 		self.inventory.add_item(item)
+	"""
+	self.inventory.add_item(item)
 	return true
 ###################################
 
@@ -70,7 +74,6 @@ func toggle_hp_bar(): # вкл/выкл hp bar
 ###########################################
 
 
-# Атака персонажей
 func reduce_hp(val): # уменьшает hp персонажам
 	self.hp -= val
 	update_hp()
@@ -80,6 +83,11 @@ func reduce_hp(val): # уменьшает hp персонажам
 		die() # персонаж умирает
 		return false
 	return true
+
+
+func increase_hp(val): # увеличивает hp персонажам
+	self.hp = min(self.hp + val, self.max_hp)
+	update_hp()
 
 
 # Смерть персонажа

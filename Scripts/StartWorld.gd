@@ -6,10 +6,13 @@ var walkable_cells_list = []
 func _ready():
 	create_file_map()
 	walkable_cells_list = generate_walkable_cells()
+	
 	var num_items = 100 # количество генерируемых предметов на карте
 	create_items(num_items)
+	
 	var num_trolls = 0 # количество генерируемых предметов на карте
 	create_trolls(num_trolls)
+	
 	$TimerSpawnMobs.start(30)
 
 
@@ -32,45 +35,29 @@ func generate_walkable_cells(): # формирует список точек, п
 	return walkable_cells_list
 
 
-# Инвентарь и предметы
-onready var item = preload("res://Scenes/Item.tscn")
-
-
 func add_lying_item(i, x, y):
-	var new_item = self.item.instance()
-	$YSort/Items.add_child(new_item)
-	new_item.set_item([i.get_item_name(), 100, i.get_props()])
-	new_item.set_amount(i.get_amount())
-	new_item.position = Vector2(x, y)
+	var new_item = ItemMachine.generate_item(i.get_item_name(), i.get_amount())
+	add_item_to_world(new_item, Vector2(x, y))
 
 
 func create_items(num_items):
-	var items = [ # список предметов с названиями и связками
-		# предмет, количество предметов в связке, может стакаться или нет
-		["book", 8, {"can_stack":true}], 
-		["scroll", 8, {"can_stack":true}], 
-		["hp_potion", 8, {"can_stack":false}],
-		["coins", 100, {"can_stack":true}]
-		] 
+	var items_to_spawn = ItemMachine.get_openworld_items()
 	# генерируем предметы на карте рандомным образом 
 	for i in range(num_items):
-		# instance - создает объект по примеру исходной сцены
-		var new_item = item.instance() # создаём предмет
-		
-		# добавляем предмет на карту
-		$YSort/Items.add_child(new_item)
-		
 		# выбираем рандомно число от 0 до 1 - это предметы, которые должны быть на карте
 		randomize()
-		var num_rand = int(rand_range(0, 3))
-		
-		# передаем список названий
-		new_item.set_item(items[num_rand])
+		var num_rand = int(rand_range(0, len(items_to_spawn)))
+		var new_item = ItemMachine.generate_item(items_to_spawn[num_rand]) # создаём предмет
 		
 		# выбираем рандомно ячейку, в которую заспавним предмет
 		var pos_rand = int(rand_range(0, len(walkable_cells_list) - 1))
-		# задаём координаты прдемету
-		new_item.position = transform2dToIso(walkable_cells_list[pos_rand])
+		
+		add_item_to_world(new_item, transform2dToIso(walkable_cells_list[pos_rand]))
+
+
+func add_item_to_world(item, pos: Vector2):
+	$YSort/Items.add_child(item) # добавляем предмет на карту
+	item.position = pos # задаём координаты предмету
 ##########################
 
 func transform2dToIso(VecList):

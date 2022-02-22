@@ -14,8 +14,7 @@ func _ready(): # функция, вызывающая при создании с
 	
 	
 	# добавляем предмет в троля
-	var item = load("res://Scenes/InventItem.tscn").instance()
-	item.set_item("coins", 10, {"can_stack":true})
+	var item = ItemMachine.generate_inventory_item("coins", 10)
 	self.inventory.add_item(item)
 
 
