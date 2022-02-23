@@ -10,11 +10,10 @@ func _ready(): # функция, вызывающая при создании с
 	set_start_hp(self.hp, self.max_hp)
 	# Добавляем моба в группы (для работы клавиши Alt)
 	add_to_group(GlobalVars.entity_group)
-	add_to_group(GlobalVars.troll_group)
+	#add_to_group(GlobalVars.troll_group)
 	
-	
-	# добавляем предмет в троля
-	var item = ItemMachine.generate_inventory_item("coins", 10)
+	var item = load("res://Scenes/InventItem.tscn").instance()
+	item.set_item("coins", 10, {"can_stack":true})
 	self.inventory.add_item(item)
 
 
@@ -34,40 +33,58 @@ var destination = Vector2() # вектор координат цели, к ко�
 var velocity = Vector2() # вектор, на который будет перемещаться моб
 var prev_pos = Vector2() # вектор, предыдущей позиции
 var target = null # цель к которой ходит моб, изначально у моба нет таргета
-var default_speed = 45 # обычная скорость моба
+var default_speed = 45
 
 
 func move_state(_delta): # Передвижение моба
 	if velocity: # если у существа есть скорость
 		prev_pos = position # сперва фиксируем предыдущую позицию
 		move_and_slide(velocity) # двигаем его на величину скорости
+		
+		# ограничиваем его координаты в рамках карты
+		position.x = clamp(position.x, -516, 1412) 
+		position.y = clamp(position.y, -209, 756)
+	
 	wander() # бродим
 	search_for_target() # ищем таргет
 	
 	if target_intercepted and can_bite: # если моб может атаковать, то атакуем
 		state = ATTACK
-		bite(target)
+		if target:
+			if target.is_in_group(GlobalVars.troll_group):
+				bite(target)
+			else:
+				heal(target)
 
 
 func search_for_target(): # функция, ищущая местоположение игрока
 	var pl = get_parent().get_parent().get_player() # достаем игрока
 	
 	# проверяем существуют ли игрок
-	if pl: 
-		if target: # если в таргете игрок, т.е. моб преследует игрока
-			# если игрок далеко
-			if position.distance_to(target.position) > 200:
-				cancel_movement() # отменяем предыдущее движение
-			else: # если рядом
-				set_destination(target.position)
-				#set_destination_A_star(target.position)
-		elif position.distance_to(pl.position) < 200: # проверяем, рядом ли находится игрок
-			cancel_movement()
-			if speed == default_speed:
-				speed = default_speed * 2 # увеличиваем скорость моба атакующего игрока
+	if pl:
+		if pl.hp < pl.max_hp:
+			if target: # если в таргете игрок, т.е. моб преследует игрока
+				# если игрок далеко
+				#print(position.distance_to(target.position))
+				if position.distance_to(target.position) > 200:
+					cancel_movement() # отменяем предыдущее движение
+				else: # если рядом
+					#set_destination3(target.position)
+					set_destination(target.position)
 			
-			# задаём новый таргет - игрока
-			target = pl
+			elif position.distance_to(pl.position) < 200: # проверяем, рядом ли находится игрок
+				cancel_movement()
+				if speed == default_speed:
+					speed = default_speed * 2 # увеличиваем скорость моба атакующего игрока
+				
+				# задаём новый таргет - игрока
+				target = pl
+		else:
+			if target:
+				if position.distance_to(target.position) > 200:
+					cancel_movement() # отменяем предыдущее движение
+				else: # если рядом
+					set_destination(target.position)
 
 
 func set_destination(dest): # устанавливаем место назначения
@@ -86,13 +103,21 @@ func set_destination(dest): # устанавливаем место назнач
 
 ######################################
 var _path = []
+
+
+func convertTileMapCoordToWorld(coordinates):
+	var isoX = coordinates[0]
+	var isoY = coordinates[1]
+	var x = (isoX - isoY) * 32
+	var y = 16 + (isoX + isoY) * 16
+	return [x, y]
+
+
 var _target_point_world = Vector2()
-const MASS = 10.0
-const ARRIVE_DISTANCE = 15.0
 
-
-func set_destination_A_star(dest):
-	_path = get_parent().get_parent().get_node("Ground").get_astar_path(self.position, dest)
+func set_destination3(dest):
+	
+	_path = get_parent().get_parent().get_parent().get_node("Ground").get_astar_path(self.position, dest)
 	#print("path ======= ", _path)
 	
 	var _arrived_to_next_point = _move_to(_target_point_world)
@@ -131,6 +156,10 @@ func set_destination_A_star(dest):
 	stands = false
 
 
+const MASS = 10.0
+const ARRIVE_DISTANCE = 15.0
+
+
 func _move_to(world_position):
 	var desired_velocity = (world_position - position).normalized() * speed
 	var steering = desired_velocity - velocity
@@ -138,7 +167,8 @@ func _move_to(world_position):
 	position += velocity * get_process_delta_time()
 	return position.distance_to(world_position) < ARRIVE_DISTANCE
 
-######################################
+
+########################
 
 
 func cancel_movement(): # останавливает существо
@@ -156,9 +186,10 @@ func wander(): # бродить
 	var pos = position
 	if stands: # если существо стоит и не движется
 		randomize() # генерируем рандомные числа координатам
+
 		var x = int(rand_range(pos.x - 150, pos.x + 150))
 		var y = int(rand_range(pos.y - 150, pos.y + 150))
-		
+
 		# устанавливаем границы координатам
 		x = clamp(x, 0, 10000)
 		y = clamp(y, 0, 10000)
@@ -172,13 +203,24 @@ func wander(): # бродить
 		elif pos.distance_to(prev_pos) <= 0.6: 
 		# если моб будет толкаться и практически не двигаться, то моб перестает двигаться
 			cancel_movement()
-################################################################################
 
 
 # Атака моба
 var target_intercepted = false # есть ли какая-то цель в зоне досягаемости
 var can_bite = true # можно ли атаковать существо (перезарядка, чтобы моб постоянно не бил)
-var bite_strength = 5 # сила удара моба (5 единиц здоровья за удар)
+var bite_strength = 10 # сила удара моба (10 единиц здоровья за удар)
+var heal_strength = 10
+
+
+func heal(targ): # хил героя
+	if targ != null:
+		var _is_alive = targ.increase_hp(heal_strength) 
+		can_bite = false
+		$BiteCooldown.start(0.5) # Запуск таймера кулдауна = 0.5 сек
+
+		if targ.hp == targ.max_hp:
+			cancel_movement()
+			target_intercepted = false
 
 
 func bite(targ): # атака моба
@@ -186,15 +228,16 @@ func bite(targ): # атака моба
 		var is_alive = targ.reduce_hp(bite_strength) 
 		can_bite = false
 		$BiteCooldown.start(0.5) # Запуск таймера кулдауна = 0.5 сек
-		
+
 		if not is_alive:
 			cancel_movement() 
+			target_intercepted = false
 
 
 
 func attack_state(_delta):
-	animationTree.set("parameters/Attack/blend_position", velocity)
-	animationState.travel("Attack")
+	animationTree.set("parameters/Cast/blend_position", velocity)
+	animationState.travel("Cast")
 
 
 func attack_animation_finished():
@@ -246,3 +289,17 @@ func save():
 	data["bite_strength"] = bite_strength
 	data["default_speed"] = default_speed
 	return data
+
+
+func _on_Area2D_area_entered(area):
+	for i in area.get_overlapping_bodies(): # по каждому телу, пересекающимся области проходим
+		if i in get_tree().get_nodes_in_group(GlobalVars.troll_group): # если тело i принадлежит группе троллей
+			target = i
+	if area.get_parent() == target: # если в зоне таргет
+		target_intercepted = true
+
+
+
+func _on_Area2D_area_exited(area):
+	if area.get_parent() == target:
+		target_intercepted = false

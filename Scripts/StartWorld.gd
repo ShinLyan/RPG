@@ -92,7 +92,6 @@ func spawn_trolls():
 	while true:
 		randomize()
 		var pos_rand = int(rand_range(-2, 2))
-		print(pos_rand)
 		var num_rand = rand_range(0, len(cave) - 1)
 		pos = Vector2(cave[num_rand].x + pos_rand, cave[num_rand].y + pos_rand)
 		if pos in walkable_cells_list:
@@ -201,6 +200,10 @@ func load_from_data(data):
 	for item in $Items.get_children():
 		$Items.remove_child(item)
 		item.queue_free()
+
+
+func get_walkable_cells_list():
+	return walkable_cells_list
 
 
 func _on_TimerSpawnMobs_timeout():
