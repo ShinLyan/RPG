@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/GameMenu/Load_Panel.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Buttons/buttons_theme.tres" type="Theme" id=2]
 
 [node name="Load" type="Control"]
 anchor_left = 0.5
@@ -49,6 +50,7 @@ margin_left = 133.0
 margin_right = 213.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 80, 40 )
+theme = ExtResource( 2 )
 text = "Load"
 
 [node name="Cancel" type="Button" parent="Box/Buttons"]
@@ -56,4 +58,5 @@ margin_left = 217.0
 margin_right = 297.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 80, 40 )
+theme = ExtResource( 2 )
 text = "Cancel"
