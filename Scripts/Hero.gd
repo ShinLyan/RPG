@@ -19,13 +19,14 @@ func _unhandled_input(event):
 			attack.position = position + $DamagePos.position
 		
 		# дальний бой
+		"""
 		if event.is_action_pressed("ui_fire"): # нажатие на ПКМ
 			state = RANGE
 			var fire = load("res://Scenes/Fire.tscn").instance()
 			get_parent().add_child(fire)
 			fire.position = position + $FirePos.position
 			fire.velocity = get_global_mouse_position() - fire.position
-
+"""
 
 func update_inventory():
 	ui.update_inventory(inventory)
@@ -44,7 +45,8 @@ func drop_item(link):
 
 # HP bar
 func _ready():
-	self.hp = 1000000 # исходное здоровье игрока
+	self.hp = 100 # исходное здоровье игрока
+	self.max_hp = 100
 	set_start_hp(self.hp, self.max_hp) # задаем hp персонажу
 	#add_to_group(GlobalVars.entity_group)
 	create_inventory()
@@ -52,6 +54,65 @@ func _ready():
 
 
 
+##################################
+
+var can_fire = true
+var rate_of_fire = 0.8
+
+
+var shooting = false
+
+
+var selected_skill
+
+func _process(delta):
+	skill_loop()
+
+
+var fire_direction
+
+func skill_loop():
+	if Input.is_action_pressed("ui_fire") and can_fire: # нажатие на ПКМ
+		can_fire = false
+		state = RANGE
+		shooting = true
+		
+		fire_direction = (get_angle_to(get_global_mouse_position()) / 3.14) * 180
+		get_node("TurnAxis").rotation = get_angle_to(get_global_mouse_position())
+		match DataImport.skill_data[selected_skill].SkillType:
+			"RangedSingleTargetSkill":
+				var skill = load("res://Scenes/RangedSingleTargetSkill.tscn")
+				var skill_instance = skill.instance()
+				skill_instance.skill_name = selected_skill
+				skill_instance.fire_direction = fire_direction
+				skill_instance.rotation = get_angle_to(get_global_mouse_position())
+				skill_instance.position = get_node("TurnAxis/CastPoint").get_global_position()
+				get_parent().add_child(skill_instance)
+			
+			"RangedAOESkill":
+				var skill = load("res://Scenes/RangedAOESkill.tscn")
+				var skill_instance = skill.instance()
+				skill_instance.skill_name = selected_skill
+				skill_instance.position = get_global_mouse_position()
+				get_parent().add_child(skill_instance)
+			
+			"ExpandingAOESkill":
+				var skill = load("res://Scenes/ExpandingAOESkill.tscn")
+				var skill_instance = skill.instance()
+				skill_instance.skill_name = selected_skill
+				skill_instance.position = get_global_position()
+				get_parent().add_child(skill_instance)
+
+		yield(get_tree().create_timer(rate_of_fire), "timeout")
+		can_fire = true
+		shooting = false
+
+
+
+
+
+
+#################################
 
 
 
@@ -122,13 +183,14 @@ func attack_animation_finished():
 
 # Дальний бой
 func range_attack_state(_delta):
-	# DamagePos должен двигаться в направлении мыши, но при этом не уходить слишком далеко от игрока
-	$FirePos.position = get_global_mouse_position() - position
-	$FirePos.position.x = clamp($FirePos.position.x, -35, 33)
-	$FirePos.position.y = clamp($FirePos.position.y, -35, 33)
-	
-	animationTree.set("parameters/Cast/blend_position", $FirePos.position)
-	animationState.travel("Cast")
+	if shooting:
+		# DamagePos должен двигаться в направлении мыши, но при этом не уходить слишком далеко от игрока
+		$FirePos.position = get_global_mouse_position() - position
+		$FirePos.position.x = clamp($FirePos.position.x, -35, 33)
+		$FirePos.position.y = clamp($FirePos.position.y, -35, 33)
+		
+		animationTree.set("parameters/Cast/blend_position", $FirePos.position)
+		animationState.travel("Cast")
 
 ################################################################################
 

@@ -9,7 +9,7 @@
 [ext_resource path="res://assets/characters/heroine/weapons/staff.png" type="Texture" id=7]
 [ext_resource path="res://Scripts/Heroine.gd" type="Script" id=8]
 [ext_resource path="res://Sprites/UI/over_hp_bar.png" type="Texture" id=9]
-[ext_resource path="res://Sprites/UI/progress_hp_bar_friendly.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/UI/progress_hp_bar_white.png" type="Texture" id=10]
 
 [sub_resource type="Animation" id=163]
 resource_name = "AttackDown"
@@ -5063,10 +5063,13 @@ margin_bottom = -35.0
 value = 50.0
 texture_over = ExtResource( 9 )
 texture_progress = ExtResource( 10 )
+tint_progress = Color( 0, 1, 0.227451, 1 )
 nine_patch_stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Tween" type="Tween" parent="HP_bar"]
 
 [node name="StandingTimer" type="Timer" parent="."]
 
@@ -5091,7 +5094,6 @@ polygon = PoolVector2Array( -25.8333, 18.75, -11.6667, 37.9167, 15, 37.9167, 28.
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-visible = false
 shape = SubResource( 261 )
 
 [connection signal="timeout" from="StandingTimer" to="." method="_on_StandingTimer_timeout"]

@@ -20,4 +20,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Tween" type="Tween" parent="HP_bar"]
+
 [node name="HitBox" type="Area2D" parent="."]

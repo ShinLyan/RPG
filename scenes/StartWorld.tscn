@@ -1096,7 +1096,7 @@ tile_data = PoolIntArray( -1441778, 26, 0, -1310724, 26, 0, -1310723, 26, 0, -13
 [node name="YSort" type="YSort" parent="."]
 
 [node name="Heroine" parent="YSort" instance=ExtResource( 9 )]
-position = Vector2( 378, 198 )
+position = Vector2( 469, 161 )
 
 [node name="Items" type="Node2D" parent="YSort"]
 
@@ -1147,7 +1147,7 @@ format = 1
 tile_data = PoolIntArray( 720895, 10, 0, 655360, 11, 0, 786431, 9, 0, 851967, 9, 0, 917503, 9, 0, 983039, 9, 0, 1048575, 9, 0, 1114111, 10, 3 )
 
 [node name="Hero" parent="YSort" instance=ExtResource( 2 )]
-position = Vector2( 322, 542 )
+position = Vector2( 322, 546 )
 
 [node name="DifferentObjects" type="TileMap" parent="YSort"]
 position = Vector2( 1, 0 )
@@ -1196,9 +1196,8 @@ format = 1
 tile_data = PoolIntArray( 786453, 0, 0 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-visible = false
 stream = ExtResource( 4 )
-attenuation = 4.2871
+attenuation = 3.03144
 
 [node name="TimerSpawnMobs" type="Timer" parent="."]
 

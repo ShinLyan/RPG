@@ -5,8 +5,9 @@ func _ready(): # функция, вызывающая при создании с
 	speed = default_speed # устанавливаем обычную скорость мобов
 	
 	# Устанавливаем hp bar мобам        self - аналог this-> в С++
-	self.hp = 100 
+	self.hp = 60 
 	self.max_hp = 60 # делаем здоровье немного меньше чем у игрока
+	self.bite_strength = 10
 	set_start_hp(self.hp, self.max_hp)
 	# Добавляем моба в группы (для работы клавиши Alt)
 	add_to_group(GlobalVars.entity_group)
@@ -208,7 +209,7 @@ func wander(): # бродить
 # Атака моба
 var target_intercepted = false # есть ли какая-то цель в зоне досягаемости
 var can_bite = true # можно ли атаковать существо (перезарядка, чтобы моб постоянно не бил)
-var bite_strength = 10 # сила удара моба (10 единиц здоровья за удар)
+
 var heal_strength = 10
 
 

@@ -2,7 +2,7 @@ extends Control
 
 
 onready var save_name = "" setget set_name # название сохранения
-onready var save_file = preload("res://Scripts/Resources/SaveData.gd") # загружаем скрипт
+onready var save_file = preload("res://Resources/SaveData.gd") # загружаем скрипт
 
 
 signal on_saved # сигнал о том, что мы игру сохранили, и нужно переключить панель

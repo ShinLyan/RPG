@@ -19,6 +19,7 @@ config/icon="res://icon.png"
 GlobalVars="*res://Scenes/Singletones/GlobalVars.tscn"
 SceneChanger="*res://Scenes/Singletones/SceneChanger.tscn"
 ItemMachine="*res://Scenes/Singletones/ItemMachine.tscn"
+DataImport="*res://Data/DataImport.gd"
 
 [display]
 

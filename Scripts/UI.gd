@@ -9,10 +9,40 @@ onready var hero = get_viewport().get_node("Root/StartWorld").get_player() # —Å—
 
 
 
+onready var shortcuts_path = "SkillBar/Background/HBoxContainer/"
+var loaded_skills = {
+	"Shortcut1": "Fireball", 
+	"Shortcut2": "Ice_Spear", 
+	"Shortcut3": "Lava_Bomb",
+	"Shortcut4": "Ice_Nova"
+}
+
+
+
+
 func _ready():
-	#print(hero.max_hp)
 	health_globe.max_value = hero.max_hp
 	health_globe.value = hero.hp
+	
+	
+	load_shortcuts()
+	
+	for shortcut in get_tree().get_nodes_in_group("Shortcuts"):
+		shortcut.connect("pressed", self, "select_shortcut", [shortcut.get_parent().get_name()])
+		
+
+func load_shortcuts():
+	for shortcut in loaded_skills.keys():
+		var skill_icon = load("res://assets/skills/" + loaded_skills[shortcut] + "_icon.png")
+		get_node(shortcuts_path + shortcut + "/TextureButton").set_normal_texture(skill_icon)
+
+
+
+func select_shortcut(shortcut):
+	var skill_icon = load("res://assets/skills/" + loaded_skills[shortcut] + "_icon.png")
+	get_node(shortcuts_path + "/SelectedSkill/TextureRect").set_texture(skill_icon)
+	hero.selected_skill = loaded_skills[shortcut]
+
 
 
 func _process(delta):

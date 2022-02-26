@@ -40,14 +40,6 @@ func create_inventory():
 
 
 func pick(item):
-	"""
-	if item.item_name == "hp_potion":
-		if self.hp < self.max_hp:
-			self.hp += 10
-			update_hp()
-	else:
-		self.inventory.add_item(item)
-	"""
 	self.inventory.add_item(item)
 	return true
 ###################################
@@ -55,8 +47,8 @@ func pick(item):
 
 ###########################################
 # Полоса здоровья
-onready var hp = 50 # текущее значение hp
-export var max_hp = 100
+var hp # текущее значение hp
+var max_hp
 
 
 # настройка hp bar у персонажей
@@ -64,14 +56,19 @@ func set_start_hp(hp, max_hp):
 	$HP_bar.value = hp # текущее значение hp
 	$HP_bar.max_value = max_hp
 
+onready var hp_bar = $HP_bar
 
 func update_hp(): # обновляет значение hp bar на текущее
-	$HP_bar.value = hp
+	# делаем плавный переход для хп бара
+	$HP_bar/Tween.interpolate_property(hp_bar, 'value', hp_bar.value, hp, 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	$HP_bar/Tween.start()
 
 
 func toggle_hp_bar(): # вкл/выкл hp bar
 	$HP_bar.visible = !$HP_bar.visible
 ###########################################
+
+var bite_strength # сила удара персонажа
 
 
 func reduce_hp(val): # уменьшает hp персонажам
@@ -101,6 +98,21 @@ func die():
 	state = DEATH
 
 
+
+##############################
+var sees_enemies = []
+
+# Выбор приоритетного таргета
+func priority_target():
+	var weight
+	var max_weight
+	var max_weight_id = 0
+	for i in sees_enemies:
+		pass
+		#weight = 
+
+
+################################
 
 # Сохранение игры
 func save():

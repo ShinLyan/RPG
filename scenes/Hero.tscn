@@ -4938,7 +4938,7 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 4 )
 hframes = 32
 vframes = 8
-frame = 87
+frame = 193
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Body" type="Sprite" parent="."]
@@ -4946,7 +4946,7 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 1 )
 hframes = 32
 vframes = 8
-frame = 87
+frame = 193
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Hand" type="Sprite" parent="."]
@@ -4954,7 +4954,7 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 6 )
 hframes = 32
 vframes = 8
-frame = 87
+frame = 193
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Legs" type="Sprite" parent="."]
@@ -4962,7 +4962,7 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 5 )
 hframes = 32
 vframes = 8
-frame = 87
+frame = 193
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Feet" type="Sprite" parent="."]
@@ -4970,7 +4970,7 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 2 )
 hframes = 32
 vframes = 8
-frame = 87
+frame = 193
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Weapon" type="Sprite" parent="."]
@@ -4978,7 +4978,7 @@ position = Vector2( -0.281471, -12.407 )
 texture = ExtResource( 7 )
 hframes = 32
 vframes = 8
-frame = 87
+frame = 193
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Shield" type="Sprite" parent="."]
@@ -4986,7 +4986,7 @@ position = Vector2( -0.281471, -12.407 )
 texture = ExtResource( 3 )
 hframes = 32
 vframes = 8
-frame = 87
+frame = 193
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -5070,6 +5070,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Tween" type="Tween" parent="HP_bar"]
+
 [node name="HitBox" type="Area2D" parent="."]
 visible = false
 
@@ -5082,3 +5084,9 @@ polygon = PoolVector2Array( -15, 19.5833, -8.96822, 29.1484, 9.14966, 29.1484, 1
 [node name="DamagePos" type="Position2D" parent="."]
 
 [node name="FirePos" type="Position2D" parent="."]
+
+[node name="TurnAxis" type="Position2D" parent="."]
+visible = false
+
+[node name="CastPoint" type="Position2D" parent="TurnAxis"]
+position = Vector2( 35, 0 )

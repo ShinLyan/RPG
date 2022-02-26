@@ -3,7 +3,7 @@
 [ext_resource path="res://assets/characters/horse/horse_paint.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Horse.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/UI/over_hp_bar.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/UI/progress_hp_bar_friendly.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/UI/progress_hp_bar_white.png" type="Texture" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "AttackDown"
@@ -985,6 +985,8 @@ graph_offset = Vector2( -99.018, 9.032 )
 [sub_resource type="AnimationNodeStateMachinePlayback" id=99]
 
 [node name="Horse" type="KinematicBody2D"]
+collision_layer = 5
+collision_mask = 5
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -1056,10 +1058,13 @@ margin_bottom = -35.0
 value = 50.0
 texture_over = ExtResource( 3 )
 texture_progress = ExtResource( 4 )
+tint_progress = Color( 0, 0.0156863, 1, 1 )
 nine_patch_stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Tween" type="Tween" parent="HP_bar"]
 
 [node name="HitBox" type="Area2D" parent="."]
 
