@@ -11,19 +11,21 @@ onready var hero = get_viewport().get_node("Root/StartWorld").get_player() # —Å—
 
 onready var shortcuts_path = "SkillBar/Background/HBoxContainer/"
 var loaded_skills = {
-	"Shortcut1": "Fireball", 
-	"Shortcut2": "Ice_Spear", 
+	"Shortcut1": "Ice_Spear", 
+	"Shortcut2": "Fireball", 
 	"Shortcut3": "Lava_Bomb",
-	"Shortcut4": "Ice_Nova"
+	"Shortcut4": "Ice_Nova",
+	"Shortcut5": "Heal"
 }
-
-
 
 
 func _ready():
 	health_globe.max_value = hero.max_hp
 	health_globe.value = hero.hp
 	
+	var skill_icon = load("res://assets/skills/" + loaded_skills["Shortcut1"] + "_icon.png")
+	get_node(shortcuts_path + "/SelectedSkill/TextureRect").set_texture(skill_icon)
+	hero.selected_skill = loaded_skills["Shortcut1"]
 	
 	load_shortcuts()
 	
@@ -45,7 +47,7 @@ func select_shortcut(shortcut):
 
 
 
-func _process(delta):
+func _process(_delta):
 	if !$Control/DeathScreen.is_visible_in_tree():
 		update_globes()
 	else:
@@ -54,7 +56,6 @@ func _process(delta):
 
 
 func update_globes():
-	var temp = get_viewport().get_node("Root/StartWorld").get_player()
 	var new_hp = hero.hp
 	health_globe_tween.interpolate_property(health_globe, "value", health_globe.value, new_hp, 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	health_globe_tween.start()

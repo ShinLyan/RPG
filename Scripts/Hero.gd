@@ -12,21 +12,16 @@ func _unhandled_input(event):
 	if state != DEATH: # если герой жив
 		if event.is_action_pressed("left_click"): # нажатие на ЛКМ
 			state = ATTACK
+			# DamagePos должен двигаться в направлении мыши, но при этом не уходить слишком далеко от игрока
+			$DamagePos.position = get_global_mouse_position() - position
+			$DamagePos.position.x = clamp($DamagePos.position.x, -35, 33)
+			$DamagePos.position.y = clamp($DamagePos.position.y, -35, 33)
 			# при нажатии кнопки создаем DamageArea и добавляем его на карту
 			var attack = load("res://Scenes/DamageArea.tscn").instance() 
 			attack.set_damage(10) # 10 урона наносим одной атакой
 			get_parent().add_child(attack)
 			attack.position = position + $DamagePos.position
-		
-		# дальний бой
-		"""
-		if event.is_action_pressed("ui_fire"): # нажатие на ПКМ
-			state = RANGE
-			var fire = load("res://Scenes/Fire.tscn").instance()
-			get_parent().add_child(fire)
-			fire.position = position + $FirePos.position
-			fire.velocity = get_global_mouse_position() - fire.position
-"""
+
 
 func update_inventory():
 	ui.update_inventory(inventory)
@@ -65,7 +60,7 @@ var shooting = false
 
 var selected_skill
 
-func _process(delta):
+func _process(_delta):
 	skill_loop()
 
 
@@ -76,9 +71,14 @@ func skill_loop():
 		can_fire = false
 		state = RANGE
 		shooting = true
+		# DamagePos должен двигаться в направлении мыши, но при этом не уходить слишком далеко от игрока
+		$FirePos.position = get_global_mouse_position() - position
+		$FirePos.position.x = clamp($FirePos.position.x, -35, 33)
+		$FirePos.position.y = clamp($FirePos.position.y, -35, 33)
 		
 		fire_direction = (get_angle_to(get_global_mouse_position()) / 3.14) * 180
 		get_node("TurnAxis").rotation = get_angle_to(get_global_mouse_position())
+		
 		match DataImport.skill_data[selected_skill].SkillType:
 			"RangedSingleTargetSkill":
 				var skill = load("res://Scenes/RangedSingleTargetSkill.tscn")
@@ -102,14 +102,16 @@ func skill_loop():
 				skill_instance.skill_name = selected_skill
 				skill_instance.position = get_global_position()
 				get_parent().add_child(skill_instance)
-
+			
+			"SingleTargetHeal":
+				var skill = load("res://Scenes/SingleTargetHeal.tscn")
+				var skill_instance = skill.instance()
+				skill_instance.skill_name = selected_skill
+				add_child(skill_instance)
+		
 		yield(get_tree().create_timer(rate_of_fire), "timeout")
 		can_fire = true
 		shooting = false
-
-
-
-
 
 
 #################################
@@ -168,11 +170,6 @@ func get_direction():
 
 # Ближний бой
 func attack_state(_delta):
-	# DamagePos должен двигаться в направлении мыши, но при этом не уходить слишком далеко от игрока
-	$DamagePos.position = get_global_mouse_position() - position
-	$DamagePos.position.x = clamp($DamagePos.position.x, -35, 33)
-	$DamagePos.position.y = clamp($DamagePos.position.y, -35, 33)
-	
 	animationTree.set("parameters/Attack/blend_position", $DamagePos.position)
 	animationState.travel("Attack")
 
@@ -184,11 +181,6 @@ func attack_animation_finished():
 # Дальний бой
 func range_attack_state(_delta):
 	if shooting:
-		# DamagePos должен двигаться в направлении мыши, но при этом не уходить слишком далеко от игрока
-		$FirePos.position = get_global_mouse_position() - position
-		$FirePos.position.x = clamp($FirePos.position.x, -35, 33)
-		$FirePos.position.y = clamp($FirePos.position.y, -35, 33)
-		
 		animationTree.set("parameters/Cast/blend_position", $FirePos.position)
 		animationState.travel("Cast")
 

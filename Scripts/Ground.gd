@@ -17,7 +17,7 @@ var flag = true
 var walkable_cells_list
 
 
-func _process(delta):
+func _process(_delta):
 	if flag:
 		flag = false
 		walkable_cells_list = get_parent().get_walkable_cells_list()
@@ -31,8 +31,8 @@ onready var astar_node = AStar.new()
 onready var rect = $EdgeOfMap.get_used_rect()
 
 
-func astar_add_walkable_cells(walkable_cells_list = []): # формирует список точек, по которым можно ходить
-	for point in walkable_cells_list:
+func astar_add_walkable_cells(walkable_cells_List = []): # формирует список точек, по которым можно ходить
+	for point in walkable_cells_List:
 		var point_index = calculate_point_index(point)
 		astar_node.add_point(point_index, Vector3(point.x, point.y, 0.0))
 
@@ -41,8 +41,8 @@ func calculate_point_index(point):
 	return point.x + rect.size[0] * (point.y + abs(rect.position[1]))
 
 
-func astar_connect_walkable_cells_diagonal(walkable_cells_list = []):
-	for point in walkable_cells_list:
+func astar_connect_walkable_cells_diagonal(walkable_cells_List = []):
+	for point in walkable_cells_List:
 		var point_index = calculate_point_index(point)
 		astar_node.add_point(point_index, Vector3(point.x, point.y, 0.0))
 		###

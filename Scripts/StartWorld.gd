@@ -4,7 +4,7 @@ var walkable_cells_list = []
 
 
 func _ready():
-	create_file_map()
+	#create_file_map()
 	walkable_cells_list = generate_walkable_cells()
 	
 	var num_items = 100 # количество генерируемых предметов на карте
@@ -27,12 +27,12 @@ func generate_walkable_cells(): # формирует список точек, п
 	obstacles += $YSort1/GroundBottom.get_used_cells() # добавляем озеро
 	obstacles += $YSort1/Bridge.get_used_cells() # добавляем мост
 	var ground = $Ground.get_used_cells()
-	var walkable_cells_list = []
+	var walkable_cells_List = []
 	for point in ground:
 		if point in obstacles:
 			continue
-		walkable_cells_list.append(point)
-	return walkable_cells_list
+		walkable_cells_List.append(point)
+	return walkable_cells_List
 
 
 func add_lying_item(i, x, y):
@@ -43,7 +43,7 @@ func add_lying_item(i, x, y):
 func create_items(num_items):
 	var items_to_spawn = ItemMachine.get_openworld_items()
 	# генерируем предметы на карте рандомным образом 
-	for i in range(num_items):
+	for _i in range(num_items):
 		# выбираем рандомно число от 0 до 1 - это предметы, которые должны быть на карте
 		randomize()
 		var num_rand = int(rand_range(0, len(items_to_spawn)))
@@ -73,7 +73,7 @@ onready var troll = preload("res://Scenes/Troll.tscn")
 
 func create_trolls(num_trolls):
 	# генерируем троллей на карте рандомным образом
-	for i in range(num_trolls):
+	for _i in range(num_trolls):
 		# instance - создает объект по примеру исходной сцены
 		var new_troll = troll.instance() # создаём тролля
 		randomize()
@@ -87,7 +87,6 @@ func create_trolls(num_trolls):
 func spawn_trolls():
 	var cave = $YSort/Cave.get_used_cells()
 	# выбираем рандомно ячейку, в которую заспавним тролля
-	var flag = true
 	var pos = Vector2()
 	while true:
 		randomize()
@@ -187,7 +186,7 @@ func save():
 
 
 # Загрузка игры
-func load_from_data(data):
+func load_from_data(_data):
 	for item in $Items.get_children():
 		$Items.remove_child(item)
 		item.queue_free()

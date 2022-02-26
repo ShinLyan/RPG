@@ -17,6 +17,12 @@ func _ready():
 	
 	$Load/Box/Buttons/Cancel.connect("pressed", $Load, "hide")
 	$Load/Box/Buttons/Cancel.connect("pressed", $Buttons, "show")
+	
+	$Buttons/Quit.connect("pressed", self, "quit")
+
+
+func quit():
+	get_tree().quit()
 
 
 func change_scene(path): # смена сцены

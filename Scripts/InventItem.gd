@@ -37,8 +37,8 @@ func set_inventory(val):
 	inventory = val
 
 
-func set_item(item_name, amount, props):
-	self.item_name = item_name
+func set_item(Item_name, amount, props):
+	self.item_name = Item_name
 	self.item_amount = amount
 	self.properties = props.duplicate()
 	$Box/Texture.texture = load("res://Sprites/Items/%s.png" % item_name)

@@ -41,10 +41,10 @@ func show_inventory(inventory):
 			i.connect("on_picked", self, "pick", [i])
 
 
-func pick(item):
+func pick(Item):
 	if picked_item:
 		unpick()
-	picked_item = item
+	picked_item = Item
 	item.pick() # включаем рамочку предмета
 	
 	for i in item_buttons.values():

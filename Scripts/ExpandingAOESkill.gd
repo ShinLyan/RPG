@@ -23,7 +23,6 @@ func _ready():
 func AOE_attack():
 	get_node("AnimationPlayer").play(skill_name)
 	var radius_step = radius / (expansion_time / 0.05)
-	print(expansion_time)
 	while get_node("CollisionShape2D").get_shape().radius <= radius:
 		var shape = circle_shape.duplicate()
 		shape.set_radius(get_node("CollisionShape2D").get_shape().radius + radius_step)

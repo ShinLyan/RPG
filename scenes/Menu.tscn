@@ -47,15 +47,18 @@ __meta__ = {
 }
 
 [node name="Button" parent="Buttons" instance=ExtResource( 1 )]
-margin_top = 198.0
-margin_bottom = 248.0
+margin_top = 171.0
+margin_bottom = 221.0
 text = "New game"
 scene_to_open = "res://Scenes/Root.tscn"
 
 [node name="Open_load" parent="Buttons" instance=ExtResource( 1 )]
-margin_top = 252.0
-margin_bottom = 302.0
 text = "Load game"
+
+[node name="Quit" parent="Buttons" instance=ExtResource( 1 )]
+margin_top = 279.0
+margin_bottom = 329.0
+text = "Quit"
 
 [node name="Mouse_cursor" parent="." instance=ExtResource( 5 )]
 

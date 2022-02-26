@@ -52,9 +52,9 @@ var max_hp
 
 
 # настройка hp bar у персонажей
-func set_start_hp(hp, max_hp): 
-	$HP_bar.value = hp # текущее значение hp
-	$HP_bar.max_value = max_hp
+func set_start_hp(HP, max_HP): 
+	$HP_bar.value = HP # текущее значение hp
+	$HP_bar.max_value = max_HP
 
 onready var hp_bar = $HP_bar
 
@@ -98,7 +98,7 @@ func die():
 	state = DEATH
 
 
-
+"""
 ##############################
 var sees_enemies = []
 
@@ -113,6 +113,8 @@ func priority_target():
 
 
 ################################
+"""
+
 
 # Сохранение игры
 func save():

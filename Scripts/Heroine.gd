@@ -5,8 +5,8 @@ func _ready(): # функция, вызывающая при создании с
 	speed = default_speed # устанавливаем обычную скорость мобов
 	
 	# Устанавливаем hp bar мобам        self - аналог this-> в С++
-	self.hp = 60 
-	self.max_hp = 60 # делаем здоровье немного меньше чем у игрока
+	self.hp = 80 
+	self.max_hp = 80 # делаем здоровье немного меньше чем у игрока
 	self.bite_strength = 10
 	set_start_hp(self.hp, self.max_hp)
 	# Добавляем моба в группы (для работы клавиши Alt)
@@ -18,6 +18,23 @@ func _ready(): # функция, вызывающая при создании с
 	self.inventory.add_item(item)
 
 
+var can_heal = true
+
+func _process(_delta):
+	if self.hp <= self.max_hp / 2 and can_heal:
+		can_heal = false
+		yield(get_tree().create_timer(0.25), "timeout") # задержка перед хилом
+		if state != DEATH: # если персонаж живой
+			cancel_movement()
+			state = ATTACK
+			var skill = load("res://Scenes/SingleTargetHeal.tscn")
+			var skill_instance = skill.instance()
+			skill_instance.skill_name = "Heal"
+			add_child(skill_instance)
+			yield(get_tree().create_timer(1), "timeout")
+			can_heal = true
+
+
 func _physics_process(delta):
 	match state:
 		MOVE:
@@ -26,6 +43,11 @@ func _physics_process(delta):
 			attack_state(delta)
 		DEATH:
 			death_state(delta)
+
+
+func range_state(delta):
+	animationTree.set("parameters/Cast/blend_position", velocity)
+	animationState.travel("Cast")
 
 
 # Передвижение моба
