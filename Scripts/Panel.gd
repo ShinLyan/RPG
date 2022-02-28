@@ -45,7 +45,7 @@ func pick(Item):
 	if picked_item:
 		unpick()
 	picked_item = Item
-	item.pick() # включаем рамочку предмета
+	Item.pick() # включаем рамочку предмета
 	
 	for i in item_buttons.values():
 		i.show()

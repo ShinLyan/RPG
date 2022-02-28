@@ -12,7 +12,7 @@ var stack_limit = 8 # предметы группируются связками
 
 func _input(event):
 	if event.is_action_pressed("e_click"): # на клик клавиши "E" совершается подбор предмета
-		var pl = get_parent().get_parent().get_parent().get_player()
+		var pl = get_parent().get_parent().get_player()
 		
 		# проверяем рядом ли игрок
 		if abs(pl.position.x - position.x) < 30 and abs(pl.position.y - position.y) < 30:

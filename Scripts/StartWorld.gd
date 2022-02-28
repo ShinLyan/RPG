@@ -56,7 +56,7 @@ func create_items(num_items):
 
 
 func add_item_to_world(item, pos: Vector2):
-	$YSort/Items.add_child(item) # добавляем предмет на карту
+	$Items.add_child(item) # добавляем предмет на карту
 	item.position = pos # задаём координаты предмету
 ##########################
 

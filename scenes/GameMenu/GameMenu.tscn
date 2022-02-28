@@ -51,10 +51,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Deco2" type="Sprite" parent="Panel/Texture"]
-position = Vector2( 265.17, 105.125 )
-scale = Vector2( 1.05227, 1.05227 )
+[node name="TextureRect" type="TextureRect" parent="Panel/Texture"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -83.0
+margin_top = 49.0
+margin_right = 83.0
+margin_bottom = 110.0
 texture = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Save" type="Control" parent="Panel"]
 anchor_left = 0.5
