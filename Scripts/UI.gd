@@ -4,7 +4,7 @@ extends CanvasLayer
 onready var health_globe = $HealthGlobe/GlobeFull/TextureProgress
 onready var health_globe_tween = $HealthGlobe/GlobeFull/TextureProgress/Tween
 
-#onready var hero = get_node("")
+
 onready var hero = get_viewport().get_node("Root/StartWorld").get_player() # ссылка на игрока
 
 

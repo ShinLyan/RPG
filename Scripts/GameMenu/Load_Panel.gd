@@ -10,9 +10,9 @@ signal on_loaded(data)
 
 func _ready():
 	hide() # скрываем панель при включении
-	$Box/Scroll/ItemList.connect("item_selected", self, "set_file_to_load")
-	$Box/Buttons/Load.connect("pressed", self, "load_file")
-	connect("on_loaded", SceneChanger, "load_game")
+	var _var = $Box/Scroll/ItemList.connect("item_selected", self, "set_file_to_load")
+	_var = $Box/Buttons/Load.connect("pressed", self, "load_file")
+	_var = connect("on_loaded", SceneChanger, "load_game")
 
 
 func set_file_to_load(ind): # ind - индекс сохранения из списка

@@ -12,8 +12,7 @@ func _ready():
 	
 	var num_trolls = 0 # количество генерируемых предметов на карте
 	create_trolls(num_trolls)
-	
-	$TimerSpawnMobs.start(30)
+	$TimerSpawnMobs.start(4.8 * exp(0.25 * GlobalVars.num_trolls))
 
 
 func _process(_delta):
@@ -207,3 +206,4 @@ func get_walkable_cells_list():
 
 func _on_TimerSpawnMobs_timeout():
 	spawn_trolls()
+	$TimerSpawnMobs.start(4.8 * exp(0.25 * GlobalVars.num_trolls))

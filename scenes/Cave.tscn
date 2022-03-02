@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/terrains/Cave.tres" type="TileSet" id=1]
+[ext_resource path="res://scenes/Hero.tscn" type="PackedScene" id=2]
+
+[node name="Cave" type="Node2D"]
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="Ground" type="TileMap" parent="YSort"]
+mode = 1
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 64, 32 )
+cell_y_sort = true
+format = 1
+
+[node name="Hero" parent="YSort" instance=ExtResource( 2 )]
+position = Vector2( 281, 411 )
+
+[node name="Border" type="TileMap" parent="YSort"]
+position = Vector2( 13, 1 )
+mode = 1
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 64, 32 )
+cell_y_sort = true
+format = 1
+tile_data = PoolIntArray( 131079, 3, 1, 131080, 3, 1, 131081, 3, 1, 131082, 3, 1, 131083, 5, 1, 196619, 4, 5, 196620, 3, 1, 196621, 3, 1, 196622, 3, 1, 196623, 3, 1 )
+
+[node name="Border3" type="TileMap" parent="YSort"]
+mode = 1
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 64, 32 )
+cell_y_sort = true
+format = 1
+
+[node name="Border2" type="TileMap" parent="YSort"]
+mode = 1
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 64, 32 )
+cell_y_sort = true
+format = 1

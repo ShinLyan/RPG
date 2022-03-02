@@ -2,7 +2,7 @@ extends CanvasLayer
 
 
 func change_scene(path): # смена сцены, path - путь
-	get_tree().change_scene(path)
+	var _var = get_tree().change_scene(path)
 	get_tree().paused = false
 
 

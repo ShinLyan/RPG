@@ -154,7 +154,7 @@ func move_state(_delta):
 		animationState.travel("Run")
 	else:
 		animationState.travel("Idle")
-	move_and_slide(direction * speed)
+	var _var = move_and_slide(direction * speed)
 
 
 func get_direction():

@@ -38,7 +38,7 @@ var default_speed = 45 # обычная скорость моба
 func move_state(_delta): # Передвижение моба
 	if velocity: # если у существа есть скорость
 		prev_pos = position # сперва фиксируем предыдущую позицию
-		move_and_slide(velocity) # двигаем его на величину скорости
+		var _var = move_and_slide(velocity) # двигаем его на величину скорости
 	wander() # бродим
 
 

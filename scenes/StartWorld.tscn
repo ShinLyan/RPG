@@ -1098,7 +1098,7 @@ tile_data = PoolIntArray( -1441778, 26, 0, -1310724, 26, 0, -1310723, 26, 0, -13
 [node name="YSort" type="YSort" parent="."]
 
 [node name="Heroine" parent="YSort" instance=ExtResource( 9 )]
-position = Vector2( 431, 77 )
+position = Vector2( 1078, 384 )
 
 [node name="Border" type="TileMap" parent="YSort"]
 position = Vector2( 1, -2 )
@@ -1147,7 +1147,7 @@ format = 1
 tile_data = PoolIntArray( 720895, 10, 0, 655360, 11, 0, 786431, 9, 0, 851967, 9, 0, 917503, 9, 0, 983039, 9, 0, 1048575, 9, 0, 1114111, 10, 3 )
 
 [node name="Hero" parent="YSort" instance=ExtResource( 2 )]
-position = Vector2( 322, 541 )
+position = Vector2( 316, 544 )
 
 [node name="DifferentObjects" type="TileMap" parent="YSort"]
 position = Vector2( 1, 0 )

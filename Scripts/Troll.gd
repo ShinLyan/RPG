@@ -3,7 +3,7 @@ extends "res://Scripts/Character.gd"
 
 func _ready(): # функция, вызывающая при создании существа
 	speed = default_speed # устанавливаем обычную скорость мобов
-	
+	GlobalVars.num_trolls += 1
 	# Устанавливаем hp bar мобам        self - аналог this-> в С++
 	self.hp = 60 
 	self.max_hp = 60 # делаем здоровье немного меньше чем у игрока
@@ -41,7 +41,7 @@ var default_speed = 45 # обычная скорость моба
 func move_state(_delta): # Передвижение моба
 	if velocity: # если у существа есть скорость
 		prev_pos = position # сперва фиксируем предыдущую позицию
-		move_and_slide(velocity) # двигаем его на величину скорости
+		var _var = move_and_slide(velocity) # двигаем его на величину скорости
 	wander() # бродим
 	search_for_target() # ищем таргет
 	
@@ -213,6 +213,7 @@ func death_state(_delta):
 
 
 func death_animation_finished():
+	GlobalVars.num_trolls -= 1
 	get_parent().remove_child(self) # удаляем узел
 	queue_free() # освобождаем память от него
 ################################################################################

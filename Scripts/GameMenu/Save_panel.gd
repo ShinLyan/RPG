@@ -10,9 +10,9 @@ signal on_saved # сигнал о том, что мы игру сохранил�
 
 func _ready():
 	hide() # скрываем панель при включении
-	$Box/Naming.connect("text_changed", self, "set_name")
-	$Box/Scroll/ItemList.connect("item_selected", self, "change_line")
-	$Box/Buttons/Save.connect("pressed", self, "save")
+	var _var = $Box/Naming.connect("text_changed", self, "set_name")
+	_var = $Box/Scroll/ItemList.connect("item_selected", self, "change_line")
+	_var = $Box/Buttons/Save.connect("pressed", self, "save")
 
 
 func open(): # открываем панель
@@ -58,11 +58,6 @@ func save(): # сохранение файла
 		
 		var save_path = GlobalVars.save_dir.plus_file(GlobalVars.save_temp % save_name) # полный путь сохранения файла
 		
-		ResourceSaver.save(save_path, file)
+		var _var = ResourceSaver.save(save_path, file)
 		
 		emit_signal("on_saved") # активируем сигнал о том, что произошло сохранение
-
-
-
-
-

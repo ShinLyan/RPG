@@ -2,7 +2,7 @@ extends Control
 
 
 func _ready():
-	$Buttons/Button.connect("pressed", self, "change_scene", [$Buttons/Button.scene_to_open])
+	var _var = $Buttons/Button.connect("pressed", self, "change_scene", [$Buttons/Button.scene_to_open])
 	# Первый параметр  - название сигнала в "". Сигнал принадлежит узлу, который вызывает функция connect().
 	# (в данном случае к кнопке)
 	# Второй параметр - подсоединяемый узел, тот, в который приходит результат при активации сигнала
@@ -12,13 +12,13 @@ func _ready():
 	# Последний параметр - список передаваемых параметров. Параметры передаются в запускаемую функцию.
 	# (в данном случае в списке только scene_to_open)
 	
-	$Buttons/Open_load.connect("pressed", $Load, "open") # открываем Load
-	$Buttons/Open_load.connect("pressed", $Buttons, "hide") # скрываем Buttons
+	_var = $Buttons/Open_load.connect("pressed", $Load, "open") # открываем Load
+	_var = $Buttons/Open_load.connect("pressed", $Buttons, "hide") # скрываем Buttons
 	
-	$Load/Box/Buttons/Cancel.connect("pressed", $Load, "hide")
-	$Load/Box/Buttons/Cancel.connect("pressed", $Buttons, "show")
+	_var = $Load/Box/Buttons/Cancel.connect("pressed", $Load, "hide")
+	_var = $Load/Box/Buttons/Cancel.connect("pressed", $Buttons, "show")
 	
-	$Buttons/Quit.connect("pressed", self, "quit")
+	_var = $Buttons/Quit.connect("pressed", self, "quit")
 
 
 func quit():

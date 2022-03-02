@@ -45,7 +45,7 @@ func _physics_process(delta):
 			death_state(delta)
 
 
-func range_state(delta):
+func range_state(_delta):
 	animationTree.set("parameters/Cast/blend_position", velocity)
 	animationState.travel("Cast")
 
@@ -62,7 +62,7 @@ var default_speed = 45
 func move_state(_delta): # Передвижение моба
 	if velocity: # если у существа есть скорость
 		prev_pos = position # сперва фиксируем предыдущую позицию
-		move_and_slide(velocity) # двигаем его на величину скорости
+		var _var = move_and_slide(velocity) # двигаем его на величину скорости
 		
 		# ограничиваем его координаты в рамках карты
 		position.x = clamp(position.x, -516, 1412) 
