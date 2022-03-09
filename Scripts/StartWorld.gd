@@ -67,7 +67,7 @@ func transform2dToIso(VecList):
 	return Vector2(X2D, Y2D)
 
 
-onready var troll = preload("res://Scenes/Troll.tscn")
+onready var troll = preload("res://Scenes/Characters/Troll.tscn")
 
 
 func create_trolls(num_trolls):
@@ -102,8 +102,8 @@ func spawn_trolls():
 
 func get_player():
 	# проверяем существует ли узел игрока
-	if has_node("YSort/Hero"):
-		return $YSort/Hero
+	if has_node("YSort/Player"):
+		return $YSort/Player
 	else:
 		return false
 

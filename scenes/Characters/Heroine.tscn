@@ -1,4 +1,4 @@
-[gd_scene load_steps=132 format=2]
+[gd_scene load_steps=131 format=2]
 
 [ext_resource path="res://assets/characters/heroine/clothes/mage_skirt_alt1.png" type="Texture" id=1]
 [ext_resource path="res://assets/characters/heroine/clothes/mage_hood_alt1.png" type="Texture" id=2]
@@ -7,9 +7,8 @@
 [ext_resource path="res://assets/characters/heroine/clothes/mage_boots_alt1.png" type="Texture" id=5]
 [ext_resource path="res://assets/characters/heroine/clothes/mage_vest_alt1.png" type="Texture" id=6]
 [ext_resource path="res://assets/characters/heroine/weapons/staff.png" type="Texture" id=7]
-[ext_resource path="res://Scripts/Heroine.gd" type="Script" id=8]
-[ext_resource path="res://Sprites/UI/over_hp_bar.png" type="Texture" id=9]
-[ext_resource path="res://Sprites/UI/progress_hp_bar_white.png" type="Texture" id=10]
+[ext_resource path="res://Scripts/Characters/Heroine.gd" type="Script" id=8]
+[ext_resource path="res://Scenes/Characters/AI.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Animation" id=163]
 resource_name = "AttackDown"
@@ -4603,271 +4602,271 @@ tracks/6/keys = {
 "values": [ 92, 93, 94, 95 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=262]
+[sub_resource type="AnimationNodeAnimation" id=211]
 animation = "AttackLeft"
 
-[sub_resource type="AnimationNodeAnimation" id=263]
+[sub_resource type="AnimationNodeAnimation" id=212]
 animation = "AttackLeftDown"
 
-[sub_resource type="AnimationNodeAnimation" id=264]
+[sub_resource type="AnimationNodeAnimation" id=213]
 animation = "AttackDown"
 
-[sub_resource type="AnimationNodeAnimation" id=265]
+[sub_resource type="AnimationNodeAnimation" id=214]
 animation = "AttackRightDown"
 
-[sub_resource type="AnimationNodeAnimation" id=266]
+[sub_resource type="AnimationNodeAnimation" id=215]
 animation = "AttackRight"
 
-[sub_resource type="AnimationNodeAnimation" id=267]
+[sub_resource type="AnimationNodeAnimation" id=216]
 animation = "AttackRightUp"
 
-[sub_resource type="AnimationNodeAnimation" id=268]
+[sub_resource type="AnimationNodeAnimation" id=217]
 animation = "AttackUp"
 
-[sub_resource type="AnimationNodeAnimation" id=269]
+[sub_resource type="AnimationNodeAnimation" id=218]
 animation = "AttackLeftUp"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id=49]
-blend_point_0/node = SubResource( 262 )
+blend_point_0/node = SubResource( 211 )
 blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 263 )
+blend_point_1/node = SubResource( 212 )
 blend_point_1/pos = Vector2( -0.8, 0.8 )
-blend_point_2/node = SubResource( 264 )
+blend_point_2/node = SubResource( 213 )
 blend_point_2/pos = Vector2( 0, 1 )
-blend_point_3/node = SubResource( 265 )
+blend_point_3/node = SubResource( 214 )
 blend_point_3/pos = Vector2( 0.8, 0.8 )
-blend_point_4/node = SubResource( 266 )
+blend_point_4/node = SubResource( 215 )
 blend_point_4/pos = Vector2( 1, 0 )
-blend_point_5/node = SubResource( 267 )
+blend_point_5/node = SubResource( 216 )
 blend_point_5/pos = Vector2( 0.8, -0.8 )
-blend_point_6/node = SubResource( 268 )
+blend_point_6/node = SubResource( 217 )
 blend_point_6/pos = Vector2( 0, -1 )
-blend_point_7/node = SubResource( 269 )
+blend_point_7/node = SubResource( 218 )
 blend_point_7/pos = Vector2( -0.8, -0.8 )
 min_space = Vector2( -1.1, -1.1 )
 max_space = Vector2( 1.1, 1.1 )
 blend_mode = 1
 
-[sub_resource type="AnimationNodeAnimation" id=270]
+[sub_resource type="AnimationNodeAnimation" id=219]
 animation = "CastLeft"
 
-[sub_resource type="AnimationNodeAnimation" id=271]
+[sub_resource type="AnimationNodeAnimation" id=220]
 animation = "CastLeftDown"
 
-[sub_resource type="AnimationNodeAnimation" id=272]
+[sub_resource type="AnimationNodeAnimation" id=221]
 animation = "CastDown"
 
-[sub_resource type="AnimationNodeAnimation" id=273]
+[sub_resource type="AnimationNodeAnimation" id=222]
 animation = "CastRightDown"
 
-[sub_resource type="AnimationNodeAnimation" id=274]
+[sub_resource type="AnimationNodeAnimation" id=223]
 animation = "CastRight"
 
-[sub_resource type="AnimationNodeAnimation" id=275]
+[sub_resource type="AnimationNodeAnimation" id=224]
 animation = "CastRightUp"
 
-[sub_resource type="AnimationNodeAnimation" id=276]
+[sub_resource type="AnimationNodeAnimation" id=225]
 animation = "CastUp"
 
-[sub_resource type="AnimationNodeAnimation" id=277]
+[sub_resource type="AnimationNodeAnimation" id=226]
 animation = "CastLeftUp"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id=58]
-blend_point_0/node = SubResource( 270 )
+blend_point_0/node = SubResource( 219 )
 blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 271 )
+blend_point_1/node = SubResource( 220 )
 blend_point_1/pos = Vector2( -0.8, 0.8 )
-blend_point_2/node = SubResource( 272 )
+blend_point_2/node = SubResource( 221 )
 blend_point_2/pos = Vector2( 0, 1 )
-blend_point_3/node = SubResource( 273 )
+blend_point_3/node = SubResource( 222 )
 blend_point_3/pos = Vector2( 0.8, 0.8 )
-blend_point_4/node = SubResource( 274 )
+blend_point_4/node = SubResource( 223 )
 blend_point_4/pos = Vector2( 1, 0 )
-blend_point_5/node = SubResource( 275 )
+blend_point_5/node = SubResource( 224 )
 blend_point_5/pos = Vector2( 0.8, -0.8 )
-blend_point_6/node = SubResource( 276 )
+blend_point_6/node = SubResource( 225 )
 blend_point_6/pos = Vector2( 0, -1 )
-blend_point_7/node = SubResource( 277 )
+blend_point_7/node = SubResource( 226 )
 blend_point_7/pos = Vector2( -0.8, -0.8 )
 min_space = Vector2( -1.1, -1.1 )
 max_space = Vector2( 1.1, 1.1 )
 blend_mode = 1
 
-[sub_resource type="AnimationNodeAnimation" id=278]
+[sub_resource type="AnimationNodeAnimation" id=227]
 animation = "DeathLeft"
 
-[sub_resource type="AnimationNodeAnimation" id=279]
+[sub_resource type="AnimationNodeAnimation" id=228]
 animation = "DeathLeftDown"
 
-[sub_resource type="AnimationNodeAnimation" id=280]
+[sub_resource type="AnimationNodeAnimation" id=229]
 animation = "DeathDown"
 
-[sub_resource type="AnimationNodeAnimation" id=281]
+[sub_resource type="AnimationNodeAnimation" id=230]
 animation = "DeathRightDown"
 
-[sub_resource type="AnimationNodeAnimation" id=282]
+[sub_resource type="AnimationNodeAnimation" id=231]
 animation = "DeathRight"
 
-[sub_resource type="AnimationNodeAnimation" id=283]
+[sub_resource type="AnimationNodeAnimation" id=232]
 animation = "DeathRightUp"
 
-[sub_resource type="AnimationNodeAnimation" id=284]
+[sub_resource type="AnimationNodeAnimation" id=233]
 animation = "DeathUp"
 
-[sub_resource type="AnimationNodeAnimation" id=285]
+[sub_resource type="AnimationNodeAnimation" id=234]
 animation = "DeathLeftUp"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id=67]
-blend_point_0/node = SubResource( 278 )
+blend_point_0/node = SubResource( 227 )
 blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 279 )
+blend_point_1/node = SubResource( 228 )
 blend_point_1/pos = Vector2( -0.8, 0.8 )
-blend_point_2/node = SubResource( 280 )
+blend_point_2/node = SubResource( 229 )
 blend_point_2/pos = Vector2( 0, 1 )
-blend_point_3/node = SubResource( 281 )
+blend_point_3/node = SubResource( 230 )
 blend_point_3/pos = Vector2( 0.8, 0.8 )
-blend_point_4/node = SubResource( 282 )
+blend_point_4/node = SubResource( 231 )
 blend_point_4/pos = Vector2( 1, 0 )
-blend_point_5/node = SubResource( 283 )
+blend_point_5/node = SubResource( 232 )
 blend_point_5/pos = Vector2( 0.8, -0.8 )
-blend_point_6/node = SubResource( 284 )
+blend_point_6/node = SubResource( 233 )
 blend_point_6/pos = Vector2( 0, -1 )
-blend_point_7/node = SubResource( 285 )
+blend_point_7/node = SubResource( 234 )
 blend_point_7/pos = Vector2( -0.8, -0.8 )
 min_space = Vector2( -1.1, -1.1 )
 max_space = Vector2( 1.1, 1.1 )
 blend_mode = 1
 
-[sub_resource type="AnimationNodeAnimation" id=286]
+[sub_resource type="AnimationNodeAnimation" id=235]
 animation = "IdleDownLeft"
 
-[sub_resource type="AnimationNodeAnimation" id=287]
+[sub_resource type="AnimationNodeAnimation" id=236]
 animation = "IdleDown"
 
-[sub_resource type="AnimationNodeAnimation" id=288]
+[sub_resource type="AnimationNodeAnimation" id=237]
 animation = "IdleDownRight"
 
-[sub_resource type="AnimationNodeAnimation" id=289]
+[sub_resource type="AnimationNodeAnimation" id=238]
 animation = "IdleRight"
 
-[sub_resource type="AnimationNodeAnimation" id=290]
+[sub_resource type="AnimationNodeAnimation" id=239]
 animation = "IdleTopRight"
 
-[sub_resource type="AnimationNodeAnimation" id=291]
+[sub_resource type="AnimationNodeAnimation" id=240]
 animation = "IdleTop"
 
-[sub_resource type="AnimationNodeAnimation" id=292]
+[sub_resource type="AnimationNodeAnimation" id=241]
 animation = "IdleDownLeft"
 
-[sub_resource type="AnimationNodeAnimation" id=293]
+[sub_resource type="AnimationNodeAnimation" id=242]
 animation = "IdleLeft"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id=76]
-blend_point_0/node = SubResource( 286 )
+blend_point_0/node = SubResource( 235 )
 blend_point_0/pos = Vector2( -0.8, 0.8 )
-blend_point_1/node = SubResource( 287 )
+blend_point_1/node = SubResource( 236 )
 blend_point_1/pos = Vector2( 0, 1 )
-blend_point_2/node = SubResource( 288 )
+blend_point_2/node = SubResource( 237 )
 blend_point_2/pos = Vector2( 0.8, 0.8 )
-blend_point_3/node = SubResource( 289 )
+blend_point_3/node = SubResource( 238 )
 blend_point_3/pos = Vector2( 1, 0 )
-blend_point_4/node = SubResource( 290 )
+blend_point_4/node = SubResource( 239 )
 blend_point_4/pos = Vector2( 0.8, -0.8 )
-blend_point_5/node = SubResource( 291 )
+blend_point_5/node = SubResource( 240 )
 blend_point_5/pos = Vector2( 0, -1 )
-blend_point_6/node = SubResource( 292 )
+blend_point_6/node = SubResource( 241 )
 blend_point_6/pos = Vector2( -0.8, -0.8 )
-blend_point_7/node = SubResource( 293 )
+blend_point_7/node = SubResource( 242 )
 blend_point_7/pos = Vector2( -1, 0 )
 min_space = Vector2( -1.1, -1.1 )
 max_space = Vector2( 1.1, 1.1 )
 blend_mode = 1
 
-[sub_resource type="AnimationNodeAnimation" id=294]
+[sub_resource type="AnimationNodeAnimation" id=243]
 animation = "RunLeft"
 
-[sub_resource type="AnimationNodeAnimation" id=295]
+[sub_resource type="AnimationNodeAnimation" id=244]
 animation = "RunDownLeft"
 
-[sub_resource type="AnimationNodeAnimation" id=296]
+[sub_resource type="AnimationNodeAnimation" id=245]
 animation = "RunDown"
 
-[sub_resource type="AnimationNodeAnimation" id=297]
+[sub_resource type="AnimationNodeAnimation" id=246]
 animation = "RunDownRight"
 
-[sub_resource type="AnimationNodeAnimation" id=298]
+[sub_resource type="AnimationNodeAnimation" id=247]
 animation = "RunRight"
 
-[sub_resource type="AnimationNodeAnimation" id=299]
+[sub_resource type="AnimationNodeAnimation" id=248]
 animation = "RunTopRight"
 
-[sub_resource type="AnimationNodeAnimation" id=300]
+[sub_resource type="AnimationNodeAnimation" id=249]
 animation = "RunTop"
 
-[sub_resource type="AnimationNodeAnimation" id=301]
+[sub_resource type="AnimationNodeAnimation" id=250]
 animation = "RunTopLeft"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id=85]
-blend_point_0/node = SubResource( 294 )
+blend_point_0/node = SubResource( 243 )
 blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 295 )
+blend_point_1/node = SubResource( 244 )
 blend_point_1/pos = Vector2( -0.8, 0.8 )
-blend_point_2/node = SubResource( 296 )
+blend_point_2/node = SubResource( 245 )
 blend_point_2/pos = Vector2( 0, 1 )
-blend_point_3/node = SubResource( 297 )
+blend_point_3/node = SubResource( 246 )
 blend_point_3/pos = Vector2( 0.8, 0.8 )
-blend_point_4/node = SubResource( 298 )
+blend_point_4/node = SubResource( 247 )
 blend_point_4/pos = Vector2( 1, 0 )
-blend_point_5/node = SubResource( 299 )
+blend_point_5/node = SubResource( 248 )
 blend_point_5/pos = Vector2( 0.8, -0.8 )
-blend_point_6/node = SubResource( 300 )
+blend_point_6/node = SubResource( 249 )
 blend_point_6/pos = Vector2( 0, -1 )
-blend_point_7/node = SubResource( 301 )
+blend_point_7/node = SubResource( 250 )
 blend_point_7/pos = Vector2( -0.8, -0.8 )
 min_space = Vector2( -1.1, -1.1 )
 max_space = Vector2( 1.1, 1.1 )
 blend_mode = 1
 
-[sub_resource type="AnimationNodeAnimation" id=302]
+[sub_resource type="AnimationNodeAnimation" id=251]
 animation = "ShootLeft"
 
-[sub_resource type="AnimationNodeAnimation" id=303]
+[sub_resource type="AnimationNodeAnimation" id=252]
 animation = "ShootDown"
 
-[sub_resource type="AnimationNodeAnimation" id=304]
+[sub_resource type="AnimationNodeAnimation" id=253]
 animation = "ShootRight"
 
-[sub_resource type="AnimationNodeAnimation" id=305]
+[sub_resource type="AnimationNodeAnimation" id=254]
 animation = "ShootUp"
 
-[sub_resource type="AnimationNodeAnimation" id=211]
+[sub_resource type="AnimationNodeAnimation" id=255]
 animation = "ShootLeftUp"
 
-[sub_resource type="AnimationNodeAnimation" id=212]
+[sub_resource type="AnimationNodeAnimation" id=256]
 animation = "ShootLeftDown"
 
-[sub_resource type="AnimationNodeAnimation" id=213]
+[sub_resource type="AnimationNodeAnimation" id=257]
 animation = "ShootRightDown"
 
-[sub_resource type="AnimationNodeAnimation" id=214]
+[sub_resource type="AnimationNodeAnimation" id=258]
 animation = "ShootRightUp"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id=150]
-blend_point_0/node = SubResource( 302 )
+blend_point_0/node = SubResource( 251 )
 blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 303 )
+blend_point_1/node = SubResource( 252 )
 blend_point_1/pos = Vector2( 0, 1 )
-blend_point_2/node = SubResource( 304 )
+blend_point_2/node = SubResource( 253 )
 blend_point_2/pos = Vector2( 1, 0 )
-blend_point_3/node = SubResource( 305 )
+blend_point_3/node = SubResource( 254 )
 blend_point_3/pos = Vector2( 0, -1 )
-blend_point_4/node = SubResource( 211 )
+blend_point_4/node = SubResource( 255 )
 blend_point_4/pos = Vector2( -0.8, -0.8 )
-blend_point_5/node = SubResource( 212 )
+blend_point_5/node = SubResource( 256 )
 blend_point_5/pos = Vector2( -0.8, 0.8 )
-blend_point_6/node = SubResource( 213 )
+blend_point_6/node = SubResource( 257 )
 blend_point_6/pos = Vector2( 0.8, 0.8 )
-blend_point_7/node = SubResource( 214 )
+blend_point_7/node = SubResource( 258 )
 blend_point_7/pos = Vector2( 0.8, -0.8 )
 min_space = Vector2( -1.1, -1 )
 max_space = Vector2( 1.1, 1.1 )
@@ -4924,76 +4923,75 @@ graph_offset = Vector2( -99.8733, 18.7231 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=260]
 
-[sub_resource type="CircleShape2D" id=261]
-radius = 96.0208
+[sub_resource type="CircleShape2D" id=262]
+radius = 200.0
 
-[node name="Heroine" type="KinematicBody2D" groups=["Enemies"]]
-collision_layer = 7
-collision_mask = 7
+[node name="Heroine" groups=["Allies"] instance=ExtResource( 9 )]
+collision_layer = 8
+collision_mask = 111
 script = ExtResource( 8 )
 
-[node name="Head" type="Sprite" parent="."]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="0"]
+position = Vector2( 0, 14 )
+polygon = PoolVector2Array( -13, 0, -6, 11, 8, 11, 14, 0, 7, -11, -6, -11 )
+
+[node name="Head" type="Sprite" parent="." index="1"]
 position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 2 )
 hframes = 32
 vframes = 8
-frame = 195
+frame = 194
 region_rect = Rect2( 0, 0, 256, 256 )
 
-[node name="Body" type="Sprite" parent="."]
+[node name="Body" type="Sprite" parent="." index="2"]
 position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 6 )
 hframes = 32
 vframes = 8
-frame = 195
+frame = 194
 region_rect = Rect2( 0, 0, 256, 256 )
 
-[node name="Hand" type="Sprite" parent="."]
+[node name="Hand" type="Sprite" parent="." index="3"]
 position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 3 )
 hframes = 32
 vframes = 8
-frame = 195
+frame = 194
 region_rect = Rect2( 0, 0, 256, 256 )
 
-[node name="Legs" type="Sprite" parent="."]
+[node name="Legs" type="Sprite" parent="." index="4"]
 position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 1 )
 hframes = 32
 vframes = 8
-frame = 195
+frame = 194
 region_rect = Rect2( 0, 0, 256, 256 )
 
-[node name="Feet" type="Sprite" parent="."]
+[node name="Feet" type="Sprite" parent="." index="5"]
 position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 5 )
 hframes = 32
 vframes = 8
-frame = 195
+frame = 194
 region_rect = Rect2( 0, 0, 256, 256 )
 
-[node name="Weapon" type="Sprite" parent="."]
+[node name="Weapon" type="Sprite" parent="." index="6"]
 position = Vector2( -0.281471, -12.407 )
 texture = ExtResource( 7 )
 hframes = 32
 vframes = 8
-frame = 195
+frame = 194
 region_rect = Rect2( 0, 0, 256, 256 )
 
-[node name="Shield" type="Sprite" parent="."]
+[node name="Shield" type="Sprite" parent="." index="7"]
 position = Vector2( -0.281471, -12.407 )
 texture = ExtResource( 4 )
 hframes = 32
 vframes = 8
-frame = 195
+frame = 194
 region_rect = Rect2( 0, 0, 256, 256 )
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-visible = false
-position = Vector2( 0, 14 )
-polygon = PoolVector2Array( -13, 0, -6, 11, 8, 11, 14, 0, 7, -11, -6, -11 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
 autoplay = "IdleLeft"
 playback_process_mode = 2
 anims/AttackDown = SubResource( 163 )
@@ -5045,7 +5043,7 @@ anims/ShootRightDown = SubResource( 208 )
 anims/ShootRightUp = SubResource( 209 )
 anims/ShootUp = SubResource( 210 )
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
+[node name="AnimationTree" type="AnimationTree" parent="." index="9"]
 tree_root = SubResource( 259 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
@@ -5057,51 +5055,27 @@ parameters/Idle/blend_position = Vector2( 0.0034976, 0.417241 )
 parameters/Run/blend_position = Vector2( -0.471919, 0.538397 )
 parameters/Shoot/blend_position = Vector2( -0.381444, -0.155532 )
 
-[node name="HP_bar" type="TextureProgress" parent="."]
-margin_left = -19.0
-margin_top = -39.0
-margin_right = 19.0
-margin_bottom = -35.0
-value = 50.0
-texture_over = ExtResource( 9 )
-texture_progress = ExtResource( 10 )
+[node name="StandingTimer" type="Timer" parent="." index="10"]
+
+[node name="BiteCooldown" type="Timer" parent="." index="11"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitBox" index="0"]
+position = Vector2( 0, -7.5 )
+scale = Vector2( 1.2, 1.2 )
+polygon = PoolVector2Array( -24.1667, 7.08333, -9.16667, 31.25, 10, 31.25, 25, 7.91667, 8.33333, -13.75, -9.16667, -13.75 )
+
+[node name="HP_bar" parent="." index="13"]
 tint_progress = Color( 0, 1, 0.227451, 1 )
-nine_patch_stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Tween" type="Tween" parent="HP_bar"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sight" index="0"]
+shape = SubResource( 262 )
 
-[node name="StandingTimer" type="Timer" parent="."]
+[node name="TurnAxis" type="Position2D" parent="." index="15"]
 
-[node name="BiteCooldown" type="Timer" parent="."]
-
-[node name="HitBox" type="Area2D" parent="."]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitBox"]
-visible = false
-position = Vector2( 0, -7.5 )
-scale = Vector2( 1.2, 1.2 )
-polygon = PoolVector2Array( -19.1667, 17.9167, -10.8333, 32.9167, 10.8333, 32.9167, 19.1667, 18.75, 8.33333, 2.08333, -8.33333, 2.08333 )
-
-[node name="BiteArea" type="Area2D" parent="."]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BiteArea"]
-visible = false
-position = Vector2( 0, -7.5 )
-scale = Vector2( 1.2, 1.2 )
-polygon = PoolVector2Array( -25.8333, 18.75, -11.6667, 37.9167, 15, 37.9167, 28.3333, 17.0833, 12.5, -3.75, -12.5, -3.75 )
-
-[node name="Area2D" type="Area2D" parent="."]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 261 )
+[node name="CastPoint" type="Position2D" parent="TurnAxis" index="0"]
+position = Vector2( 35, 0 )
 
 [connection signal="timeout" from="StandingTimer" to="." method="_on_StandingTimer_timeout"]
 [connection signal="timeout" from="BiteCooldown" to="." method="_on_BiteCooldown_timeout"]
-[connection signal="area_entered" from="BiteArea" to="." method="_on_BiteArea_area_entered"]
-[connection signal="area_exited" from="BiteArea" to="." method="_on_BiteArea_area_exited"]
-[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
-[connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
+[connection signal="body_entered" from="Sight" to="." method="_on_Sight_body_entered"]
+[connection signal="body_exited" from="Sight" to="." method="_on_Sight_body_exited"]

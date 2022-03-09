@@ -92,13 +92,13 @@ ui_fire={
 
 [layer_names]
 
-2d_physics/layer_1="Player"
-2d_physics/layer_2="Enemy"
-2d_physics/layer_3="Items"
-2d_physics/layer_4="Portals"
-2d_physics/layer_5="Ground"
-2d_physics/layer_6="Bullet"
-2d_physics/layer_7="Trap"
+2d_physics/layer_1="Ground"
+2d_physics/layer_2="Player"
+2d_physics/layer_3="Enemies"
+2d_physics/layer_4="Allies"
+2d_physics/layer_5="Projectiles"
+2d_physics/layer_6="Lowground"
+2d_physics/layer_7="Neutrals"
 
 [rendering]
 

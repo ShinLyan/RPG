@@ -1,4 +1,12 @@
-extends "res://Scripts/Character.gd"
+extends "res://Scripts/Characters/Character.gd"
+
+
+func _ready():
+	state = MOVE
+	self.hp = 100 # исходное здоровье игрока
+	self.max_hp = 100
+	create_inventory()
+	inventory.connect("on_changed", self, "update_inventory")
 
 
 # позволяет обрабатывать те сигналы, которые не были обработаны другими узлами
@@ -7,8 +15,7 @@ func _unhandled_input(event):
 	if event.is_action_pressed("inventory"): # нажатие на кнопку I
 		ui.toggle_inventory(inventory)
 	
-	# атака игрока
-	# ближний бой
+	# атака игрока (ближний бой)
 	if state != DEATH: # если герой жив
 		if event.is_action_pressed("left_click"): # нажатие на ЛКМ
 			state = ATTACK
@@ -25,40 +32,19 @@ func _unhandled_input(event):
 
 func update_inventory():
 	ui.update_inventory(inventory)
-
-
-
 func pick(item):
 	var is_picked = .pick(item)
 	return is_picked
-
-
 func drop_item(link):
 	world.add_lying_item(link, position.x, position.y)
 	inventory.remove_item(link)
 
 
-# HP bar
-func _ready():
-	self.hp = 100 # исходное здоровье игрока
-	self.max_hp = 100
-	set_start_hp(self.hp, self.max_hp) # задаем hp персонажу
-	#add_to_group(GlobalVars.entity_group)
-	create_inventory()
-	inventory.connect("on_changed", self, "update_inventory")
-
-
-
-##################################
-
 var can_fire = true
 var rate_of_fire = 0.8
-
-
 var shooting = false
-
-
 var selected_skill
+
 
 func _process(_delta):
 	skill_loop()
@@ -73,10 +59,9 @@ func skill_loop():
 		shooting = true
 		# DamagePos должен двигаться в направлении мыши, но при этом не уходить слишком далеко от игрока
 		$FirePos.position = get_global_mouse_position() - position
-		$FirePos.position.x = clamp($FirePos.position.x, -35, 33)
-		$FirePos.position.y = clamp($FirePos.position.y, -35, 33)
 		
 		fire_direction = (get_angle_to(get_global_mouse_position()) / 3.14) * 180
+		
 		get_node("TurnAxis").rotation = get_angle_to(get_global_mouse_position())
 		
 		match DataImport.skill_data[selected_skill].SkillType:
@@ -87,6 +72,7 @@ func skill_loop():
 				skill_instance.fire_direction = fire_direction
 				skill_instance.rotation = get_angle_to(get_global_mouse_position())
 				skill_instance.position = get_node("TurnAxis/CastPoint").get_global_position()
+				skill_instance.origin = "Player" # выстрел совершил игрок
 				get_parent().add_child(skill_instance)
 			
 			"RangedAOESkill":
@@ -94,6 +80,7 @@ func skill_loop():
 				var skill_instance = skill.instance()
 				skill_instance.skill_name = selected_skill
 				skill_instance.position = get_global_mouse_position()
+				skill_instance.origin = "Player" # выстрел совершил игрок
 				get_parent().add_child(skill_instance)
 			
 			"ExpandingAOESkill":
@@ -101,6 +88,7 @@ func skill_loop():
 				var skill_instance = skill.instance()
 				skill_instance.skill_name = selected_skill
 				skill_instance.position = get_global_position()
+				skill_instance.origin = "Player" # выстрел совершил игрок
 				get_parent().add_child(skill_instance)
 			
 			"SingleTargetHeal":

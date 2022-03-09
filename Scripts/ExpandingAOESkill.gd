@@ -6,15 +6,17 @@ var damage
 var radius
 var expansion_time
 var damaged_targets = []
-
+var origin
 
 var circle_shape = preload("res://Resources/CircleShape.res")
 
 
 func _ready():
-	damage = DataImport.skill_data[skill_name].SkillDamage
-	radius = DataImport.skill_data[skill_name].SkillRadius
-	expansion_time = float(DataImport.skill_data[skill_name].SkillExpansionTime)
+	if origin == "Player":
+		damage = DataImport.skill_data[skill_name].SkillDamage
+		radius = DataImport.skill_data[skill_name].SkillRadius
+		expansion_time = float(DataImport.skill_data[skill_name].SkillExpansionTime)
+		set_collision_mask_bit(1, false)
 	var skill_texture = load("res://assets/skills/" + skill_name + ".png")
 	$Sprite.set_texture(skill_texture)
 	AOE_attack()
@@ -32,7 +34,8 @@ func AOE_attack():
 			if damaged_targets.has(target):
 				continue
 			else:
-				target.reduce_hp(damage)
+				if target.is_in_group("Enemies"):
+					target.reduce_hp(damage)
 				damaged_targets.append(target)
 		yield(get_tree().create_timer(0.05), "timeout")
 		continue
