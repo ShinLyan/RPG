@@ -45,7 +45,7 @@ func _physics_process(delta):
 
 
 func _process(_delta):
-	print("sees enemies = ", len(sees_enemies), "  target = ", target)
+	#print("sees enemies = ", len(sees_enemies), "  target = ", target)
 	if target == null and len(sees_enemies) > 0:
 		target = sees_enemies[0]
 	if self.hp < 0:

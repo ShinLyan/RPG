@@ -8,10 +8,13 @@ func _ready():
 # Поля класса
 var hp # текущее значение hp
 var max_hp # максимальное значение hp
+var shield = 0
+var max_shield = 50
 var bite_strength # сила удара персонажа
 var speed = 100 # скорость персонажа
 var inventory
 var state # текущее состояние
+
 #var state = NON_COMBAT # текущее состояние
 
 
@@ -46,13 +49,18 @@ func pick(item):
 	self.inventory.add_item(item)
 	return true
 func reduce_hp(val): # уменьшает hp персонажам
-	self.hp -= val
-	if self.hp <= 0: # условие смерти персонажа
-		die() # персонаж умирает
-		return false
+	if shield == 0:
+		self.hp -= val
+		if self.hp <= 0: # условие смерти персонажа
+			die() # персонаж умирает
+			return false
+	else:
+		self.shield = max(self.shield - val, 0)
 	return true
 func increase_hp(val): # увеличивает hp персонажам
 	self.hp = min(self.hp + val, self.max_hp)
+func shield(val):
+	self.shield = min(self.shield + val, self.max_shield)
 func die(): # state DEATH - Смерть персонажа
 	if state != DEATH: # предметы при смерти выпадают из персонажа
 		for i in inventory.get_items():

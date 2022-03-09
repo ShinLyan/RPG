@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/Buttons/SceneButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Menu.gd" type="Script" id=2]
@@ -6,8 +6,6 @@
 [ext_resource path="res://Sprites/UI/starting_background.jpg" type="Texture" id=4]
 [ext_resource path="res://Scenes/Mouse_cursor.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/melodies/RPG_menu.mp3" type="AudioStream" id=6]
-[ext_resource path="res://Sprites/UI/Game_menu.png" type="Texture" id=7]
-[ext_resource path="res://Sprites/UI/deco2.png" type="Texture" id=8]
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -25,30 +23,6 @@ expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="TextureRect" type="TextureRect" parent="StartingBackground"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -134.5
-margin_top = -230.5
-margin_right = 134.5
-margin_bottom = 142.5
-texture = ExtResource( 7 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextureRect" type="TextureRect" parent="StartingBackground/TextureRect"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -83.0
-margin_top = 32.0
-margin_right = 83.0
-margin_bottom = 110.0
-texture = ExtResource( 8 )
 
 [node name="Load" parent="." instance=ExtResource( 3 )]
 visible = false

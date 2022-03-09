@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Sprites/UI/white.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/UI/Globe_tranparant.png" type="Texture" id=2]
@@ -10,8 +10,9 @@
 [ext_resource path="res://Scenes/Mouse_cursor.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Panel.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Sprites/UI/UI_deco.png" type="Texture" id=10]
-[ext_resource path="res://Sprites/UI/paper background.png" type="Texture" id=11]
-[ext_resource path="res://Sprites/UI/edge.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/UI/background12.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/UI/deco2.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/UI/slots.png" type="Texture" id=13]
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource( 4 )
@@ -49,7 +50,7 @@ rect_min_size = Vector2( 210, 210 )
 value = 70.0
 texture_progress = ExtResource( 1 )
 fill_mode = 3
-tint_progress = Color( 1, 0, 0, 1 )
+tint_progress = Color( 0.788235, 0, 0, 1 )
 nine_patch_stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -113,7 +114,7 @@ rect_min_size = Vector2( 210, 210 )
 value = 70.0
 texture_progress = ExtResource( 1 )
 fill_mode = 3
-tint_progress = Color( 0, 0.0156863, 0.607843, 1 )
+tint_progress = Color( 0, 0.0117647, 0.490196, 1 )
 nine_patch_stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -153,9 +154,28 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -20.0
-margin_top = -40.0
-margin_right = 20.0
+margin_left = -119.0
+margin_top = -81.0
+margin_right = 119.0
+margin_bottom = -41.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Deco" type="TextureRect" parent="SkillBar"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -127.0
+margin_right = 30.0
+margin_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_scale = Vector2( 1.7, 1.7 )
+texture = ExtResource( 12 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -163,9 +183,12 @@ __meta__ = {
 [node name="Background" type="TextureRect" parent="SkillBar"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -72.0
+margin_top = -26.0
+margin_right = 71.3501
 grow_horizontal = 2
 grow_vertical = 0
-rect_min_size = Vector2( 500, 66 )
+rect_min_size = Vector2( 470, 66 )
 texture = ExtResource( 11 )
 expand = true
 __meta__ = {
@@ -173,129 +196,179 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SkillBar/Background"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 2.0
-margin_right = -10.0
-margin_bottom = -2.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -225.0
+margin_top = -28.0
+margin_right = 225.0
+margin_bottom = 28.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SelectedSkill" type="TextureRect" parent="SkillBar/Background/HBoxContainer"]
-margin_right = 60.0
-margin_bottom = 62.0
-rect_min_size = Vector2( 60, 60 )
-texture = ExtResource( 12 )
+margin_right = 56.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 56, 56 )
+texture = ExtResource( 13 )
 expand = true
 
 [node name="TextureRect" type="TextureRect" parent="SkillBar/Background/HBoxContainer/SelectedSkill"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 22.0
+margin_bottom = 22.0
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Margin" type="Label" parent="SkillBar/Background/HBoxContainer"]
-margin_left = 64.0
-margin_top = 24.0
-margin_right = 94.0
-margin_bottom = 38.0
+margin_left = 60.0
+margin_top = 21.0
+margin_right = 90.0
+margin_bottom = 35.0
 rect_min_size = Vector2( 30, 0 )
 
 [node name="Shortcut1" type="TextureRect" parent="SkillBar/Background/HBoxContainer"]
-margin_left = 98.0
-margin_right = 158.0
-margin_bottom = 62.0
-rect_min_size = Vector2( 60, 60 )
-texture = ExtResource( 12 )
+margin_left = 94.0
+margin_right = 150.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 56, 56 )
+texture = ExtResource( 13 )
 expand = true
 
 [node name="TextureButton" type="TextureButton" parent="SkillBar/Background/HBoxContainer/Shortcut1" groups=["Shortcuts"]]
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 22.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 44, 44 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Shortcut2" type="TextureRect" parent="SkillBar/Background/HBoxContainer"]
-margin_left = 162.0
-margin_right = 222.0
-margin_bottom = 62.0
-rect_min_size = Vector2( 60, 60 )
-texture = ExtResource( 12 )
+margin_left = 154.0
+margin_right = 210.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 56, 56 )
+texture = ExtResource( 13 )
 expand = true
 
 [node name="TextureButton" type="TextureButton" parent="SkillBar/Background/HBoxContainer/Shortcut2" groups=["Shortcuts"]]
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 22.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 44, 44 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Shortcut3" type="TextureRect" parent="SkillBar/Background/HBoxContainer"]
-margin_left = 226.0
-margin_right = 286.0
-margin_bottom = 62.0
-rect_min_size = Vector2( 60, 60 )
-texture = ExtResource( 12 )
+margin_left = 214.0
+margin_right = 270.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 56, 56 )
+texture = ExtResource( 13 )
 expand = true
 
 [node name="TextureButton" type="TextureButton" parent="SkillBar/Background/HBoxContainer/Shortcut3" groups=["Shortcuts"]]
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 22.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 44, 44 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Shortcut4" type="TextureRect" parent="SkillBar/Background/HBoxContainer"]
-margin_left = 290.0
-margin_right = 350.0
-margin_bottom = 62.0
-rect_min_size = Vector2( 60, 60 )
-texture = ExtResource( 12 )
+margin_left = 274.0
+margin_right = 330.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 56, 56 )
+texture = ExtResource( 13 )
 expand = true
 
 [node name="TextureButton" type="TextureButton" parent="SkillBar/Background/HBoxContainer/Shortcut4" groups=["Shortcuts"]]
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 22.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 44, 44 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Shortcut5" type="TextureRect" parent="SkillBar/Background/HBoxContainer"]
-margin_left = 354.0
-margin_right = 414.0
-margin_bottom = 62.0
-rect_min_size = Vector2( 60, 60 )
-texture = ExtResource( 12 )
+margin_left = 334.0
+margin_right = 390.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 56, 56 )
+texture = ExtResource( 13 )
 expand = true
 
 [node name="TextureButton" type="TextureButton" parent="SkillBar/Background/HBoxContainer/Shortcut5" groups=["Shortcuts"]]
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 22.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 44, 44 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Shortcut6" type="TextureRect" parent="SkillBar/Background/HBoxContainer"]
-margin_left = 418.0
-margin_right = 478.0
-margin_bottom = 62.0
-rect_min_size = Vector2( 60, 60 )
-texture = ExtResource( 12 )
+margin_left = 394.0
+margin_right = 450.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 56, 56 )
+texture = ExtResource( 13 )
 expand = true
 
 [node name="TextureButton" type="TextureButton" parent="SkillBar/Background/HBoxContainer/Shortcut6" groups=["Shortcuts"]]
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 22.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 44, 44 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false

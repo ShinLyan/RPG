@@ -3,8 +3,8 @@ extends "res://Scripts/Characters/Character.gd"
 
 func _ready():
 	state = MOVE
-	self.hp = 100 # исходное здоровье игрока
-	self.max_hp = 100
+	self.hp = 200 # исходное здоровье игрока
+	self.max_hp = 200
 	create_inventory()
 	inventory.connect("on_changed", self, "update_inventory")
 
@@ -96,6 +96,14 @@ func skill_loop():
 				var skill_instance = skill.instance()
 				skill_instance.skill_name = selected_skill
 				add_child(skill_instance)
+			
+			"SingleTargetShield":
+				if GlobalVars.num_shields == 0: # если щитов нет
+					var skill = load("res://Scenes/SingleTargetShield.tscn")
+					var skill_instance = skill.instance()
+					skill_instance.skill_name = selected_skill
+					skill_instance.origin = self # щит создал игрок
+					add_child(skill_instance)
 		
 		yield(get_tree().create_timer(rate_of_fire), "timeout")
 		can_fire = true

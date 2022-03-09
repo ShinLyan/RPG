@@ -7,7 +7,8 @@
     "SkillDamageDelayTime": "N/A",
     "SkillRemoveDelayTime": "N/A",
     "SkillExpansionTime": "N/A",
-    "SkillHeal": "N/A"
+    "SkillHeal": "N/A",
+    "SkillShield": "N/A"
   },
   "Ice_Spear": {
     "SkillType": "RangedSingleTargetSkill",
@@ -17,7 +18,8 @@
     "SkillDamageDelayTime": "N/A",
     "SkillRemoveDelayTime": "N/A",
     "SkillExpansionTime": "N/A",
-    "SkillHeal": "N/A"
+    "SkillHeal": "N/A",
+    "SkillShield": "N/A"
   },
   "Lava_Bomb": {
     "SkillType": "RangedAOESkill",
@@ -27,7 +29,8 @@
     "SkillDamageDelayTime": "0.3",
     "SkillRemoveDelayTime": 3,
     "SkillExpansionTime": "N/A",
-    "SkillHeal": "N/A"
+    "SkillHeal": "N/A",
+    "SkillShield": "N/A"
   },
   "Ice_Nova": {
     "SkillType": "ExpandingAOESkill",
@@ -37,7 +40,8 @@
     "SkillDamageDelayTime": "N/A",
     "SkillRemoveDelayTime": "N/A",
     "SkillExpansionTime": "0.45",
-    "SkillHeal": "N/A"
+    "SkillHeal": "N/A",
+    "SkillShield": "N/A"
   },
   "Heal": {
     "SkillType": "SingleTargetHeal",
@@ -47,6 +51,18 @@
     "SkillDamageDelayTime": "N/A",
     "SkillRemoveDelayTime": "N/A",
     "SkillExpansionTime": "N/A",
-    "SkillHeal": 25
+    "SkillHeal": 25,
+    "SkillShield": "N/A"
+  },
+  "Shield": {
+    "SkillType": "SingleTargetShield",
+    "SkillDamage": "N/A",
+    "SkillProjectileSpeed": "N/A",
+    "SkillRadius": "N/A",
+    "SkillDamageDelayTime": "N/A",
+    "SkillRemoveDelayTime": "N/A",
+    "SkillExpansionTime": "N/A",
+    "SkillHeal": "N/A",
+    "SkillShield": 50
   }
 }

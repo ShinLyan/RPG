@@ -11,3 +11,4 @@ onready var save_dir = "res://Saves" # адерс папки, где лежат 
 onready var save_temp = "%s.tres" # шаблон для сохранения
 
 onready var num_trolls = 0
+onready var num_shields = 0

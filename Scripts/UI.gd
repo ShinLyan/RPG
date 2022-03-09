@@ -15,7 +15,8 @@ var loaded_skills = {
 	"Shortcut2": "Fireball", 
 	"Shortcut3": "Lava_Bomb",
 	"Shortcut4": "Ice_Nova",
-	"Shortcut5": "Heal"
+	"Shortcut5": "Heal",
+	"Shortcut6": "Shield"
 }
 
 

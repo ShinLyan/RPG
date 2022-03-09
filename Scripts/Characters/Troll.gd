@@ -39,7 +39,7 @@ func _physics_process(delta):
 
 
 func search_for_target(): # функция, ищущая местоположение игрока
-	print(target)
+	#print(target)
 	if target: # если в таргете игрок, т.е. моб преследует игрока
 		# если таргет далеко
 		if position.distance_to(target.position) > 200:
@@ -102,8 +102,7 @@ func _process(_delta):
 
 
 func attack_state(_delta):
-	if target:
-		animationTree.set("parameters/Attack/blend_position", target.position)
+	animationTree.set("parameters/Attack/blend_position", velocity)
 	animationState.travel("Attack")
 
 
