@@ -8,14 +8,14 @@ func _ready():
 # Поля класса
 var hp # текущее значение hp
 var max_hp # максимальное значение hp
-var shield = 0
-var max_shield = 50
+var shield = 0 # текущее значение щита
+var max_shield = 50 # максимальное значение щита
+var mp # текущее значение mp
+var max_mp # максимальное значение mp
 var bite_strength # сила удара персонажа
 var speed = 100 # скорость персонажа
 var inventory
 var state # текущее состояние
-
-#var state = NON_COMBAT # текущее состояние
 
 
 onready var pre_inv = preload("res://Scenes/Inventory.tscn") # чертеж инвентаря
@@ -59,7 +59,7 @@ func reduce_hp(val): # уменьшает hp персонажам
 	return true
 func increase_hp(val): # увеличивает hp персонажам
 	self.hp = min(self.hp + val, self.max_hp)
-func shield(val):
+func magic_shield(val):
 	self.shield = min(self.shield + val, self.max_shield)
 func die(): # state DEATH - Смерть персонажа
 	if state != DEATH: # предметы при смерти выпадают из персонажа

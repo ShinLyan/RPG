@@ -1111,7 +1111,7 @@ tile_data = PoolIntArray( -1441778, 26, 0, -1310724, 26, 0, -1310723, 26, 0, -13
 [node name="YSort" type="YSort" parent="."]
 
 [node name="Heroine" parent="YSort" instance=ExtResource( 9 )]
-position = Vector2( 449, -31 )
+position = Vector2( 958, 300 )
 
 [node name="Border" type="TileMap" parent="YSort"]
 position = Vector2( 1, -2 )
@@ -1127,7 +1127,10 @@ tile_data = PoolIntArray( -1441776, 9, 2, -1376246, 9, 0, -1376240, 11, 5, -1376
 position = Vector2( 1532, 329 )
 
 [node name="Player" parent="YSort" instance=ExtResource( 2 )]
-position = Vector2( 338, 228 )
+position = Vector2( 319, 545 )
+
+[node name="Troll" parent="YSort" instance=ExtResource( 11 )]
+position = Vector2( 1121, 247 )
 
 [node name="Bush" type="TileMap" parent="YSort"]
 mode = 1
@@ -1216,13 +1219,7 @@ format = 1
 tile_data = PoolIntArray( 786453, 0, 0 )
 
 [node name="Troll2" parent="YSort" instance=ExtResource( 11 )]
-position = Vector2( 284, -55 )
-
-[node name="Troll3" parent="YSort" instance=ExtResource( 11 )]
-position = Vector2( 405, -114 )
-
-[node name="Troll4" parent="YSort" instance=ExtResource( 11 )]
-position = Vector2( 561, -69 )
+position = Vector2( 1117, 363 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )

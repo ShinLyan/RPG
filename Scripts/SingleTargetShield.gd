@@ -16,13 +16,12 @@ func _ready():
 
 func shield():
 	$AnimationPlayer.play(skill_name)
-	var temp_shield = origin.shield
-	get_parent().shield(shield_amount)
+	get_parent().magic_shield(shield_amount)
 	yield(get_tree().create_timer(20), "timeout")
 	GlobalVars.num_shields -= 1
 	queue_free()
 
 
-func _process(delta):
+func _process(_delta):
 	if origin.shield <= 0:
 		self.hide()

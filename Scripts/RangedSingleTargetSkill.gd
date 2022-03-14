@@ -8,6 +8,7 @@ var damage
 var skill_name
 var origin
 var animation
+#var mana_cost
 
 
 func _ready():

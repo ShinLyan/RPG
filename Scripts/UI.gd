@@ -3,10 +3,11 @@ extends CanvasLayer
 
 onready var health_globe = $HealthGlobe/GlobeFull/TextureProgress
 onready var health_globe_tween = $HealthGlobe/GlobeFull/TextureProgress/Tween
+onready var mana_globe = $ManaGlobe/GlobeFull/TextureProgress
+onready var mana_globe_tween = $ManaGlobe/GlobeFull/TextureProgress/Tween
 
 
 onready var hero = get_viewport().get_node("Root/StartWorld").get_player() # ссылка на игрока
-
 
 
 onready var shortcuts_path = "SkillBar/Background/HBoxContainer/"
@@ -40,7 +41,6 @@ func load_shortcuts():
 		get_node(shortcuts_path + shortcut + "/TextureButton").set_normal_texture(skill_icon)
 
 
-
 func select_shortcut(shortcut):
 	var skill_icon = load("res://assets/skills/" + loaded_skills[shortcut] + "_icon.png")
 	get_node(shortcuts_path + "/SelectedSkill/TextureRect").set_texture(skill_icon)
@@ -60,3 +60,6 @@ func update_globes():
 	var new_hp = hero.hp
 	health_globe_tween.interpolate_property(health_globe, "value", health_globe.value, new_hp, 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	health_globe_tween.start()
+	var new_mp = hero.mp
+	mana_globe_tween.interpolate_property(mana_globe, "value", mana_globe.value, new_mp, 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	mana_globe_tween.start()

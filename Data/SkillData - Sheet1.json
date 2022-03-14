@@ -1,6 +1,7 @@
 {
   "Fireball": {
     "SkillType": "RangedSingleTargetSkill",
+    "MP": 10,
     "SkillDamage": 20,
     "SkillProjectileSpeed": 350,
     "SkillRadius": "N/A",
@@ -12,6 +13,7 @@
   },
   "Ice_Spear": {
     "SkillType": "RangedSingleTargetSkill",
+    "MP": 5,
     "SkillDamage": 10,
     "SkillProjectileSpeed": 500,
     "SkillRadius": "N/A",
@@ -23,6 +25,7 @@
   },
   "Lava_Bomb": {
     "SkillType": "RangedAOESkill",
+    "MP": 20,
     "SkillDamage": 15,
     "SkillProjectileSpeed": "N/A",
     "SkillRadius": 90,
@@ -34,6 +37,7 @@
   },
   "Ice_Nova": {
     "SkillType": "ExpandingAOESkill",
+    "MP": 15,
     "SkillDamage": 15,
     "SkillProjectileSpeed": "N/A",
     "SkillRadius": 200,
@@ -45,6 +49,7 @@
   },
   "Heal": {
     "SkillType": "SingleTargetHeal",
+    "MP": 20,
     "SkillDamage": "N/A",
     "SkillProjectileSpeed": "N/A",
     "SkillRadius": "N/A",
@@ -56,6 +61,7 @@
   },
   "Shield": {
     "SkillType": "SingleTargetShield",
+    "MP": 20,
     "SkillDamage": "N/A",
     "SkillProjectileSpeed": "N/A",
     "SkillRadius": "N/A",

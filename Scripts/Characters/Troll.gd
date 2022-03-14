@@ -21,7 +21,8 @@ func _ready(): # функция, вызывающая при создании с
 	self.inventory.add_item(item)
 
 
-func _physics_process(delta):	
+func _physics_process(delta):
+	#print(velocity)
 	match state:
 		MOVE:
 			move_state(delta)
@@ -128,10 +129,6 @@ func move_state(_delta): # Передвижение моба
 
 
 
-
-
-
-
 func death_state(_delta):
 	.death_state(_delta)
 	target_intercepted = false
@@ -177,7 +174,7 @@ func _on_BiteCooldown_timeout(): # таймер кулдауна
 
 
 
-
+"""
 ######################################
 var _path = []
 var _target_point_world = Vector2()
@@ -228,4 +225,4 @@ func _move_to(world_position):
 	position += velocity * get_process_delta_time()
 	return position.distance_to(world_position) < ARRIVE_DISTANCE
 ######################################
-
+"""
