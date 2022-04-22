@@ -1,47 +1,29 @@
 #pragma once
-#include "Person.h"
-#include <Vector2.hpp>
-#include <Timer.hpp>
+#include "AI.h"
 #include <RandomNumberGenerator.hpp>
 #include <Node2D.hpp>
 #include <Area2D.hpp>
-
+#include <vector>
 
 namespace godot {
-	class Troll : public Person {
-		GODOT_CLASS(Troll, Person)
+	class Troll : public AI {
+		GODOT_CLASS(Troll, AI)
 	private:
 		Vector2 position;
 		State state = State::Move;
 	public:
+		// ???
+		bool target_in_range = false;
+		bool target_in_sight = false;
+		std::vector<KinematicBody2D*> sees_enemies;
 
-		//Переменные, связанные с движением моба
-		bool stands = true;
-		Vector2 destination = Vector2();
-		Vector2 velocity = Vector2();
-		Vector2 prev_pos;
-		
-		real_t default_speed = 45;
-		KinematicBody2D* target = NULL;
-
-		//ref
-		//Timer* BiteCooldown = null;
-		//AnimationTree* animationTree = (AnimationTree*)get_node("AnimationTree");
-		//AnimationNodeStateMachinePlayback* animationState = animationTree->get("Parametries/playback");
-		//Area2D* BiteArea = (Area2D*)get_node("BiteArea");
-		//KinematicBody2D* target = NULL;
-		//TextureProgress* HP_bar = (TextureProgress*)get_node("HP_bar");
-
-		//Переменные для атаки моба
-		bool target_intercepted = false; // есть ли какая - то цель в зоне досягаемости
-		bool can_bite = true; // можно ли атаковать существо(перезарядка, чтобы моб постоянно не бил)
-		int bite_strength = 10; // сила удара моба(10 единиц здоровья за удар)
+		Vector2 target_position = Vector2();
 
 		//methods
 		State get_state();
 		static void _register_methods();
 		void _ready();
-		//void _process(float delta);
+		void _process(float delta);
 		void _init();
 		void _physics_process(float delta); //
 		void move_state(float delta); //moving
@@ -49,20 +31,18 @@ namespace godot {
 		void attack_animation_finished();
 		void death_state(float delta);
 		void death_animation_finished();
-
-		void bite(KinematicBody2D* targ);
 		void search_for_target();
-		void cancel_movement();
-	
-		void wander();
-		void set_destination(Vector2 dest);
-		void set_start_hp(int hp, int max_hp);
+
+		void sight_check();
 
 		//signals
 		void _on_BiteArea_area_entered(Variant area);
 		void _on_BiteArea_area_exited(Variant area);
 		void _on_StandingTimer_timeout();
 		void _on_BiteCooldown_timeout();
+		void _on_Sight_body_exited(KinematicBody2D* body);
+		void _on_Sight_body_entered(KinematicBody2D* body);
+		
 		//getting player 
 		KinematicBody2D* get_player();
 

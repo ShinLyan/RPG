@@ -114,7 +114,6 @@ func attack_animation_finished():
 
 func search_for_target(): # функция, ищущая местоположение игрока
 	var pl = get_parent().get_parent().get_player() # достаем игрока
-	
 	# проверяем существуют ли игрок
 	if pl: 
 		if target: # если в таргете игрок, т.е. моб преследует игрока
