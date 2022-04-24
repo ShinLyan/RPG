@@ -4,7 +4,7 @@ var walkable_cells_list = []
 
 
 func _ready():
-	#create_file_map()
+	create_file_map()
 	walkable_cells_list = generate_walkable_cells()
 	
 	var num_items = 100 # количество генерируемых предметов на карте

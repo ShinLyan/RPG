@@ -4940,7 +4940,7 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 2 )
 hframes = 32
 vframes = 8
-frame = 194
+frame = 195
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Body" type="Sprite" parent="." index="2"]
@@ -4948,7 +4948,7 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 6 )
 hframes = 32
 vframes = 8
-frame = 194
+frame = 195
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Hand" type="Sprite" parent="." index="3"]
@@ -4956,7 +4956,7 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 3 )
 hframes = 32
 vframes = 8
-frame = 194
+frame = 195
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Legs" type="Sprite" parent="." index="4"]
@@ -4964,7 +4964,7 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 1 )
 hframes = 32
 vframes = 8
-frame = 194
+frame = 195
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Feet" type="Sprite" parent="." index="5"]
@@ -4972,7 +4972,7 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 5 )
 hframes = 32
 vframes = 8
-frame = 194
+frame = 195
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Weapon" type="Sprite" parent="." index="6"]
@@ -4980,7 +4980,7 @@ position = Vector2( -0.281471, -12.407 )
 texture = ExtResource( 7 )
 hframes = 32
 vframes = 8
-frame = 194
+frame = 195
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Shield" type="Sprite" parent="." index="7"]
@@ -4988,7 +4988,7 @@ position = Vector2( -0.281471, -12.407 )
 texture = ExtResource( 4 )
 hframes = 32
 vframes = 8
-frame = 194
+frame = 195
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
@@ -5066,6 +5066,9 @@ polygon = PoolVector2Array( -24.1667, 7.08333, -9.16667, 31.25, 10, 31.25, 25, 7
 
 [node name="HP_bar" parent="." index="13"]
 tint_progress = Color( 0, 1, 0.227451, 1 )
+
+[node name="Sight" parent="." index="14"]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sight" index="0"]
 shape = SubResource( 262 )
