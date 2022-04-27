@@ -2,6 +2,7 @@
 #include <ResourceLoader.hpp>
 #include <PackedScene.hpp>
 #include <Sprite.hpp>
+#include <Image.hpp>
 
 void godot::Item::_input(InputEvent* event)
 {
@@ -33,30 +34,30 @@ void godot::Item::set_amount(real_t am)
 	amount = am;
 }
 
-void godot::Item::set_item(Dictionary props)
+void godot::Item::set_item(Array props)
 {
 	ResourceLoader* loader = ResourceLoader::get_singleton();
 	Sprite* Sprite;
-	if (props.has("book")) {
+	/*if (props.has("book")) {
 		Ref<Texture> temp = loader->load("res://Sprites/Items/book.png");
 		Sprite->set_texture(temp);
 	}
 	else if (props.has("coins")) {
-		Ref<Texture> temp = loader->load("res://Sprites/Items/coins.png");
+		Ref<Image> temp = loader->load("res://Sprites/Items/coins.png");
 		Sprite->set_texture(temp);
 	}
 	else if (props.has("hp_potion")) {
-		Ref<Texture> temp = loader->load("res://Sprites/Items/hp_potion.png");
+		Ref<Image> temp = loader->load("res://Sprites/Items/hp_potion.png");
 		Sprite->set_texture(temp);
 	}
 	else if (props.has("scroll")) {
-		Ref<Texture> temp = loader->load("res://Sprites/Items/scroll.png");
+		Ref<Image> temp = loader->load("res://Sprites/Items/scroll.png");
 		Sprite->set_texture(temp);
-	}
+	}*/
 
 	item = props[0];
 	stack_limit = props[1];
-	this->properties = props[2];
+	this->properties[item] = props[2];
 }
 
 godot::String godot::Item::get_item()

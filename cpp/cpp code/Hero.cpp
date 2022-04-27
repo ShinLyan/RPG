@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <File.hpp>
 #include <JSON.hpp>
+#include <JSONParseResult.hpp>
 
 
 using namespace godot;
@@ -42,13 +43,13 @@ void Hero::_ready()
 	set_start_hp(hp, max_hp); // задаем hp персонажу
 	create_inventory();
 	inventory->connect("on_changed", this, "update_inventory");
-	func _ready() :
+	/*func _ready() :
 		var skill_data_file = File.new()
 		skill_data_file.open("res://Data/SkillData - Sheet1.json", File.READ)
 		var skill_data_json = JSON.parse(skill_data_file.get_as_text())
 		skill_data_file.close()
 		skill_data = skill_data_json.result
-
+		*/
 
 
 
@@ -85,7 +86,6 @@ void godot::Hero::_unhandled_input(InputEvent* event) //не может быть включен во
 		Ref<PackedScene> s = loader->get_singleton()->load("res://Scenes/DamageArea.tscn");
 		Node* attackNode = s->instance();
 		Area2D* attack = static_cast<Area2D*>(attackNode);
-		Position2D* DamagePos = (Position2D*)get_node("DamagePos");
 
 		attack->call("set_damage", 10);// 10 урона наносим одной атакой
 		get_parent()->add_child(attack);
@@ -322,9 +322,9 @@ void godot::Hero::DateImport(String selected_skill)
 	skill_data_file.open("res://Data/SkillData - Sheet1.json", 1);
 	Ref<JSONParseResult> skill_data_json_ref;
 	skill_data_json_ref = JSON::get_singleton()->parse(skill_data_file.get_as_text());
-	JSONParseResult skill_data_json;
+	JSONParseResult* skill_data_json;
 	skill_data_json = skill_data_json_ref.instance();
 	skill_data_file.close();
-	Array skill_data = skill_data_json_ref.instance().get_result();
+	Array skill_data = skill_data_json->get_result();
 
 }

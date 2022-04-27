@@ -3,6 +3,7 @@
 #include <PhysicsDirectSpaceState.hpp>
 #include <Physics2DDirectSpaceState.hpp>
 #include <Position2D.hpp>
+#include <World2D.hpp>
 #include <gen/RigidBody2D.hpp>
 #include <algorithm>
 //надо везде прописать проверку указателей на ноль

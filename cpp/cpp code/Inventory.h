@@ -6,6 +6,7 @@
 #include <Input.hpp>
 #include <Label.hpp>
 #include <gen/KinematicBody2D.hpp>
+#include "Item.h"
 
 namespace godot {
 	class Inventory : public Control {
@@ -13,6 +14,10 @@ namespace godot {
 	private:
 
 	public:
+		Inventory();
+		~Inventory();
+
+		Array items;
 		KinematicBody2D* inventory_owner = NULL;
 		void set_inv_owner(KinematicBody2D* val); 
 		KinematicBody2D* get_inv_owner();
@@ -22,6 +27,7 @@ namespace godot {
 		void add_item(Node2D* item);
 		void remove_item(Node2D* link);
 
-		void get_items();
+		Array get_items();
 	};
+	
 }
