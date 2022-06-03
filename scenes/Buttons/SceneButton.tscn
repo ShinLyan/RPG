@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Buttons/SceneButton.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Buttons/buttons_theme.tres" type="Theme" id=2]
+
+[node name="Button" type="Button"]
+margin_left = 337.0
+margin_top = 225.0
+margin_right = 487.0
+margin_bottom = 275.0
+rect_min_size = Vector2( 150, 50 )
+size_flags_horizontal = 4
+theme = ExtResource( 2 )
+text = "VaYzeR"
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
