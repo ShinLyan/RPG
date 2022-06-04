@@ -87,22 +87,6 @@ func die(): # state DEATH - Смерть персонажа
 
 
 """
-##############################
-var sees_enemies = []
-
-# Выбор приоритетного таргета
-func priority_target():
-	var weight
-	var max_weight
-	var max_weight_id = 0
-	for i in sees_enemies:
-		pass
-		#weight = 
-
-
-################################
-
-
 
 # Сохранение игры
 func save():

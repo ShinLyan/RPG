@@ -7,6 +7,7 @@ func _ready():
 	self.max_hp = 200
 	self.mp = 100
 	self.max_mp = 100
+	self.bite_strength = 20
 	create_inventory()
 	inventory.connect("on_changed", self, "update_inventory")
 
@@ -28,7 +29,7 @@ func _unhandled_input(event):
 		$DamagePos.position.y = clamp($DamagePos.position.y, -35, 33)
 		# при нажатии кнопки создаем DamageArea и добавляем его на карту
 		var attack = load("res://Scenes/DamageArea.tscn").instance() 
-		attack.set_damage(10) # 10 урона наносим одной атакой
+		attack.set_damage(bite_strength) # bite_strength урона наносим одной атакой
 		get_parent().add_child(attack)
 		attack.position = position + $DamagePos.position
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=126 format=2]
+[gd_scene load_steps=127 format=2]
 
 [ext_resource path="res://Scripts/Characters/Troll.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/troll/troll.png" type="Texture" id=2]
@@ -1368,6 +1368,9 @@ graph_offset = Vector2( -99.8733, 18.7231 )
 [sub_resource type="CircleShape2D" id=320]
 radius = 200.0
 
+[sub_resource type="CircleShape2D" id=321]
+radius = 22.0907
+
 [node name="Troll" groups=["Enemies"] instance=ExtResource( 3 )]
 collision_layer = 4
 collision_mask = 111
@@ -1455,12 +1458,16 @@ parameters/Shoot/blend_position = Vector2( -0.381444, -0.155532 )
 
 [node name="BiteCooldown" type="Timer" parent="." index="5"]
 
+[node name="HitBox" parent="." index="6"]
+visible = false
+
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="HitBox" index="0"]
 position = Vector2( 0, -13 )
 scale = Vector2( 1.2, 1.2 )
 polygon = PoolVector2Array( -20, 10.8333, -10, 27.5, 8.33333, 27.5, 18.3333, 10, 9.16667, -5, -10.8333, -5.83333 )
 
 [node name="BiteArea" type="Area2D" parent="." index="8"]
+visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BiteArea" index="0"]
 position = Vector2( -2, -17 )
@@ -1473,9 +1480,15 @@ visible = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sight" index="0"]
 shape = SubResource( 320 )
 
+[node name="PickArea" type="Area2D" parent="." index="10"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickArea" index="0"]
+shape = SubResource( 321 )
+
 [connection signal="timeout" from="StandingTimer" to="." method="_on_StandingTimer_timeout"]
 [connection signal="timeout" from="BiteCooldown" to="." method="_on_BiteCooldown_timeout"]
 [connection signal="area_entered" from="BiteArea" to="." method="_on_BiteArea_area_entered"]
 [connection signal="area_exited" from="BiteArea" to="." method="_on_BiteArea_area_exited"]
 [connection signal="body_entered" from="Sight" to="." method="_on_Sight_body_entered"]
 [connection signal="body_exited" from="Sight" to="." method="_on_Sight_body_exited"]
+[connection signal="area_entered" from="PickArea" to="." method="_on_PickArea_area_entered"]

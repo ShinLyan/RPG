@@ -10,7 +10,7 @@ func _ready(): # функция, вызывающая при создании с
 	# Устанавливаем hp bar мобам        self - аналог this-> в С++
 	self.hp = 60 
 	self.max_hp = 60 # делаем здоровье немного меньше чем у игрока
-	self.bite_strength = 5 # сила удара моба (5 единиц здоровья за удар)
+	self.bite_strength = 5 # сила удара моба (10 единиц здоровья за удар)
 	set_start_hp(self.hp, self.max_hp)
 	# Добавляем моба в группы (для работы клавиши Alt)
 	add_to_group(GlobalVars.entity_group)
@@ -51,12 +51,12 @@ func search_for_target(): # функция, ищущая местоположе�
 			target = temp
 			speed = default_speed * 2 if speed == default_speed else speed # увеличиваем скорость моба атакующего игрока
 			set_destination(target.position)
+			#set_destination_A_star(target.position)
 
 
 
 var target_in_range = false
 var target_in_sight = false
-var sees_enemies = []
 var target_position
 
 
@@ -77,29 +77,23 @@ func sight_check():
 
 
 func _process(_delta):
-	#print("sees enemies = ", len(sees_enemies), "  target = ", target)
+	set_priority_target()
+
+
+
+
+func set_priority_target():
 	if target == null and len(sees_enemies) > 0:
-		target = sees_enemies[0] 
-	#sight_check()
-
-
-
-"""
-	if position.distance_to(target.position) > 200:
-		cancel_movement() # отменяем предыдущее движение
-	else: # проверяем, рядом ли находится игрок
-		cancel_movement()
-		speed = default_speed * 2 if speed == default_speed else speed # увеличиваем скорость моба атакующего игрока
-		set_destination(target.position)
-	if velocity: # если у существа есть скорость
-		prev_pos = position # сперва фиксируем предыдущую позицию
-		var _var = move_and_slide(velocity) # двигаем его на величину скорости
-	if target_intercepted and can_bite: # если моб может атаковать, то атакуем
-		animationTree.set("parameters/Attack/blend_position", velocity)
-		animationState.travel("Attack")
-		bite(target)
-"""
-
+		target = sees_enemies[0]
+	else:
+		var min_weight_id
+		for enemy in sees_enemies:
+			var min_weight = 1000000
+			var weight = enemy.bite_strength * 50 - position.distance_to(enemy.position) / 5 + enemy.hp
+			if weight < min_weight:
+				min_weight = weight
+				min_weight_id = enemy
+		target = min_weight_id
 
 
 func attack_state(_delta):
@@ -127,6 +121,23 @@ func move_state(_delta): # Передвижение моба
 
 
 
+###########################
+func pick(item):
+	var is_picked = .pick(item)
+	return is_picked
+
+
+func _on_PickArea_area_entered(area):
+	if area.get_parent().is_in_group("Items") and target == null:
+		print(area.get_parent().get_parent())
+		pick_item(area.get_parent())
+
+
+
+func pick_item(item):
+	var InventItem = ItemMachine.generate_inventory_item(item.item, item.amount)
+	self.inventory.add_item(InventItem)
+	item.free()
 
 
 func death_state(_delta):
@@ -159,7 +170,6 @@ func _on_StandingTimer_timeout(): # таймер стояния моба
 	stands = true
 func _on_BiteCooldown_timeout(): # таймер кулдауна
 	can_bite = true
-
 
 
 
@@ -225,4 +235,6 @@ func _move_to(world_position):
 	position += velocity * get_process_delta_time()
 	return position.distance_to(world_position) < ARRIVE_DISTANCE
 ######################################
+"""
+"""
 """

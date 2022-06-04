@@ -84,7 +84,7 @@ func cancel_movement(): # останавливает существо
 var can_bite = true # можно ли атаковать существо (перезарядка, чтобы моб постоянно не бил)
 var target_intercepted = false # есть ли какая-то цель в зоне досягаемости
 var heal_strength
-
+var sees_enemies = []
 
 func bite(targ): # атака моба
 	if targ != null:
@@ -105,6 +105,10 @@ func heal(targ): # хил героя
 			target_intercepted = false
 
 
+#############################################
+# Выбор приоритетного таргета
+func set_priority_target():
+	pass
 #############################################
 # Поведения NPC в зависимости от состояния
 

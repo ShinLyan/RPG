@@ -23,7 +23,6 @@ func _ready(): # функция, вызывающая при создании с
 var can_heal = true
 var target_in_range = false
 var target_in_sight = false
-var sees_enemies = []
 var target_position
 var can_fire = true
 var fire_direction
@@ -45,15 +44,19 @@ func _physics_process(delta):
 
 
 func _process(_delta):
-	#print("sees enemies = ", len(sees_enemies), "  target = ", target)
-	if target == null and len(sees_enemies) > 0:
-		target = sees_enemies[0]
+	set_priority_target()
+	
 	if self.hp < 0:
 		state = DEATH
 	sight_check()
-	if self.hp < self.max_hp / 2 and can_heal:
-		self_heal()
 
+
+func set_priority_target():
+	if target == null and len(sees_enemies) > 0:
+		target = sees_enemies[0]
+	
+	
+	
 
 
 
@@ -75,7 +78,7 @@ func non_combat_state(_delta):
 		self_heal()
 func self_heal():
 	can_heal = false
-	yield(get_tree().create_timer(0.25), "timeout") # задержка перед хилом
+	yield(get_tree().create_timer(2), "timeout") # задержка перед хилом
 	if state != DEATH: # если персонаж живой
 		cancel_movement()
 		state = ATTACK

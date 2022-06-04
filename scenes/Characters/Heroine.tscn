@@ -4932,6 +4932,7 @@ collision_mask = 111
 script = ExtResource( 8 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="0"]
+visible = false
 position = Vector2( 0, 14 )
 polygon = PoolVector2Array( -13, 0, -6, 11, 8, 11, 14, 0, 7, -11, -6, -11 )
 
@@ -4940,7 +4941,7 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 2 )
 hframes = 32
 vframes = 8
-frame = 195
+frame = 192
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Body" type="Sprite" parent="." index="2"]
@@ -4948,7 +4949,7 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 6 )
 hframes = 32
 vframes = 8
-frame = 195
+frame = 192
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Hand" type="Sprite" parent="." index="3"]
@@ -4956,7 +4957,7 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 3 )
 hframes = 32
 vframes = 8
-frame = 195
+frame = 192
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Legs" type="Sprite" parent="." index="4"]
@@ -4964,7 +4965,7 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 1 )
 hframes = 32
 vframes = 8
-frame = 195
+frame = 192
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Feet" type="Sprite" parent="." index="5"]
@@ -4972,7 +4973,7 @@ position = Vector2( -0.836243, -12.9618 )
 texture = ExtResource( 5 )
 hframes = 32
 vframes = 8
-frame = 195
+frame = 192
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Weapon" type="Sprite" parent="." index="6"]
@@ -4980,7 +4981,7 @@ position = Vector2( -0.281471, -12.407 )
 texture = ExtResource( 7 )
 hframes = 32
 vframes = 8
-frame = 195
+frame = 192
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Shield" type="Sprite" parent="." index="7"]
@@ -4988,7 +4989,7 @@ position = Vector2( -0.281471, -12.407 )
 texture = ExtResource( 4 )
 hframes = 32
 vframes = 8
-frame = 195
+frame = 192
 region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
@@ -5056,8 +5057,12 @@ parameters/Run/blend_position = Vector2( -0.471919, 0.538397 )
 parameters/Shoot/blend_position = Vector2( -0.381444, -0.155532 )
 
 [node name="StandingTimer" type="Timer" parent="." index="10"]
+wait_time = 2.0
 
 [node name="BiteCooldown" type="Timer" parent="." index="11"]
+
+[node name="HitBox" parent="." index="12"]
+visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitBox" index="0"]
 position = Vector2( 0, -7.5 )
